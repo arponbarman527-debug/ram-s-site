@@ -49,6 +49,27 @@
             padding-bottom: 8px;
         }
 
+        /* ছবিগুলো সাজানোর গ্যালারি গ্রিড */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .image-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .image-gallery img:hover {
+            transform: scale(1.03);
+        }
+
         .back-btn {
             display: inline-block;
             margin-top: 20px;
@@ -81,30 +102,38 @@
     </header>
 
     <section>
-        <!-- ব্যক্তিগত পরিচয় -->
+        <!-- ব্যক্তিগত পরিচয় -->
         <div class="card">
-            <h2>পরিচয়</h2>
-           <img src="IMG_20260520_135639.jpg" alt="আমার ছবি" style="width: 100%; max-width: 500px; border-radius: 10px;><img src="IMG_20260413_202503_727.webp" alt="আমার ছবি" style="width: 100%; max-width: 500px; border-radius: 10px;>
-            <p>আমি <strong>Arpon Barman Ram</strong>। আমি বর্তমানে বিজ্ঞান বিভাগে পড়ালেখা করছি। পড়াশোনার পাশাপাশি নতুন নতুন প্রযুক্তি শেখা এবং ওয়েবসাইট তৈরি করা আমার শখ।</p>
+            <h2>পরিচয়</h2>
+            
+            <!-- সুন্দর করে সাজানো ছবি ২টি -->
+            <div class="image-gallery">
+                <img src="IMG_20260520_135639.jpg" alt="আমার ছবি ১">
+                <img src="IMG_20260413_202503_727.webp" alt="আমার ছবি ২">
+            </div>
+
+            <p>আমি <strong>Arpon Barman Ram</strong>। আমি বর্তমানে বিজ্ঞান বিভাগে পড়ালেখা করছি। পড়াশোনার পাশাপাশি নতুন নতুন প্রযুক্তি শেখা এবং ওয়েবসাইট তৈরি করা আমার শখ।</p>
         </div>
 
         <!-- শিক্ষা জীবন -->
         <div class="card">
             <h2>শিক্ষাগত যোগ্যতা</h2>
             <p><strong>বিভাগ:</strong> বিজ্ঞান (Science Group)</p>
-            <p><strong>প্রিয় বিষয়:</strong> গণিত, পদার্থবিজ্ঞান এবং কম্পিউটার সায়েন্স।</p>
+            <p><strong>প্রিয় বিষয়:</strong> গণিত, পদার্থবিজ্ঞান এবং কম্পিউটার সায়েন্স।</p>
         </div>
+
+        <!-- সনদসমূহ -->
         <div class="card">
-            <h2>সনদসমমূহ</h2>
-                
-         </div>       
+            <h2>সনদসমূহ</h2>
+            
+        </div>        
+
         <!-- আগ্রহ ও শখ -->
         <div class="card">
             <h2>আগ্রহ ও শখ</h2>
             <ul>
-                <li>ওয়েবসাইট তৈরি ও প্রোগ্রামিং করা</li>
-                
-                <li>বাগান করা এবং নতুন গাছের যত্ন নেওয়া</li>
+                <li>ওয়েবসাইট তৈরি ও প্রোগ্রামিং করা</li>
+                <li>বাগান করা এবং নতুন গাছের যত্ন নেওয়া</li>
             </ul>
         </div>
 
