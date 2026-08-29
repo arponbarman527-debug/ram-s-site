@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="bn">
-<head><meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Arpon Barman's personal portfolio website.">
     <meta name="keywords" content="Arpon Barman, Arpon Barman Ram, Arpon, Ram, Ram's site, Web Developer Bangladesh">
     <meta name="google-site-verification" content="b2b4gw2tKCJuuOiaYR6PSyXOWs3xlKbRfCGWvH6fEUM" />
+    
     <!-- Google & Social Media Site Name -->
     <meta property="og:site_name" content="Arpon Barman Ram's Website">
-    <meta property="og:title" content="ॐ नमः शिवायः Arpon Barman Ram's Website">
+    <meta property="og:title" content="ॐ नमः शिवायঃ Arpon Barman Ram's Website">
     <meta property="og:description" content="স্বাগতম, আমি Arpon Barman Ram। It's My Personal portfolio Website">
     <title>ॐ नमः शिवायः Arpon Barman Ram's Website</title>
     <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    
     <!-- Google Search Engine Schema for Favicon/Logo & Site Name -->
     <script type="application/ld+json">
     {
@@ -20,7 +23,8 @@
       "url": "https://arponbarman527-debug.github.io/ram-s-site/",
       "image": "https://arponbarman527-debug.github.io/ram-s-site/favicon.png"
     }
-</script>
+    </script>
+
     <style>
         /* পুরো ওয়েবসাইটের সাধারণ ডিজাইন */
         body {
@@ -94,14 +98,14 @@
             margin-top: 50px;
         }
 
-        /* ৩ লাইনের আইকনের স্টাইল - কালার সাদা করা হয়েছে */
+        /* ৩ লাইনের আইকনের স্টাইল */
         .menu-icon {
             font-size: 35px;
             cursor: pointer;
             position: absolute;
             top: 15px;
             left: 15px;
-            color: white; /* এখানে সাদা রঙ দেওয়া হয়েছে */
+            color: white;
             z-index: 2;
         }
 
@@ -117,7 +121,7 @@
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
-            text-align: left; /* মেনুর টেক্সট বাম দিকে রাখার জন্য */
+            text-align: left;
         }
 
         .sidenav a {
@@ -144,7 +148,7 @@
 </head>
 <body>
 
-    <!-- ৩ লাইনের মেনু বাটন (এখানে ইনলাইন স্টাইল সরানো হয়েছে যাতে CSS কাজ করে) -->
+    <!-- ৩ লাইনের মেনু বাটন -->
     <span class="menu-icon" onclick="openNav()">&#9776;</span>
 
     <!-- সাইডবার প্যানেল -->
@@ -180,20 +184,20 @@
         </div>
     </section>
 
-   <section id="projects">
-    <h2>আমার প্রজেক্ট</h2>
-    <div class="project-card">
-        <h3>Magic of Plasminogen</h3>
-        <p>Plasmin ব্যবহার করে তৈরি করা একটি ছোট Medical প্রজেক্ট।</p>
-        <button onclick="window.open('https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true', '_blank')">প্রজেক্টটি দেখুন</button>    </div>
-</section>
+    <section id="projects">
+        <h2>আমার প্রজেক্ট</h2>
+        <div class="project-card">
+            <h3>Magic of Plasminogen</h3>
+            <p>Plasmin ব্যবহার করে তৈরি করা একটি ছোট Medical প্রজেক্ট।</p>
+            <button onclick="window.open('https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true', '_blank')">প্রজেক্টটি দেখুন</button>
+        </div>
+    </section>
 
     <footer>
         <p>যোগাযোগ: 📧<a href="mailto:arponbarman527@gmail.com" style="color: #3498db;">arponbarman527@gmail.com</a> | 📞 WhatsApp:<a href="https://wa.me/8801798021050" style="color: #3498db;"> +8801798021050</a></p>
     </footer>
 
     <script>
-        
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
         }
