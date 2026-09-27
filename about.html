@@ -90,8 +90,7 @@
             padding: 20px;
             margin-top: 40px;
             text-align: center;
-       }
-    
+        }
     
         /* ৩ লাইনের আইকনের স্টাইল */
         .menu-icon {
@@ -142,7 +141,8 @@
     </style>
 </head>
 <body>
-<!-- ৩ লাইনের মেনু বাটন -->
+
+    <!-- ৩ লাইনের মেনু বাটন -->
     <span class="menu-icon" onclick="openNav()">&#9776;</span>
 
     <!-- সাইডবার প্যানেল -->
@@ -153,6 +153,7 @@
         <a href="projects.html">Projects</a>
         <a href="Gesture Glove Control.html">Gesture Glove Control</a>
     </div>
+
     <header>
         <h1>আমার সম্পর্কে (About Me)</h1>
     </header>
@@ -169,6 +170,7 @@
             </div>
 
             <p>আমি <strong>Arpon Barman Ram</strong>। আমি বর্তমানে বিজ্ঞান বিভাগে পড়ালেখা করছি। পড়াশোনার পাশাপাশি নতুন নতুন প্রযুক্তি শেখা এবং ওয়েবসাইট তৈরি করা আমার শখ।</p>
+            <p>আমার জন্ম তারিখ 13th November, 2008</p>
         </div>
 
         <!-- শিক্ষা জীবন -->
@@ -176,15 +178,15 @@
             <h2>শিক্ষাগত যোগ্যতা</h2>
             <p><strong>বিভাগ:</strong> বিজ্ঞান (Science Group)</p>
             <p><strong>প্রিয় বিষয়:</strong> গণিত, পদার্থবিজ্ঞান এবং কম্পিউটার সায়েন্স।</p>
-            <p><strong>SSC Result:</strong>G.P.A-5</p>
-            <p><strong>PEC Result:</strong>G.P.A-5</p>
+            <p><strong>SSC Result:</strong> G.P.A-5</p>
+            <p><strong>PEC Result:</strong> G.P.A-5</p>
         </div>
         
-
         <!-- সনদসমূহ -->
         <div class="card">
             <h2>সনদসমূহ</h2>
-            
+            <p>এখানে সনদপত্রের তথ্য বা ছবি যুক্ত করতে পারো।</p>
+        </div>
 
         <!-- আগ্রহ ও শখ -->
         <div class="card">
@@ -203,6 +205,17 @@
     <footer>
         <p>© Arpon Barman Ram | All Rights Reserved</p>
     </footer>
+
+    <!-- সাইডবার অপেন এবং ক্লোজ করার Script যুক্ত করা হয়েছে -->
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
 
 </body>
 </html>
