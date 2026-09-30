@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>জেশ্চার গ্লাভ (Smart Gesture Glove) - 3D Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        body {
+            font-family: 'Hind Siliguri', 'Inter', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b5563;
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Glowing effects */
+        .glow-green {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        .glow-red {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-50 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
+                    <i class="fa-solid fa-hand-sparkles text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">
+                        ডিআইওয়াই স্মার্ট গ্লাভ (3D Visualizer)
+                    </h1>
+                    <p class="text-xs text-slate-400">ESP32 & Flex Sensor Sign Language Interpreter</p>
+                </div>
+            </div>
+
+            <!-- Connection Status & Action Controls -->
+            <div class="flex items-center space-x-3">
+                <div id="serialStatusBadge" class="flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                    <span id="statusText">ডিসকানেক্টেড (Disconnected)</span>
+                </div>
+
+                <button id="connectBtn" class="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-lg shadow-emerald-600/20">
+                    <i class="fa-solid fa-plug"></i>
+                    <span>ESP32 কানেক্ট করুন</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: 3D Visualization Canvas & Main HUD -->
+        <section class="lg:col-span-8 flex flex-col space-y-4">
+            
+            <!-- 3D Canvas Card -->
+            <div class="relative w-full h-[450px] md:h-[550px] bg-slate-900/60 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl glass-panel group">
+                
+                <!-- 3D Viewport Target -->
+                <div id="canvasContainer" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+                <!-- Overlay Controls / Instructions -->
+                <div class="absolute top-4 left-4 bg-slate-950/70 border border-slate-800 backdrop-blur-md px-3 py-2 rounded-lg text-xs text-slate-300 flex items-center space-x-2">
+                    <i class="fa-solid fa-arrows-spin text-emerald-400"></i>
+                    <span>মাউস দিয়ে ঘুরিয়ে (Rotate) ও জুম (Zoom) করে দেখুন</span>
+                </div>
+
+                <!-- Detected Gesture Overlay -->
+                <div class="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md bg-slate-950/80 border border-emerald-500/30 backdrop-blur-md p-4 rounded-xl shadow-xl flex items-center space-x-4">
+                    <div class="p-3 bg-emerald-500/20 border border-emerald-500/40 rounded-xl text-emerald-400">
+                        <i class="fa-solid fa-comment-dots text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-emerald-400 uppercase tracking-wider">শনাক্তকৃত অঙ্গভঙ্গি (Detected Gesture)</span>
+                        <h2 id="detectedGestureText" class="text-xl md:text-2xl font-bold text-white tracking-wide">
+                            হাত খোলা (Hand Open)
+                        </h2>
+                    </div>
+                </div>
+
+                <!-- Reset Camera View Button -->
+                <button id="resetCamBtn" title="ক্যামেরা ভিউ রিসেট করুন" class="absolute top-4 right-4 p-2.5 bg-slate-800/80 hover:bg-slate-700 text-slate-300 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-camera-rotate"></i>
+                </button>
+            </div>
+
+            <!-- Emergency Alert Banner -->
+            <div id="emergencyAlertBox" class="hidden p-4 bg-rose-950/60 border border-rose-500/40 rounded-xl text-rose-200 flex items-center justify-between shadow-lg glow-red animate-bounce">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-triangle-exclamation text-2xl text-rose-400"></i>
+                    <div>
+                        <h4 class="font-bold text-sm text-rose-100">জরুরি বার্তা পাঠানো হয়েছে! (EMERGENCY SOS ACTIVE)</h4>
+                        <p class="text-xs text-rose-300">সাহায্যের জন্য ইমার্জেন্সি সংকেত ট্রিগার করা হয়েছে।</p>
+                    </div>
+                </div>
+                <button onclick="dismissEmergency()" class="px-3 py-1 bg-rose-800 hover:bg-rose-700 text-xs font-semibold rounded-lg border border-rose-600">
+                    বন্ধ করুন
+                </button>
+            </div>
+        </section>
+
+        <!-- Right Column: Controls, ADC Telemetry & Emergency Trigger -->
+        <section class="lg:col-span-4 flex flex-col space-y-6">
+
+            <!-- Sensor Telemetry Card -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h3 class="font-bold text-slate-200 flex items-center gap-2 text-base">
+                        <i class="fa-solid fa-microchip text-emerald-400"></i>
+                        সেন্সর ডেটা (GPIO 34 ADC)
+                    </h3>
+                    <span class="text-xs bg-slate-800 px-2.5 py-1 rounded-full text-slate-400 border border-slate-700">12-Bit ADC</span>
+                </div>
+
+                <!-- Realtime ADC Display Box -->
+                <div class="bg-slate-950/80 p-4 rounded-xl border border-slate-800 text-center space-y-1">
+                    <span class="text-xs text-slate-400 font-medium uppercase tracking-wider">র' সেন্সর ভ্যালু (Raw Value)</span>
+                    <div class="text-4xl font-extrabold text-emerald-400 font-mono tracking-tight" id="adcDisplayValue">
+                        0
+                    </div>
+                    <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mt-2">
+                        <div id="adcProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-300 h-full w-0 transition-all duration-100"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-500 font-mono pt-1">
+                        <span>0 (Straight)</span>
+                        <span>4095 (Bent)</span>
+                    </div>
+                </div>
+
+                <!-- Manual Testing Sliders (Index & Other Fingers simulation) -->
+                <div class="space-y-4 pt-2">
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-300">
+                        <label for="indexSlider" class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-hand-pointer text-emerald-400"></i>
+                            ইনডেক্স ফিঙ্গার (GPIO 34 Flex)
+                        </label>
+                        <span id="sliderValText" class="font-mono text-emerald-400">0</span>
+                    </div>
+                    <input type="range" id="indexSlider" min="0" max="4095" value="0" class="w-full accent-emerald-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+
+                    <!-- Simulation Sliders for Rest of Hand -->
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-300 pt-2">
+                        <label for="otherFingersSlider" class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-hand text-teal-400"></i>
+                            অন্যান্য আঙুল (Simulate All)
+                        </label>
+                        <span id="otherSliderValText" class="font-mono text-teal-400">0%</span>
+                    </div>
+                    <input type="range" id="otherFingersSlider" min="0" max="100" value="0" class="w-full accent-teal-500 bg-slate-800 h-2 rounded-lg cursor-pointer">
+                </div>
+            </div>
+
+            <!-- Emergency Alert Trigger Section -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-800 shadow-xl space-y-4">
+                <h3 class="font-bold text-slate-200 flex items-center gap-2 text-base">
+                    <i class="fa-solid fa-bell text-rose-400"></i>
+                    জরুরি বিজ্ঞপ্তি (Emergency SOS)
+                </h3>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    জরুরি প্রয়োজনে নিচের বাটনটি চাপুন অথবা সেন্সর ৩ সেকেন্ডের বেশি সময় ভাঁজ করে ধরে রাখুন।
+                </p>
+
+                <button id="sosBtn" onclick="triggerEmergencyAlert()" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 active:scale-[0.98] text-white font-bold rounded-xl shadow-lg shadow-rose-600/30 transition flex items-center justify-center space-x-2 border border-rose-400/30">
+                    <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                    <span>SOS ইমার্জেন্সি এলার্ট দিন</span>
+                </button>
+            </div>
+
+            <!-- ESP32 Wiring Instructions Card -->
+            <div class="glass-panel p-5 rounded-2xl border border-slate-800 shadow-xl space-y-3">
+                <h3 class="font-bold text-slate-200 flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-circle-info text-sky-400"></i>
+                    সার্কিট কানেকশন গাইড
+                </h3>
+                <ul class="text-xs text-slate-400 space-y-2 list-disc list-inside">
+                    <li><strong class="text-slate-300">তার ১:</strong> ESP32-এর <code class="text-emerald-400 bg-slate-800 px-1 rounded">3.3V</code> পিনে</li>
+                    <li><strong class="text-slate-300">তার ২:</strong> ESP32-এর <code class="text-emerald-400 bg-slate-800 px-1 rounded">GPIO 34</code> পিনে</li>
+                    <li><strong class="text-slate-300">10k রেজিস্টর:</strong> GPIO 34 থেকে <code class="text-emerald-400 bg-slate-800 px-1 rounded">GND</code>-তে</li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full bg-slate-900/60 border-t border-slate-800 py-4 px-6 text-center text-xs text-slate-500 mt-auto">
+        <p>Smart Gesture Glove for Deaf-Mute Assistance • Web Serial API & Three.js Powered</p>
+    </footer>
+
+    <script>
+        /* Global App State & UI Declarations */
+        let scene, camera, renderer, controls;
+        let indexFingerJoints = [];
+        let otherFingersJoints = [];
+        let port, reader;
+        let isConnected = false;
+        let currentFlexValue = 0;
+        let autoEmergencyTimer = null;
+        let isEmergencyActive = false;
+
+        // DOM Element Cache
+        const connectBtn = document.getElementById('connectBtn');
+        const serialStatusBadge = document.getElementById('serialStatusBadge');
+        const statusText = document.getElementById('statusText');
+        const adcDisplayValue = document.getElementById('adcDisplayValue');
+        const adcProgressBar = document.getElementById('adcProgressBar');
+        const indexSlider = document.getElementById('indexSlider');
+        const sliderValText = document.getElementById('sliderValText');
+        const otherFingersSlider = document.getElementById('otherFingersSlider');
+        const otherSliderValText = document.getElementById('otherSliderValText');
+        const detectedGestureText = document.getElementById('detectedGestureText');
+        const emergencyAlertBox = document.getElementById('emergencyAlertBox');
+
+        /* Initialize Everything on Window Load */
+        window.addEventListener('load', () => {
+            initThreeJS();
+            setupEventListeners();
+            animate();
+        });
+
+        function initThreeJS() {
+            const container = document.getElementById('canvasContainer');
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+
+            // 1. Create Scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0f172a); // Tailwind Slate-900
+
+            // 2. Camera Setup
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+            camera.position.set(0, 2, 18);
+
+            // 3. Renderer Setup
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            // 4. Orbit Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.maxDistance = 35;
+            controls.minDistance = 5;
+
+            // 5. Lighting Setup
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            dirLight.position.set(10, 20, 15);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            const pointLight = new THREE.PointLight(0x10b981, 1.5, 30); // Emerald Glow
+            pointLight.position.set(0, -2, 5);
+            scene.add(pointLight);
+
+            // 6. Grid Helper
+            const gridHelper = new THREE.GridHelper(30, 30, 0x334155, 0x1e293b);
+            gridHelper.position.y = -6;
+            scene.add(gridHelper);
+
+            // 7. Create 3D Robot/Hand Mesh
+            createHandMesh();
+
+            // Responsive Window Resize Listener
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function createHandMesh() {
+            const handGroup = new THREE.Group();
+            handGroup.position.y = -2;
+
+            // Materials
+            const palmMaterial = new THREE.MeshStandardMaterial({
+                color: 0x334155,
+                roughness: 0.4,
+                metalness: 0.6
+            });
+
+            const fingerMaterial = new THREE.MeshStandardMaterial({
+                color: 0x10b981, // Emerald Green
+                roughness: 0.3,
+                metalness: 0.7
+            });
+
+            const jointMaterial = new THREE.MeshStandardMaterial({
+                color: 0xf59e0b, // Amber for Joints
+                roughness: 0.2
+            });
+
+            // Palm Base
+            const palmGeometry = new THREE.BoxGeometry(4.2, 5, 1);
+            const palm = new THREE.Mesh(palmGeometry, palmMaterial);
+            handGroup.add(palm);
+
+            // Helper Function to Create a Multi-Joint Finger
+            function buildFinger(xOffset, yOffset, isIndex = false) {
+                const fingerRoot = new THREE.Group();
+                fingerRoot.position.set(xOffset, yOffset, 0);
+
+                let parent = fingerRoot;
+                const joints = [];
+
+                // 3 Phalanges per finger
+                for (let i = 0; i < 3; i++) {
+                    // Joint sphere
+                    const jointGeo = new THREE.SphereGeometry(0.38, 16, 16);
+                    const jointMesh = new THREE.Mesh(jointGeo, jointMaterial);
+                    parent.add(jointMesh);
+
+                    const jointGroup = new THREE.Group();
+                    jointMesh.add(jointGroup);
+
+                    // Bone segment
+                    const boneGeo = new THREE.CylinderGeometry(0.3, 0.32, 1.2, 16);
+                    const boneMesh = new THREE.Mesh(boneGeo, isIndex ? fingerMaterial : palmMaterial);
+                    boneMesh.position.y = 0.6;
+                    jointGroup.add(boneMesh);
+
+                    // Anchor point for next joint
+                    const nextAnchor = new THREE.Group();
+                    nextAnchor.position.y = 1.2;
+                    jointGroup.add(nextAnchor);
+
+                    joints.push(jointGroup);
+                    parent = nextAnchor;
+                }
+
+                handGroup.add(fingerRoot);
+                return joints;
+            }
+
+            // Create 4 Main Fingers
+            const indexJoints = buildFinger(-1.5, 2.5, true);  // Index Finger (Connected to GPIO 34)
+            const middleJoints = buildFinger(-0.5, 2.7, false); // Middle Finger
+            const ringJoints = buildFinger(0.5, 2.5, false);    // Ring Finger
+            const pinkyJoints = buildFinger(1.5, 2.1, false);   // Pinky Finger
+
+            // Cache Joints for Dynamic Animation
+            indexFingerJoints = indexJoints;
+            otherFingersJoints = [...middleJoints, ...ringJoints, ...pinkyJoints];
+
+            // Build Thumb
+            const thumbRoot = new THREE.Group();
+            thumbRoot.position.set(-2.2, -0.5, 0);
+            thumbRoot.rotation.z = Math.PI / 4;
+
+            const thumbJoint1 = new THREE.Group();
+            const thumbMesh1 = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.38, 1.1, 16), palmMaterial);
+            thumbMesh1.position.y = 0.55;
+            thumbJoint1.add(thumbMesh1);
+            thumbRoot.add(thumbJoint1);
+
+            handGroup.add(thumbRoot);
+            scene.add(handGroup);
+        }
+
+        function setupEventListeners() {
+            connectBtn.addEventListener('click', toggleSerialConnection);
+            
+            // Manual Index Finger Slider Event
+            indexSlider.addEventListener('input', (e) => {
+                if (!isConnected) {
+                    updateSensorData(parseInt(e.target.value));
+                }
+            });
+
+            // Manual Other Fingers Slider Event
+            otherFingersSlider.addEventListener('input', (e) => {
+                const percent = parseInt(e.target.value) / 100;
+                otherS
