@@ -45,60 +45,80 @@
         .glow-red {
             box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
         }
-   /* সাইডবার ডিজাইন */
+
+        /* ৩ লাইনের মেনু আইকন স্টাইল */
+        .menu-icon {
+            font-size: 28px;
+            cursor: pointer;
+            color: #10b981;
+            padding: 5px 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .menu-icon:hover {
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        /* সাইডবার ডিজাইন */
         .sidenav {
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 3;
+            z-index: 100;
             top: 0;
             left: 0;
-            background-color: #111;
+            background-color: #0f172a;
+            border-right: 1px solid #1e293b;
             overflow-x: hidden;
-            transition: 0.5s;
+            transition: 0.4s;
             padding-top: 60px;
             text-align: left;
         }
 
         .sidenav a {
-            padding: 8px 8px 8px 32px;
+            padding: 12px 16px 12px 32px;
             text-decoration: none;
-            font-size: 22px;
-            color: #818181;
+            font-size: 18px;
+            color: #94a3b8;
             display: block;
             transition: 0.3s;
         }
 
         .sidenav a:hover {
-            color: white;
+            color: #10b981;
+            background-color: #1e293b;
         }
 
         .sidenav .closebtn {
             position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
+            top: 10px;
+            right: 20px;
+            font-size: 32px;
+            color: #64748b;
+        }
+        .sidenav .closebtn:hover {
+            color: #ef4444;
         }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
-<!-- ৩ লাইনের মেনু বাটন -->
-    <span class="menu-icon" onclick="openNav()">&#9776;</span>
 
     <!-- সাইডবার প্যানেল -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Me</a>
-        <a href="projects.html">Projects</a>
-        <a href="Gesture Glove Control.html">Gesture Glove Control</a>
+        <a href="index.html"><i class="fa-solid fa-house mr-2"></i>Home</a>
+        <a href="about.html"><i class="fa-solid fa-user mr-2"></i>About Me</a>
+        <a href="projects.html"><i class="fa-solid fa-code mr-2"></i>Projects</a>
+        <a href="Gesture Glove Control.html"><i class="fa-solid fa-hand mr-2"></i>Gesture Glove Control</a>
     </div>
   
     <!-- Header / Navbar -->
     <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
+                <!-- ৩ লাইনের মেনু বাটন -->
+                <span class="menu-icon" onclick="openNav()">&#9776;</span>
+
                 <div class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
                     <i class="fa-solid fa-hand-sparkles text-2xl"></i>
                 </div>
@@ -266,6 +286,18 @@
         <p>Smart Gesture Glove for Deaf-Mute Assistance • Web Serial API & Three.js Powered</p>
     </footer>
 
+    <!-- Sidebar Control Scripts -->
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "260px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+    <!-- 3D Visualization & ESP32 Logic Scripts -->
     <script>
         /* Global App State & UI Declarations */
         let scene, camera, renderer, controls;
@@ -392,73 +424,4 @@
                     parent.add(jointMesh);
 
                     const jointGroup = new THREE.Group();
-                    jointMesh.add(jointGroup);
-
-                    // Bone segment
-                    const boneGeo = new THREE.CylinderGeometry(0.3, 0.32, 1.2, 16);
-                    const boneMesh = new THREE.Mesh(boneGeo, isIndex ? fingerMaterial : palmMaterial);
-                    boneMesh.position.y = 0.6;
-                    jointGroup.add(boneMesh);
-
-                    // Anchor point for next joint
-                    const nextAnchor = new THREE.Group();
-                    nextAnchor.position.y = 1.2;
-                    jointGroup.add(nextAnchor);
-
-                    joints.push(jointGroup);
-                    parent = nextAnchor;
-                }
-
-                handGroup.add(fingerRoot);
-                return joints;
-            }
-
-            // Create 4 Main Fingers
-            const indexJoints = buildFinger(-1.5, 2.5, true);  // Index Finger (Connected to GPIO 34)
-            const middleJoints = buildFinger(-0.5, 2.7, false); // Middle Finger
-            const ringJoints = buildFinger(0.5, 2.5, false);    // Ring Finger
-            const pinkyJoints = buildFinger(1.5, 2.1, false);   // Pinky Finger
-
-            // Cache Joints for Dynamic Animation
-            indexFingerJoints = indexJoints;
-            otherFingersJoints = [...middleJoints, ...ringJoints, ...pinkyJoints];
-
-            // Build Thumb
-            const thumbRoot = new THREE.Group();
-            thumbRoot.position.set(-2.2, -0.5, 0);
-            thumbRoot.rotation.z = Math.PI / 4;
-
-            const thumbJoint1 = new THREE.Group();
-            const thumbMesh1 = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.38, 1.1, 16), palmMaterial);
-            thumbMesh1.position.y = 0.55;
-            thumbJoint1.add(thumbMesh1);
-            thumbRoot.add(thumbJoint1);
-
-            handGroup.add(thumbRoot);
-            scene.add(handGroup);
-        }
-
-        function setupEventListeners() {
-            connectBtn.addEventListener('click', toggleSerialConnection);
-            
-            // Manual Index Finger Slider Event
-            indexSlider.addEventListener('input', (e) => {
-                if (!isConnected) {
-                    updateSensorData(parseInt(e.target.value));
-                }
-            });
-
-            // Manual Other Fingers Slider Event
-            otherFingersSlider.addEventListener('input', (e) => {
-                const percent = parseInt(e.target.value) / 100;
-                otherS
-    <!-- সাইডবার অপেন এবং ক্লোজ করার Script যুক্ত করা হয়েছে -->
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
+                    jointM
