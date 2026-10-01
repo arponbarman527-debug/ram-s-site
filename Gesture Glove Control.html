@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>জেশ্চার গ্লাভ (Smart Gesture Glove) - 3D Visualizer</title>
-   <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,9 @@
     <!-- Three.js Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    /* ৩ লাইনের আইকনের স্টাইল */
+
+    <style>
+        /* ৩ লাইনের আইকনের স্টাইল */
         .menu-icon {
             font-size: 35px;
             cursor: pointer;
@@ -30,7 +32,7 @@
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 3;
+            z-index: 55;
             top: 0;
             left: 0;
             background-color: #111;
@@ -60,10 +62,11 @@
             font-size: 36px;
             margin-left: 50px;
         }
-    <style>
+
         body {
             font-family: 'Hind Siliguri', 'Inter', sans-serif;
         }
+
         /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
@@ -93,7 +96,8 @@
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
- <!-- ৩ লাইনের মেনু বাটন -->
+
+    <!-- ৩ লাইনের মেনু বাটন -->
     <span class="menu-icon" onclick="openNav()">&#9776;</span>
 
     <!-- সাইডবার প্যানেল -->
@@ -104,9 +108,10 @@
         <a href="projects.html">Projects</a>
         <a href="Gesture Glove Control.html">Gesture Glove Control</a>
     </div>
+
     <!-- Header / Navbar -->
     <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 pl-12 md:pl-0">
             <div class="flex items-center space-x-3">
                 <div class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
                     <i class="fa-solid fa-hand-sparkles text-2xl"></i>
@@ -276,6 +281,15 @@
     </footer>
 
     <script>
+        /* Navigation Handlers */
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
         /* Global App State & UI Declarations */
         let scene, camera, renderer, controls;
         let indexFingerJoints = [];
@@ -493,7 +507,7 @@
                     }
                 } catch (err) {
                     console.error('Serial Connection Error:', err);
-                    alert('সিরিয়াল পোর্টে সংযুক্ত হতে সমস্যা হয়েছে: ' + err.message);
+                    alert('সিরিয়াল পোর্টে সংযুক্ত হতে সমস্যা হয়েছে: ' + err.message);
                     updateConnectionUI(false);
                 }
             } else {
@@ -548,7 +562,6 @@
                     }
                 }
             } catch (e) {
-                // Fallback parsing for debug messages
                 console.log('Raw Serial:', data);
             }
         }
@@ -564,7 +577,7 @@
             const percentage = (currentFlexValue / 4095) * 100;
             adcProgressBar.style.width = `${percentage}%`;
 
-            // Normalize flex bending angle (0 to 1.2 radians)
+            // Normalize flex bending angle (0 to 1.3 radians)
             const bendAngle = (currentFlexValue / 4095) * 1.3;
 
             // Bending Index Finger Joints
@@ -670,18 +683,6 @@
             controls.update();
             renderer.render(scene, camera);
         }
-  <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
     </script>
-    
-    </script>
-  
-
 </body>
 </html>
