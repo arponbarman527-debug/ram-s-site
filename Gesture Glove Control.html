@@ -16,51 +16,41 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <style>
-        /* ৩ লাইনের আইকনের স্টাইল */
-        .menu-icon {
-            font-size: 35px;
-            cursor: pointer;
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            color: white;
-            z-index: 2;
-        }
-
         /* সাইডবার ডিজাইন */
         .sidenav {
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 55;
+            z-index: 100;
             top: 0;
             left: 0;
-            background-color: #111;
+            background-color: #0f172a;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
             overflow-x: hidden;
-            transition: 0.5s;
+            transition: 0.3s ease-in-out;
             padding-top: 60px;
-            text-align: left;
         }
 
         .sidenav a {
-            padding: 8px 8px 8px 32px;
+            padding: 12px 24px;
             text-decoration: none;
-            font-size: 22px;
-            color: #818181;
+            font-size: 18px;
+            color: #94a3b8;
             display: block;
-            transition: 0.3s;
+            transition: 0.2s;
         }
 
         .sidenav a:hover {
-            color: white;
+            color: #10b981;
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
         .sidenav .closebtn {
             position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            color: #94a3b8;
         }
 
         body {
@@ -97,22 +87,26 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
 
-    <!-- ৩ লাইনের মেনু বাটন -->
-    <span class="menu-icon" onclick="openNav()">&#9776;</span>
-
     <!-- সাইডবার প্যানেল -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Me</a>
-        <a href="projects.html">Projects</a>
-        <a href="Gesture Glove Control.html">Gesture Glove Control</a>
+        <a href="index.html"><i class="fa-solid fa-house mr-2"></i>Home</a>
+        <a href="about.html"><i class="fa-solid fa-user mr-2"></i>About Me</a>
+        <a href="projects.html"><i class="fa-solid fa-code mr-2"></i>Projects</a>
+        <a href="Gesture Glove Control.html"><i class="fa-solid fa-hand mr-2"></i>Gesture Glove Control</a>
     </div>
 
     <!-- Header / Navbar -->
     <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4 pl-12 md:pl-0">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Left Side: Menu Icon & Logo Title -->
             <div class="flex items-center space-x-3">
+                <!-- ৩ লাইনের মেনু বাটন -->
+                <button onclick="openNav()" class="p-2 text-slate-200 hover:text-emerald-400 hover:bg-slate-800 rounded-lg transition text-2xl focus:outline-none">
+                    &#9776;
+                </button>
+
                 <div class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
                     <i class="fa-solid fa-hand-sparkles text-2xl"></i>
                 </div>
@@ -530,7 +524,7 @@
 
                     buffer += value;
                     const lines = buffer.split('\n');
-                    buffer = lines.pop(); // Keep partial unparsed line in buffer
+                    buffer = lines.pop();
 
                     for (const line of lines) {
                         parseIncomingData(line.trim());
@@ -543,19 +537,17 @@
             }
         }
 
-        /* Parse Serial Strings (JSON or Plain ADC Number) */
+        /* Parse Serial Strings */
         function parseIncomingData(data) {
             if (!data) return;
 
             try {
-                // Check if JSON format: {"flex": 2048}
                 if (data.startsWith('{') && data.endsWith('}')) {
                     const parsed = JSON.parse(data);
                     if (parsed.flex !== undefined) {
                         updateSensorData(parsed.flex);
                     }
                 } else {
-                    // Try parsing plain numeric value
                     const adcVal = parseInt(data);
                     if (!isNaN(adcVal)) {
                         updateSensorData(adcVal);
@@ -577,7 +569,7 @@
             const percentage = (currentFlexValue / 4095) * 100;
             adcProgressBar.style.width = `${percentage}%`;
 
-            // Normalize flex bending angle (0 to 1.3 radians)
+            // Normalize flex bending angle
             const bendAngle = (currentFlexValue / 4095) * 1.3;
 
             // Bending Index Finger Joints
@@ -610,7 +602,6 @@
                 detectedGestureText.innerText = "আঙুল সম্পূর্ণ ভাঁজ (Full Bent / Fist)";
                 detectedGestureText.className = "text-xl md:text-2xl font-bold text-rose-400 tracking-wide";
                 
-                // Auto trigger emergency if held bent for 3 seconds
                 if (!autoEmergencyTimer && !isEmergencyActive) {
                     autoEmergencyTimer = setTimeout(() => {
                         triggerEmergencyAlert();
@@ -631,13 +622,12 @@
             isEmergencyActive = true;
             emergencyAlertBox.classList.remove('hidden');
             
-            // Audio alert beep sound using Web Audio API
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High pitch SOS
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
                 gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
