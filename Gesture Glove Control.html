@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>জেশ্চার গ্লাভ (Smart Gesture Glove) - 3D Visualizer</title>
-    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
-    
+    <title>스마트 জেশ্চার গ্লাভ (Smart Gesture Glove) - 3D Visualizer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- FontAwesome for Icons -->
@@ -45,80 +43,14 @@
         .glow-red {
             box-shadow: 0 0 20px rgba(239, 68, 68, 0.6);
         }
-
-        /* ৩ লাইনের মেনু আইকন স্টাইল */
-        .menu-icon {
-            font-size: 28px;
-            cursor: pointer;
-            color: #10b981;
-            padding: 5px 12px;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        .menu-icon:hover {
-            background-color: rgba(16, 185, 129, 0.1);
-        }
-
-        /* সাইডবার ডিজাইন */
-        .sidenav {
-            height: 100%;
-            width: 0;
-            position: fixed;
-            z-index: 100;
-            top: 0;
-            left: 0;
-            background-color: #0f172a;
-            border-right: 1px solid #1e293b;
-            overflow-x: hidden;
-            transition: 0.4s;
-            padding-top: 60px;
-            text-align: left;
-        }
-
-        .sidenav a {
-            padding: 12px 16px 12px 32px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #94a3b8;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .sidenav a:hover {
-            color: #10b981;
-            background-color: #1e293b;
-        }
-
-        .sidenav .closebtn {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 32px;
-            color: #64748b;
-        }
-        .sidenav .closebtn:hover {
-            color: #ef4444;
-        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
 
-    <!-- সাইডবার প্যানেল -->
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html"><i class="fa-solid fa-house mr-2"></i>Home</a>
-        <a href="about.html"><i class="fa-solid fa-user mr-2"></i>About Me</a>
-        <a href="projects.html"><i class="fa-solid fa-code mr-2"></i>Projects</a>
-        <a href="Gesture Glove Control.html"><i class="fa-solid fa-hand mr-2"></i>Gesture Glove Control</a>
-    </div>
-  
     <!-- Header / Navbar -->
     <header class="w-full bg-slate-900/90 border-b border-slate-800 px-4 py-3 sticky top-0 z-50 backdrop-blur-md">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <!-- ৩ লাইনের মেনু বাটন -->
-                <span class="menu-icon" onclick="openNav()">&#9776;</span>
-
                 <div class="p-2.5 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
                     <i class="fa-solid fa-hand-sparkles text-2xl"></i>
                 </div>
@@ -286,18 +218,6 @@
         <p>Smart Gesture Glove for Deaf-Mute Assistance • Web Serial API & Three.js Powered</p>
     </footer>
 
-    <!-- Sidebar Control Scripts -->
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "260px";
-        }
-
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
-
-    <!-- 3D Visualization & ESP32 Logic Scripts -->
     <script>
         /* Global App State & UI Declarations */
         let scene, camera, renderer, controls;
@@ -424,4 +344,275 @@
                     parent.add(jointMesh);
 
                     const jointGroup = new THREE.Group();
-                    jointM
+                    jointMesh.add(jointGroup);
+
+                    // Bone segment
+                    const boneGeo = new THREE.CylinderGeometry(0.3, 0.32, 1.2, 16);
+                    const boneMesh = new THREE.Mesh(boneGeo, isIndex ? fingerMaterial : palmMaterial);
+                    boneMesh.position.y = 0.6;
+                    jointGroup.add(boneMesh);
+
+                    // Anchor point for next joint
+                    const nextAnchor = new THREE.Group();
+                    nextAnchor.position.y = 1.2;
+                    jointGroup.add(nextAnchor);
+
+                    joints.push(jointGroup);
+                    parent = nextAnchor;
+                }
+
+                handGroup.add(fingerRoot);
+                return joints;
+            }
+
+            // Create 4 Main Fingers
+            const indexJoints = buildFinger(-1.5, 2.5, true);  // Index Finger (Connected to GPIO 34)
+            const middleJoints = buildFinger(-0.5, 2.7, false); // Middle Finger
+            const ringJoints = buildFinger(0.5, 2.5, false);    // Ring Finger
+            const pinkyJoints = buildFinger(1.5, 2.1, false);   // Pinky Finger
+
+            // Cache Joints for Dynamic Animation
+            indexFingerJoints = indexJoints;
+            otherFingersJoints = [...middleJoints, ...ringJoints, ...pinkyJoints];
+
+            // Build Thumb
+            const thumbRoot = new THREE.Group();
+            thumbRoot.position.set(-2.2, -0.5, 0);
+            thumbRoot.rotation.z = Math.PI / 4;
+
+            const thumbJoint1 = new THREE.Group();
+            const thumbMesh1 = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.38, 1.1, 16), palmMaterial);
+            thumbMesh1.position.y = 0.55;
+            thumbJoint1.add(thumbMesh1);
+            thumbRoot.add(thumbJoint1);
+
+            handGroup.add(thumbRoot);
+            scene.add(handGroup);
+        }
+
+        function setupEventListeners() {
+            connectBtn.addEventListener('click', toggleSerialConnection);
+            
+            // Manual Index Finger Slider Event
+            indexSlider.addEventListener('input', (e) => {
+                if (!isConnected) {
+                    updateSensorData(parseInt(e.target.value));
+                }
+            });
+
+            // Manual Other Fingers Slider Event
+            otherFingersSlider.addEventListener('input', (e) => {
+                const percent = parseInt(e.target.value) / 100;
+                otherSliderValText.innerText = `${e.target.value}%`;
+                animateOtherFingers(percent);
+            });
+
+            // Reset Camera Button
+            document.getElementById('resetCamBtn').addEventListener('click', () => {
+                camera.position.set(0, 2, 18);
+                controls.reset();
+            });
+        }
+
+        /* Connect / Disconnect ESP32 via Web Serial API */
+        async function toggleSerialConnection() {
+            if ('serial' in navigator) {
+                try {
+                    if (!isConnected) {
+                        // Request Serial Port from User
+                        port = await navigator.serial.requestPort();
+                        await port.open({ baudRate: 115200 });
+
+                        isConnected = true;
+                        updateConnectionUI(true);
+                        readSerialData();
+                    } else {
+                        // Disconnect Serial
+                        if (reader) await reader.cancel();
+                        if (port) await port.close();
+
+                        isConnected = false;
+                        updateConnectionUI(false);
+                    }
+                } catch (err) {
+                    console.error('Serial Connection Error:', err);
+                    alert('সিরিয়াল পোর্টে সংযুক্ত হতে সমস্যা হয়েছে: ' + err.message);
+                    updateConnectionUI(false);
+                }
+            } else {
+                alert('আপনার ব্রাউজার Web Serial API সাপোর্ট করে না। অনুগ্রহ করে Chrome বা Edge ব্যবহার করুন।');
+            }
+        }
+
+        /* Continuous Serial Read Loop */
+        async function readSerialData() {
+            const textDecoder = new TextDecoderStream();
+            const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+            reader = textDecoder.readable.getReader();
+
+            let buffer = '';
+
+            try {
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+
+                    buffer += value;
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop(); // Keep partial unparsed line in buffer
+
+                    for (const line of lines) {
+                        parseIncomingData(line.trim());
+                    }
+                }
+            } catch (error) {
+                console.error('Error reading serial stream:', error);
+            } finally {
+                reader.releaseLock();
+            }
+        }
+
+        /* Parse Serial Strings (JSON or Plain ADC Number) */
+        function parseIncomingData(data) {
+            if (!data) return;
+
+            try {
+                // Check if JSON format: {"flex": 2048}
+                if (data.startsWith('{') && data.endsWith('}')) {
+                    const parsed = JSON.parse(data);
+                    if (parsed.flex !== undefined) {
+                        updateSensorData(parsed.flex);
+                    }
+                } else {
+                    // Try parsing plain numeric value
+                    const adcVal = parseInt(data);
+                    if (!isNaN(adcVal)) {
+                        updateSensorData(adcVal);
+                    }
+                }
+            } catch (e) {
+                // Fallback parsing for debug messages
+                console.log('Raw Serial:', data);
+            }
+        }
+
+        function updateSensorData(value) {
+            currentFlexValue = Math.min(Math.max(value, 0), 4095);
+
+            // Update UI Telemetry
+            adcDisplayValue.innerText = currentFlexValue;
+            indexSlider.value = currentFlexValue;
+            sliderValText.innerText = currentFlexValue;
+
+            const percentage = (currentFlexValue / 4095) * 100;
+            adcProgressBar.style.width = `${percentage}%`;
+
+            // Normalize flex bending angle (0 to 1.2 radians)
+            const bendAngle = (currentFlexValue / 4095) * 1.3;
+
+            // Bending Index Finger Joints
+            indexFingerJoints.forEach((jointGroup) => {
+                jointGroup.rotation.x = bendAngle;
+            });
+
+            // Gesture Classification Logic
+            evaluateGesture(currentFlexValue);
+        }
+
+        function animateOtherFingers(percent) {
+            const angle = percent * 1.3;
+            otherFingersJoints.forEach((jointGroup) => {
+                jointGroup.rotation.x = angle;
+            });
+        }
+
+        /* Classify Gesture & Check Emergency Auto Trigger */
+        function evaluateGesture(adc) {
+            if (adc < 1200) {
+                detectedGestureText.innerText = "হাত খোলা (Hand Open / Normal)";
+                detectedGestureText.className = "text-xl md:text-2xl font-bold text-emerald-400 tracking-wide";
+                clearEmergencyTimer();
+            } else if (adc >= 1200 && adc < 2800) {
+                detectedGestureText.innerText = "আংশিক ভাঁজ (Half Bent)";
+                detectedGestureText.className = "text-xl md:text-2xl font-bold text-amber-400 tracking-wide";
+                clearEmergencyTimer();
+            } else {
+                detectedGestureText.innerText = "আঙুল সম্পূর্ণ ভাঁজ (Full Bent / Fist)";
+                detectedGestureText.className = "text-xl md:text-2xl font-bold text-rose-400 tracking-wide";
+                
+                // Auto trigger emergency if held bent for 3 seconds
+                if (!autoEmergencyTimer && !isEmergencyActive) {
+                    autoEmergencyTimer = setTimeout(() => {
+                        triggerEmergencyAlert();
+                    }, 3000);
+                }
+            }
+        }
+
+        function clearEmergencyTimer() {
+            if (autoEmergencyTimer) {
+                clearTimeout(autoEmergencyTimer);
+                autoEmergencyTimer = null;
+            }
+        }
+
+        /* Emergency Alert Handlers */
+        function triggerEmergencyAlert() {
+            isEmergencyActive = true;
+            emergencyAlertBox.classList.remove('hidden');
+            
+            // Audio alert beep sound using Web Audio API
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime); // High pitch SOS
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.8);
+            } catch (e) {
+                console.log('Audio Context Error:', e);
+            }
+        }
+
+        function dismissEmergency() {
+            isEmergencyActive = false;
+            emergencyAlertBox.classList.add('hidden');
+            clearEmergencyTimer();
+        }
+
+        /* Update Header Connection UI Status */
+        function updateConnectionUI(connected) {
+            if (connected) {
+                serialStatusBadge.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 glow-green";
+                statusText.innerText = "ESP32 সংযুক্ত (Connected)";
+                connectBtn.innerHTML = `<i class="fa-solid fa-plug-circle-xmark"></i><span>ডিসকানেক্ট করুন</span>`;
+                connectBtn.className = "flex items-center space-x-2 px-4 py-2 bg-rose-600 hover:bg-rose-500 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-lg shadow-rose-600/20";
+            } else {
+                serialStatusBadge.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20";
+                statusText.innerText = "ডিসকানেক্টেড (Disconnected)";
+                connectBtn.innerHTML = `<i class="fa-solid fa-plug"></i><span>ESP32 কানেক্ট করুন</span>`;
+                connectBtn.className = "flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-lg shadow-emerald-600/20";
+            }
+        }
+
+        /* Resize Handler */
+        function onWindowResize() {
+            const container = document.getElementById('canvasContainer');
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        /* Animation Loop */
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
