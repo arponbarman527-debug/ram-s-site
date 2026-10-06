@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TactileKinesis Glove Control for Deaf-mute people</title>
+    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Three.js + Standalone OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 100;
+            top: 0;
+            left: 0;
+            background-color: #ffffff;
+            border-right: 1px solid #e2e8f0;
+            overflow-x: hidden;
+            transition: 0.3s ease-in-out;
+            padding-top: 60px;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidenav a {
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 18px;
+            color: #475569;
+            display: block;
+            transition: 0.2s;
+        }
+
+        .sidenav a:hover {
+            color: #059669;
+            background-color: #f1f5f9;
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 30px;
+            color: #64748b;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid #e2e8f0;
+        }
+        .glow-green {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+        .glow-red {
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html"><i class="fa-solid fa-house mr-2"></i>Home</a>
+        <a href="about.html"><i class="fa-solid fa-user mr-2"></i>About Me</a>
+        <a href="projects.html"><i class="fa-solid fa-code mr-2"></i>Projects</a>
+        <a href="TactileKinesis Glove Control.html"><i class="fa-solid fa-hand mr-2"></i>TactileKinesis Glove Control</a>
+    </div>
+
+    <header class="w-full bg-white/90 border-b border-slate-200 px-4 py-3 sticky top-0 z-50 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <button onclick="openNav()" class="p-2 text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition text-2xl focus:outline-none">
+                    &#9776;
+                </button>
+
+                <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-600">
+                    <i class="fa-solid fa-hand-sparkles text-2xl"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-slate-800">
+                        TactileKinesis Glove (3D Visualizer)
+                    </h1>
+                    <p class="text-xs text-slate-500">TactileKinesis Glove Sign Language Interpreter</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <div id="serialStatusBadge" class="flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-200">
+                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                    <span id="statusText">Disconnected</span>
+                </div>
+
+                <button id="connectBtn" class="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-md shadow-emerald-600/10">
+                    <i class="fa-solid fa-plug"></i>
+                    <span>Connect ESP32</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <section class="lg:col-span-8 flex flex-col space-y-4">
+            <div class="relative w-full h-[450px] md:h-[550px] bg-slate-900 rounded-2xl border border-slate-200 overflow-hidden shadow-sm glass-panel group">
+                
+                <div id="canvasContainer" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+                <div class="absolute top-4 left-4 bg-white/90 border border-slate-200 backdrop-blur-md px-3 py-2 rounded-lg text-xs text-slate-700 flex items-center space-x-2 shadow-sm z-10">
+                    <i class="fa-solid fa-arrows-spin text-emerald-600"></i>
+                    <span>Mouse diye Rotate & Zoom kora jabe</span>
+                </div>
+
+                <div class="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md bg-white/90 border border-emerald-500/30 backdrop-blur-md p-4 rounded-xl shadow-lg flex items-center space-x-4 z-10">
+                    <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-600">
+                        <i class="fa-solid fa-comment-dots text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">DETECTED GESTURE</span>
+                        <h2 id="detectedGestureText" class="text-xl md:text-2xl font-bold text-slate-800 tracking-wide">
+                            Hand Open
+                        </h2>
+                    </div>
+                </div>
+
+                <button id="resetCamBtn" title="Reset Camera View" class="absolute top-4 right-4 p-2.5 bg-white/90 hover:bg-slate-100 text-slate-700 rounded-lg border border-slate-200 shadow-sm transition z-10">
+                    <i class="fa-solid fa-camera-rotate"></i>
+                </button>
+            </div>
+
+            <div id="emergencyAlertBox" class="hidden p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 flex items-center justify-between shadow-sm glow-red animate-bounce">
+                <div class="flex items-center space-x-3">
+                    <i class="fa-solid fa-triangle-exclamation text-2xl text-rose-600"></i>
+                    <div>
+                        <h4 class="font-bold text-sm text-rose-900">EMERGENCY SOS ACTIVE</h4>
+                        <p class="text-xs text-rose-700">Emergency signal has been triggered.</p>
+                    </div>
+                </div>
+                <button onclick="dismissEmergency()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg shadow-sm">
+                    Close
+                </button>
+            </div>
+        </section>
+
+        <section class="lg:col-span-4 flex flex-col space-y-6">
+
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+                    <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base">
+                        <i class="fa-solid fa-microchip text-emerald-600"></i>
+                        Sensor Data (GPIO 34 ADC)
+                    </h3>
+                    <span class="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-600 border border-slate-200">12-Bit ADC</span>
+                </div>
+
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center space-y-1">
+                    <span class="text-xs text-slate-500 font-medium uppercase tracking-wider">Raw Value</span>
+                    <div class="text-4xl font-extrabold text-emerald-600 font-mono tracking-tight" id="adcDisplayValue">
+                        0
+                    </div>
+                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mt-2">
+                        <div id="adcProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-500 h-full w-0 transition-all duration-100"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] text-slate-500 font-mono pt-1">
+                        <span>0 (Straight)</span>
+                        <span>4095 (Bent)</span>
+                    </div>
+                </div>
+
+                <div class="space-y-4 pt-2">
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700">
+                        <label for="indexSlider" class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-hand-pointer text-emerald-600"></i>
+                            Index Finger (GPIO 34 Flex)
+                        </label>
+                        <span id="sliderValText" class="font-mono text-emerald-600">0</span>
+                    </div>
+                    <input type="range" id="indexSlider" min="0" max="4095" value="0" class="w-full accent-emerald-600 bg-slate-200 h-2 rounded-lg cursor-pointer">
+
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 pt-2">
+                        <label for="otherFingersSlider" class="flex items-center gap-1.5">
+                            <i class="fa-solid fa-hand text-teal-600"></i>
+                            Other Fingers (Simulate All)
+                        </label>
+                        <span id="otherSliderValText" class="font-mono text-teal-600">0%</span>
+                    </div>
+                    <input type="range" id="otherFingersSlider" min="0" max="100" value="0" class="w-full accent-teal-600 bg-slate-200 h-2 rounded-lg cursor-pointer">
+                </div>
+            </div>
+
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base">
+                    <i class="fa-solid fa-bell text-rose-600"></i>
+                    Emergency SOS
+                </h3>
+                <p class="text-xs text-slate-600 leading-relaxed">
+                    Press the button or hold finger bent for more than 3 seconds to trigger SOS.
+                </p>
+
+                <button id="sosBtn" onclick="triggerEmergencyAlert()" class="w-full py-3.5 bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 active:scale-[0.98] text-white font-bold rounded-xl shadow-md shadow-rose-600/20 transition flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-triangle-exclamation text-lg"></i>
+                    <span>Trigger SOS Alert</span>
+                </button>
+            </div>
+
+            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+                <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-circle-info text-sky-600"></i>
+                    Circuit Connection Guide
+                </h3>
+                <ul class="text-xs text-slate-600 space-y-2 list-disc list-inside">
+                    <li><strong class="text-slate-800">Flex Sensor:</strong> GPIO 34 (10k Pull-down to GND)</li>
+                    <li><strong class="text-slate-800">MPU6050 SDA:</strong> GPIO 21</li>
+                    <li><strong class="text-slate-800">MPU6050 SCL:</strong> GPIO 22</li>
+                    <li><strong class="text-slate-800">VCC & GND:</strong> 3.3V & GND</li>
+                </ul>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="w-full bg-white border-t border-slate-200 py-4 px-6 text-center text-xs text-slate-500 mt-auto">
+        <p>Smart Gesture Glove for Deaf-Mute Assistance • Web Serial API & Three.js Powered</p>
+    </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+
+        let scene, camera, renderer, controls;
+        let handGroupMesh;
+        let indexFingerJoints = [];
+        let otherFingersJoints = [];
+        let port, reader;
+        let isConnected = false;
+        let currentFlexValue = 0;
+        let autoEmergencyTimer = null;
+        let isEmergencyActive = false;
+
+        const connectBtn = document.getElementById('connectBtn');
+        const serialStatusBadge = document.getElementById('serialStatusBadge');
+        const statusText = document.getElementById('statusText');
+        const adcDisplayValue = document.getElementById('adcDisplayValue');
+        const adcProgressBar = document.getElementById('adcProgressBar');
+        const indexSlider = document.getElementById('indexSlider');
+        const sliderValText = document.getElementById('sliderValText');
+        const otherFingersSlider = document.getElementById('otherFingersSlider');
+        const otherSliderValText = document.getElementById('otherSliderValText');
+        const detectedGestureText = document.getElementById('detectedGestureText');
+        const emergencyAlertBox = document.getElementById('emergencyAlertBox');
+
+        window.addEventListener('load', () => {
+            initThreeJS();
+            setupEventListeners();
+            animate();
+        });
+
+        function initThreeJS() {
+            const container = document.getElementById('canvasContainer');
+            const width = container.clientWidth || 800;
+            const height = container.clientHeight || 500;
+
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0f172a);
+
+            camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+            camera.position.set(0, 12, 22);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(width, height);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.shadowMap.enabled = true;
+            container.appendChild(renderer.domElement);
+
+            if (typeof THREE.OrbitControls !== 'undefined') {
+                controls = new THREE.OrbitControls(camera, renderer.domElement);
+            } else if (typeof OrbitControls !== 'undefined') {
+                controls = new OrbitControls(camera, renderer.domElement);
+            }
+
+            if (controls) {
+                controls.target.set(0, 0, 0);
+                controls.enableDamping = true;
+                controls.dampingFactor = 0.05;
+                controls.maxDistance = 50;
+                controls.minDistance = 5;
+            }
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+            scene.add(ambientLight);
+
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            dirLight.position.set(10, 20, 15);
+            dirLight.castShadow = true;
+            scene.add(dirLight);
+
+            const gridHelper = new THREE.GridHelper(30, 30, 0x10b981, 0x334155);
+            gridHelper.position.y = -3;
+            scene.add(gridHelper);
+
+            createHandMesh();
+            window.addEventListener('resize', onWindowResize);
+        }
+
+        function createHandMesh() {
+            const handGroup = new THREE.Group();
+            
+            handGroup.rotation.x = 0;
+            handGroup.rotation.y = 0;
+            handGroup.rotation.z = 0;
+            handGroup.position.set(0, 0, 0);
+
+            const palmMaterial = new THREE.MeshStandardMaterial({
+                color: 0x3b82f6,
+                roughness: 0.3,
+                metalness: 0.2
+            });
+
+            const fingerMaterial = new THREE.MeshStandardMaterial({
+                color: 0x10b981,
+                roughness: 0.2,
+                metalness: 0.3
+            });
+
+            const jointMaterial = new THREE.MeshStandardMaterial({
+                color: 0xf59e0b,
+                roughness: 0.2
+            });
+
+            const palmGeometry = new THREE.BoxGeometry(4.2, 0.8, 5);
+            const palm = new THREE.Mesh(palmGeometry, palmMaterial);
+            handGroup.add(palm);
+
+            function buildFinger(xOffset, zOffset, isIndex = false) {
+                const fingerRoot = new THREE.Group();
+                fingerRoot.position.set(xOffset, 0, zOffset);
+
+                let parent = fingerRoot;
+                const joints = [];
+
+                for (let i = 0; i < 3; i++) {
+                    const jointGeo = new THREE.SphereGeometry(0.38, 16, 16);
+                    const jointMesh = new THREE.Mesh(jointGeo, jointMaterial);
+                    parent.add(jointMesh);
+
+                    const jointGroup = new THREE.Group();
+                    jointMesh.add(jointGroup);
+
+                    const boneGeo = new THREE.CylinderGeometry(0.3, 0.32, 1.2, 16);
+                    const boneMesh = new THREE.Mesh(boneGeo, isIndex ? fingerMaterial : palmMaterial);
+                    
+                    boneMesh.rotation.x = Math.PI / 2;
+                    boneMesh.position.z = -0.6;
+                    jointGroup.add(boneMesh);
+
+                    const nextAnchor = new THREE.Group();
+                    nextAnchor.position.z = -1.2;
+                    jointGroup.add(nextAnchor);
+
+                    joints.push(jointGroup);
+                    parent = nextAnchor;
+                }
+
+                handGroup.add(fingerRoot);
+                return joints;
+            }
+
+            const indexJoints = buildFinger(-1.5, -2.5, true);   
+            const middleJoints = buildFinger(-0.5, -2.7, false); 
+            const ringJoints = buildFinger(0.5, -2.5, false);    
+            const pinkyJoints = buildFinger(1.5, -2.1, false);   
+
+            indexFingerJoints = indexJoints;
+            otherFingersJoints = [...middleJoints, ...ringJoints, ...pinkyJoints];
+
+            const thumbRoot = new THREE.Group();
+            thumbRoot.position.set(-2.2, 0, 0.5);
+            thumbRoot.rotation.y = -Math.PI / 4;
+
+            const thumbJoint1 = new THREE.Group();
+            const thumbMesh1 = new THREE.Mesh(new THREE.CylinderGeometry(0.35, 0.38, 1.1, 16), palmMaterial);
+            thumbMesh1.rotation.x = Math.PI / 2;
+            thumbMesh1.position.z = -0.55;
+            thumbJoint1.add(thumbMesh1);
+            thumbRoot.add(thumbJoint1);
+
+            handGroup.add(thumbRoot);
+
+            handGroupMesh = handGroup;
+            scene.add(handGroup);
+        }
+
+        function setupEventListeners() {
+            connectBtn.addEventListener('click', toggleSerialConnection);
+            
+            indexSlider.addEventListener('input', (e) => {
+                if (!isConnected) {
+                    updateSensorData(parseInt(e.target.value));
+                }
+            });
+
+            otherFingersSlider.addEventListener('input', (e) => {
+                const percent = parseInt(e.target.value) / 100;
+                otherSliderValText.innerText = `${e.target.value}%`;
+                animateOtherFingers(percent);
+            });
+
+            document.getElementById('resetCamBtn').addEventListener('click', () => {
+                camera.position.set(0, 12, 22);
+                if (controls) {
+                    controls.target.set(0, 0, 0);
+                    controls.reset();
+                }
+            });
+        }
+
+        async function toggleSerialConnection() {
+            if ('serial' in navigator) {
+                try {
+                    if (!isConnected) {
+                        port = await navigator.serial.requestPort();
+                        await port.open({ baudRate: 115200 });
+
+                        isConnected = true;
+                        updateConnectionUI(true);
+                        readSerialData();
+                    } else {
+                        if (reader) await reader.cancel();
+                        if (port) await port.close();
+
+                        isConnected = false;
+                        updateConnectionUI(false);
+                    }
+                } catch (err) {
+                    console.error('Serial Connection Error:', err);
+                    alert('Serial port connection error: ' + err.message);
+                    updateConnectionUI(false);
+                }
+            } else {
+                alert('Browser does not support Web Serial API. Please use Chrome or Edge.');
+            }
+        }
+
+        async function readSerialData() {
+            const textDecoder = new TextDecoderStream();
+            const readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+            reader = textDecoder.readable.getReader();
+
+            let buffer = '';
+
+            try {
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+
+                    buffer += value;
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        parseIncomingData(line.trim());
+                    }
+                }
+            } catch (error) {
+                console.error('Error reading serial stream:', error);
+            } finally {
+                reader.releaseLock();
+            }
+        }
+
+        function parseIncomingData(data) {
+            if (!data) return;
+
+            try {
+                if (data.startsWith('{') && data.endsWith('}')) {
+                    const parsed = JSON.parse(data);
+                    
+                    if (parsed.flex !== undefined) {
+                        updateSensorData(parsed.flex);
+                    }
+
+                    if (parsed.ax !== undefined && parsed.ay !== undefined && parsed.az !== undefined && handGroupMesh) {
+                        let roll = Math.atan2(parsed.ay, parsed.az);
+                        let pitch = Math.atan2(-parsed.ax, Math.sqrt(parsed.ay * parsed.ay + parsed.az * parsed.az));
+
+                        handGroupMesh.rotation.z = roll;
+                        handGroupMesh.rotation.x = pitch;
+                    }
+                } else {
+                    const adcVal = parseInt(data);
+                    if (!isNaN(adcVal)) {
+                        updateSensorData(adcVal);
+                    }
+                }
+            } catch (e) {
+                console.log('Raw Serial:', data);
+            }
+        }
+
+        function updateSensorData(value) {
+            currentFlexValue = Math.min(Math.max(value, 0), 4095);
+
+            adcDisplayValue.innerText = currentFlexValue;
+            indexSlider.value = currentFlexValue;
+            sliderValText.innerText = currentFlexValue;
+
+            const percentage = (currentFlexValue / 4095) * 100;
+            adcProgressBar.style.width = `${percentage}%`;
+
+            const bendAngle = (currentFlexValue / 4095) * 1.3;
+
+            indexFingerJoints.forEach((jointGroup) => {
+                jointGroup.rotation.x = bendAngle;
+            });
+
+            evaluateGesture(currentFlexValue);
+        }
+
+        function animateOtherFingers(percent) {
+            const angle = percent * 1.3;
+            otherFingersJoints.forEach((jointGroup) => {
+                jointGroup.rotation.x = angle;
+            });
+        }
+
+        function evaluateGesture(adc) {
+            if (adc < 1200) {
+                detectedGestureText.innerText = "Hand Open";
+                detectedGestureText.className = "text-xl md:text-2xl font-bold text-emerald-600 tracking-wide";
+                clearEmergencyTimer();
+            } else if (adc >= 1200 && adc < 2800) {
+                detectedGestureText.innerText = "Half Bent";
+                detectedGestureText.className = "text-xl md:text-2xl font-bold text-amber-600 tracking-wide";
+                clearEmergencyTimer();
+            } else {
+                detectedGestureText.innerText = "Full Bent / Fist";
+                detectedGestureText.className = "text-xl md:text-2xl font-bold text-rose-600 tracking-wide";
+                
+                if (!autoEmergencyTimer && !isEmergencyActive) {
+                    autoEmergencyTimer = setTimeout(() => {
+                        triggerEmergencyAlert();
+                    }, 3000);
+                }
+            }
+        }
+
+        function clearEmergencyTimer() {
+            if (autoEmergencyTimer) {
+                clearTimeout(autoEmergencyTimer);
+                autoEmergencyTimer = null;
+            }
+        }
+
+        function triggerEmergencyAlert() {
+            isEmergencyActive = true;
+            emergencyAlertBox.classList.remove('hidden');
+            
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.8);
+            } catch (e) {
+                console.log('Audio Context Error:', e);
+            }
+        }
+
+        function dismissEmergency() {
+            isEmergencyActive = false;
+            emergencyAlertBox.classList.add('hidden');
+            clearEmergencyTimer();
+        }
+
+        function updateConnectionUI(connected) {
+            if (connected) {
+                serialStatusBadge.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200 glow-green";
+                statusText.innerText = "ESP32 Connected";
+                connectBtn.innerHTML = `<i class="fa-solid fa-plug-circle-xmark"></i><span>Disconnect</span>`;
+                connectBtn.className = "flex items-center space-x-2 px-4 py-2 bg-rose-600 hover:bg-rose-700 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-md shadow-rose-600/10";
+            } else {
+                serialStatusBadge.className = "flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-200";
+                statusText.innerText = "Disconnected";
+                connectBtn.innerHTML = `<i class="fa-solid fa-plug"></i><span>Connect ESP32</span>`;
+                connectBtn.className = "flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-md shadow-emerald-600/10";
+            }
+        }
+
+        function onWindowResize() {
+            const container = document.getElementById('canvasContainer');
+            if (!container) return;
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            if (controls) controls.update();
+            renderer.render(scene, camera);
+        }
+    </script>
+</body>
+</html>
