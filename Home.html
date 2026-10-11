@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arpon Barman's personal portfolio website.">
+    <meta name="keywords" content="Arpon Barman, Arpon Barman Ram, Arpon, Ram, Ram's site, Web Developer Bangladesh">
+    <meta name="google-site-verification" content="b2b4gw2tKCJuuOiaYR6PSyXOWs3xlKbRfCGWvH6fEUM" />
+    
+    <!-- Google & Social Media Site Name -->
+    <meta property="og:site_name" content="Arpon Barman Ram's Website">
+    <meta property="og:title" content="ॐ नमः शिवायः Arpon Barman Ram's Website">
+    <meta property="og:description" content="Welcome, I'm Arpon Barman Ram. It's My Personal Portfolio Website">
+    <title>ॐ नमः शिवायः Arpon Barman Ram's Website</title>
+    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="shortcut icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    
+    <!-- Google Search Engine Schema for Favicon/Logo & Site Name -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Arpon Barman Ram's Website",
+      "url": "https://arponbarman527-debug.github.io/ram-s-site/",
+      "image": "https://arponbarman527-debug.github.io/ram-s-site/favicon.png"
+    }
+    </script>
+
+    <style>
+        /* Glassmorphism & Background Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e1e2f, #2a2a40);
+            color: #e2e8f0;
+            text-align: center;
+            min-height: 100vh;
+        }
+
+        header {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('atar%20color%20thik%20kora.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 120px 20px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Glassmorphism Card Style */
+        section#about, section#gallery, section#skills, section#projects {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .skills span {
+            background: rgba(52, 152, 219, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.5);
+            color: #60a5fa;
+            padding: 8px 18px;
+            border-radius: 20px;
+            margin: 5px;
+            display: inline-block;
+            font-weight: bold;
+            backdrop-filter: blur(4px);
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 25px;
+            background-color: rgba(231, 76, 60, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+            backdrop-filter: blur(4px);
+        }
+
+        button:hover {
+            background-color: rgba(192, 57, 43, 0.9);
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 30px;
+            margin-top: 50px;
+        }
+
+        /* 3-Line Menu Icon Style */
+        .menu-icon {
+            font-size: 35px;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            z-index: 2;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Glassmorphism Sidebar Panel */
+        .sidenav {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 10;
+            top: 0;
+            left: 0;
+            background: rgba(17, 17, 17, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            text-align: left;
+        }
+
+        .sidenav a {
+            padding: 12px 12px 12px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #94a3b8;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidenav a:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sidenav .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Icon -->
+    <span class="menu-icon" onclick="openNav()">&#9776;</span>
+
+    <!-- Sidebar Panel -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="TactileKinesis Glove Control.html">TactileKinesis Glove Control</a>
+    </div>
+
+    <header>
+        <h1>স্বাগতম, আমি Arpon Barman Ram</h1>
+        <p>I am studying in the science department and I love coding.</p>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am currently studying in college. Along with my studies, I like building websites, playing games, and gardening.</p>
+    </section>
+
+    <section id="gallery">
+        <h2>My Gallery</h2>
+        <img src="atar%20color%20thik%20kora.png" alt="My Photo" style="width: 100%; max-width: 500px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2);">
+        <p>This is a picture of one of our beautiful moments.</p>
+    </section>
+
+    <section id="skills">
+        <h2>My Skills</h2>
+        <div class="skills">
+            <span>HTML</span>
+            <span>Mathematics</span>
+            <span>Physics</span>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>My Projects</h2>
+        <div class="project-card">
+            <h3>Magic of Plasminogen</h3>
+            <p>A small medical project created using Plasmin.</p>
+            <button onclick="window.open('https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true', '_blank')">View Project</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>Contact: 📧<a href="mailto:arponbarman527@gmail.com" style="color: #60a5fa;">arponbarman527@gmail.com</a> | 📞 WhatsApp:<a href="https://wa.me/8801798021050" style="color: #60a5fa;"> +8801798021050</a></p>
+    </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+</body>
+  </html>
+                                                                                                                                   
