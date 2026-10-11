@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,24 +7,36 @@
     <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
     
     <style>
+        /* Spatial Dynamic Background */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background: radial-gradient(circle at 50% 20%, #1e293b, #0f172a, #020617);
+            color: #e2e8f0;
             text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
+        /* Spatial Floating Header */
         header {
-            background: #2c3e50;
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
-            padding: 60px 20px;
+            padding: 70px 20px 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
         }
 
         section {
@@ -34,84 +46,122 @@
             text-align: left;
         }
 
+        /* Spatial Glassmorphism Floating Cards */
         .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
+            border-color: rgba(56, 189, 248, 0.3);
         }
 
         .card h2 {
-            color: #2c3e50;
+            color: #38bdf8;
             margin-top: 0;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 12px;
+            font-size: 1.5rem;
+            letter-spacing: 0.5px;
         }
 
-        /* ছবি ২টিকে সবসময় পাশাপাশি রাখার Flexbox ডিজাইন */
+        .card p, .card ul {
+            color: #cbd5e1;
+            line-height: 1.7;
+        }
+
+        /* Image Spatial Frame */
         .image-container {
             display: flex;
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 20px;
+            gap: 16px;
+            margin-bottom: 25px;
             width: 100%;
         }
 
         .image-container img {
-            width: 48%; /* ২টা ছবি পাশাপাশি ধরে রাখার জন্য */
-            height: 220px;
+            width: 48%;
+            height: 230px;
             object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
         }
 
+        .image-container img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Spatial Glowing Button */
         .back-btn {
             display: inline-block;
             margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #e74c3c;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            border-radius: 12px;
             font-weight: bold;
-            transition: 0.3s;
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
+            transition: 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .back-btn:hover {
-            background-color: #c0392b;
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
         }
 
         footer {
-            background: #2c3e50;
-            color: white;
-            padding: 20px;
-            margin-top: 40px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            color: #94a3b8;
+            padding: 25px;
+            margin-top: 50px;
             text-align: center;
         }
-    
-        /* ৩ লাইনের আইকনের স্টাইল */
+
+        /* Spatial Menu Icon */
         .menu-icon {
-            font-size: 35px;
+            font-size: 32px;
             cursor: pointer;
             position: absolute;
-            top: 15px;
-            left: 15px;
-            color: white;
-            z-index: 2;
+            top: 20px;
+            left: 20px;
+            color: #38bdf8;
+            z-index: 10;
+            transition: 0.3s;
         }
 
-        /* সাইডবার ডিজাইন */
+        .menu-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Spatial Glass Sidebar Panel */
         .sidenav {
             height: 100%;
             width: 0;
             position: fixed;
-            z-index: 3;
+            z-index: 20;
             top: 0;
             left: 0;
-            background-color: #111;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
@@ -119,33 +169,34 @@
         }
 
         .sidenav a {
-            padding: 8px 8px 8px 32px;
+            padding: 12px 12px 12px 32px;
             text-decoration: none;
-            font-size: 22px;
-            color: #818181;
+            font-size: 20px;
+            color: #94a3b8;
             display: block;
             transition: 0.3s;
         }
 
         .sidenav a:hover {
-            color: white;
+            color: #38bdf8;
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .sidenav .closebtn {
             position: absolute;
-            top: 0;
+            top: 10px;
             right: 25px;
             font-size: 36px;
-            margin-left: 50px;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
-    <!-- ৩ লাইনের মেনু বাটন -->
+    <!-- Spatial Menu Button -->
     <span class="menu-icon" onclick="openNav()">&#9776;</span>
 
-    <!-- সাইডবার প্যানেল -->
+    <!-- Spatial Sidebar Panel -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="index.html">Home</a>
@@ -155,50 +206,50 @@
     </div>
 
     <header>
-        <h1>আমার সম্পর্কে (About Me)</h1>
+        <h1>About Me</h1>
     </header>
 
     <section>
-        <!-- ব্যক্তিগত পরিচয় -->
+        <!-- Personal Biography -->
         <div class="card">
-            <h2>পরিচয়</h2>
+            <h2>Biography</h2>
             
-            <!-- পাশাপাশি ২টি ছবি -->
+            <!-- Side-by-Side Spatial Images -->
             <div class="image-container">
-                <img src="IMG_20260520_135639.jpg" alt="আমার ছবি ১">
-                <img src="IMG_20260413_202503_727.webp" alt="আমার ছবি ২">
+                <img src="IMG_20260520_135639.jpg" alt="My Photo 1">
+                <img src="IMG_20260413_202503_727.webp" alt="My Photo 2">
             </div>
 
-            <p>আমি <strong>Arpon Barman Ram</strong>। আমি বর্তমানে বিজ্ঞান বিভাগে পড়ালেখা করছি। পড়াশোনার পাশাপাশি নতুন নতুন প্রযুক্তি শেখা এবং ওয়েবসাইট তৈরি করা আমার শখ।</p>
-            <p>আমার জন্ম তারিখ 13th November, 2008</p>
+            <p>I am <strong>Arpon Barman Ram</strong>. I am currently studying in the science stream. Alongside my academic studies, exploring new technologies and building websites are my passions.</p>
+            <p><strong>Date of Birth:</strong> November 13, 2008</p>
         </div>
 
-        <!-- শিক্ষা জীবন -->
+        <!-- Academic Background -->
         <div class="card">
-            <h2>শিক্ষাগত যোগ্যতা</h2>
-            <p><strong>বিভাগ:</strong> বিজ্ঞান (Science Group)</p>
-            <p><strong>প্রিয় বিষয়:</strong> গণিত, পদার্থবিজ্ঞান এবং কম্পিউটার সায়েন্স।</p>
-            <p><strong>SSC-25 Result:</strong> G.P.A-5</p>
-            <p><strong>PEC-19 Result:</strong> G.P.A-5</p>
+            <h2>Education</h2>
+            <p><strong>Group:</strong> Science</p>
+            <p><strong>Favorite Subjects:</strong> Mathematics, Physics, and Computer Science.</p>
+            <p><strong>SSC-25 Result:</strong> GPA 5.00</p>
+            <p><strong>PEC-19 Result:</strong> GPA 5.00</p>
         </div>
         
-        <!-- সনদসমূহ -->
+        <!-- Certificates -->
         <div class="card">
-            <h2>সনদসমূহ</h2>
-            <p>এখানে সনদপত্রের তথ্য বা ছবি যুক্ত করতে পারো।</p>
+            <h2>Certificates</h2>
+            <p>Certificate details or images will be updated here soon.</p>
         </div>
 
-        <!-- আগ্রহ ও শখ -->
+        <!-- Interests & Hobbies -->
         <div class="card">
-            <h2>আগ্রহ ও শখ</h2>
+            <h2>Interests & Hobbies</h2>
             <ul>
-                <li>ওয়েবসাইট তৈরি ও প্রোগ্রামিং করা</li>
-                <li>বাগান করা এবং নতুন গাছের যত্ন নেওয়া</li>
+                <li>Web Development & Programming</li>
+                <li>Gardening & Caring for Plants</li>
             </ul>
         </div>
 
         <div style="text-align: center;">
-            <a href="index.html" class="back-btn">← হোমপেজে ফিরে যান</a>
+            <a href="index.html" class="back-btn">← Back to Home</a>
         </div>
     </section>
 
@@ -206,7 +257,7 @@
         <p>© Arpon Barman Ram | All Rights Reserved</p>
     </footer>
 
-    <!-- সাইডবার অপেন এবং ক্লোজ করার Script যুক্ত করা হয়েছে -->
+    <!-- Sidebar Open and Close Script -->
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
