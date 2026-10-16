@@ -5,198 +5,278 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me | Arpon Barman Ram</title>
     <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
-    
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        /* Spatial Dynamic Background */
+        :root {
+            --leather: #6b4a34;
+            --leather-dark: #4a3221;
+            --leather-light: #8a6448;
+            --panel: #e9e2d4;
+            --panel-dark: #cfc5ae;
+            --panel-light: #f7f2e7;
+            --ink: #3a2f22;
+            --ink-dim: #6e6150;
+            --brass: #c9a24b;
+            --brass-dark: #9c7a30;
+            --brass-light: #f0d78a;
+            --red: #a3372c;
+            --red-dark: #7c261d;
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 0;
-            background: radial-gradient(circle at 50% 20%, #1e293b, #0f172a, #020617);
-            color: #e2e8f0;
-            text-align: center;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(circle at 20% 15%, rgba(255,255,255,0.08), transparent 45%),
+                linear-gradient(160deg, var(--leather-light), var(--leather) 45%, var(--leather-dark));
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* Spatial Floating Header */
-        header {
-            background: rgba(30, 41, 59, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-            padding: 70px 20px 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            background-image:
+                repeating-linear-gradient(45deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 6px),
+                repeating-linear-gradient(-45deg, rgba(255,255,255,0.03) 0 2px, transparent 2px 6px);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(56, 189, 248, 0.3);
-        }
+        h1, h2, h3 { margin: 0; font-weight: 700; }
+        a { color: inherit; }
 
-        section {
-            padding: 40px 20px;
-            max-width: 800px;
-            margin: auto;
+        .wrap { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 0 18px 50px; }
+
+        /* ---------- Carved panel ---------- */
+        .panel {
+            background: linear-gradient(170deg, var(--panel-light), var(--panel) 55%, var(--panel-dark));
+            border-radius: 18px;
+            border: 1px solid #b8ac90;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.6) inset,
+                0 -2px 0 rgba(0,0,0,0.12) inset,
+                0 10px 0 rgba(0,0,0,0.18),
+                0 16px 28px rgba(0,0,0,0.45);
+            padding: 30px 28px;
             text-align: left;
+            margin: 26px 0;
         }
 
-        /* Spatial Glassmorphism Floating Cards */
-        .card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            margin-bottom: 30px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
-            border-color: rgba(56, 189, 248, 0.3);
-        }
-
-        .card h2 {
-            color: #38bdf8;
-            margin-top: 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 12px;
-            font-size: 1.5rem;
-            letter-spacing: 0.5px;
-        }
-
-        .card p, .card ul {
-            color: #cbd5e1;
-            line-height: 1.7;
-        }
-
-        /* Image Spatial Frame */
-        .image-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 25px;
-            width: 100%;
-        }
-
-        .image-container img {
-            width: 48%;
-            height: 230px;
-            object-fit: cover;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-            transition: transform 0.3s ease;
-        }
-
-        .image-container img:hover {
-            transform: scale(1.03);
-        }
-
-        /* Spatial Glowing Button */
-        .back-btn {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 28px;
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: bold;
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.4);
-            transition: 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .back-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
-        }
-
-        footer {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            color: #94a3b8;
-            padding: 25px;
-            margin-top: 50px;
-            text-align: center;
-        }
-
-        /* Spatial Menu Icon */
+        /* ---------- Menu ---------- */
         .menu-icon {
-            font-size: 32px;
+            position: fixed;
+            top: 18px; left: 18px;
+            z-index: 20;
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: grid;
+            place-content: center;
             cursor: pointer;
+            background: linear-gradient(160deg, var(--leather-light), var(--leather-dark));
+            border: 1px solid rgba(0,0,0,0.4);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.25) inset,
+                0 -3px 6px rgba(0,0,0,0.3) inset,
+                0 6px 0 rgba(0,0,0,0.35),
+                0 10px 16px rgba(0,0,0,0.5);
+            color: var(--brass-light);
+            font-size: 24px;
+            user-select: none;
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+        .menu-icon:active {
+            transform: translateY(3px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.2) inset,
+                0 -2px 4px rgba(0,0,0,0.3) inset,
+                0 3px 0 rgba(0,0,0,0.35),
+                0 5px 10px rgba(0,0,0,0.5);
+        }
+        .menu-icon::before, .menu-icon::after {
+            content: "";
             position: absolute;
-            top: 20px;
-            left: 20px;
-            color: #38bdf8;
-            z-index: 10;
-            transition: 0.3s;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 30%, var(--brass-light), var(--brass-dark));
+            top: 6px;
         }
+        .menu-icon::before { left: 6px; }
+        .menu-icon::after { right: 6px; }
 
-        .menu-icon:hover {
-            transform: scale(1.1);
-        }
-
-        /* Spatial Glass Sidebar Panel */
         .sidenav {
             height: 100%;
             width: 0;
+            max-width: 86vw;
             position: fixed;
-            z-index: 20;
-            top: 0;
-            left: 0;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 25;
+            top: 0; left: 0;
             overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 60px;
+            overflow-y: auto;
+            transition: width 0.4s ease;
+            padding-top: 90px;
             text-align: left;
+            background: linear-gradient(160deg, var(--leather), var(--leather-dark));
+            box-shadow: 10px 0 30px rgba(0,0,0,0.5), inset -4px 0 10px rgba(0,0,0,0.3);
+            border-right: 1px solid rgba(0,0,0,0.4);
         }
-
         .sidenav a {
-            padding: 12px 12px 12px 32px;
-            text-decoration: none;
-            font-size: 20px;
-            color: #94a3b8;
             display: block;
-            transition: 0.3s;
+            margin: 8px 14px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.02rem;
+            color: var(--panel-light);
+            background: rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 3px 6px rgba(0,0,0,0.3);
+            transition: transform 0.12s ease;
+            white-space: normal;
+            line-height: 1.3;
         }
-
-        .sidenav a:hover {
-            color: #38bdf8;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
+        .sidenav a:active { transform: translateY(2px); }
+        .sidenav a:hover { background: rgba(0,0,0,0.05); color: var(--brass-light); }
         .sidenav .closebtn {
             position: absolute;
-            top: 10px;
-            right: 25px;
-            font-size: 36px;
-            color: #94a3b8;
+            top: 14px; right: 14px;
+            font-size: 22px;
+            width: 40px; height: 40px;
+            display: grid; place-content: center;
+            border-radius: 50%;
+            color: var(--panel-light);
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            cursor: pointer;
+        }
+
+        /* Hide the hamburger button while the sidebar is open, so it doesn't overlap the close button */
+        body.nav-open .menu-icon { opacity: 0; pointer-events: none; }
+
+        /* ---------- Header plate ---------- */
+        header { padding: 100px 18px 30px; text-align: center; }
+        .plate {
+            display: inline-block;
+            max-width: 100%;
+            padding: 24px 46px;
+            border-radius: 16px;
+            background: linear-gradient(165deg, var(--brass-light), var(--brass) 55%, var(--brass-dark));
+            border: 1px solid #7c5f22;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.7) inset,
+                0 -3px 6px rgba(0,0,0,0.25) inset,
+                0 8px 0 rgba(0,0,0,0.3),
+                0 16px 28px rgba(0,0,0,0.5);
+        }
+        header h1 {
+            font-size: clamp(1.8rem, 6vw, 2.4rem);
+            color: var(--leather-dark);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        }
+
+        /* ---------- Cards ---------- */
+        .panel h2 {
+            font-size: 1.3rem;
+            color: var(--leather-dark);
+            padding-bottom: 10px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid rgba(107,74,52,0.25);
+            text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+        }
+        .panel p, .panel li { margin: 0 0 10px; color: var(--ink-dim); line-height: 1.7; }
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+        .panel ul { padding-left: 22px; margin-top: 0; }
+        .panel strong { color: var(--ink); }
+
+        /* Photos: framed prints under glass */
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            width: 50%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 6px solid var(--panel-light);
+            outline: 1px solid #b8ac90;
+            box-shadow:
+                0 2px 4px rgba(0,0,0,0.25) inset,
+                0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Back button: pressable brass stud */
+        .back-btn {
+            display: inline-block;
+            font-weight: 700;
+            font-size: 0.98rem;
+            padding: 13px 30px;
+            border-radius: 999px;
+            cursor: pointer;
+            color: #fff5e6;
+            text-decoration: none;
+            background: linear-gradient(170deg, #c75246, var(--red) 55%, var(--red-dark));
+            border: 1px solid #5e1a12;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.35) inset,
+                0 -3px 6px rgba(0,0,0,0.3) inset,
+                0 6px 0 #5e1a12,
+                0 10px 18px rgba(0,0,0,0.5);
+            text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+        .back-btn:hover { filter: brightness(1.06); }
+        .back-btn:active {
+            transform: translateY(5px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.3) inset,
+                0 -2px 4px rgba(0,0,0,0.3) inset,
+                0 1px 0 #5e1a12,
+                0 3px 8px rgba(0,0,0,0.5);
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            margin: 30px 0 10px;
+            padding: 24px 26px;
+            text-align: center;
+            background: linear-gradient(170deg, var(--leather-light), var(--leather-dark));
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.4);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.15) inset,
+                0 -3px 8px rgba(0,0,0,0.35) inset,
+                0 10px 20px rgba(0,0,0,0.5);
+            color: var(--panel-light);
+        }
+        footer p { margin: 0; }
+
+        @media (max-width: 560px) {
+            .plate { padding: 20px 22px; }
+            .panel { padding: 24px 20px; }
+            .image-container img { height: 150px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Spatial Menu Button -->
-    <span class="menu-icon" onclick="openNav()">&#9776;</span>
+    <!-- Menu Icon -->
+    <div class="menu-icon" onclick="openNav()" aria-label="Open menu">&#9776;</div>
 
-    <!-- Spatial Sidebar Panel -->
+    <!-- Sidebar Panel -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="index.html">Home</a>
@@ -205,66 +285,72 @@
         <a href="TactileKinesis Glove Control.html">TactileKinesis Glove Control</a>
     </div>
 
-    <header>
-        <h1>About Me</h1>
-    </header>
+    <div class="wrap">
 
-    <section>
-        <!-- Personal Biography -->
-        <div class="card">
-            <h2>Biography</h2>
-            
-            <!-- Side-by-Side Spatial Images -->
-            <div class="image-container">
-                <img src="IMG_20260520_135639.jpg" alt="My Photo 1">
-                <img src="IMG_20260413_202503_727.webp" alt="My Photo 2">
+        <header>
+            <div class="plate">
+                <h1>About Me</h1>
+            </div>
+        </header>
+
+        <section>
+            <!-- Personal Biography -->
+            <div class="panel">
+                <h2>Biography</h2>
+
+                <div class="image-container">
+                    <img src="IMG_20260520_135639.jpg" alt="My Photo 1">
+                    <img src="IMG_20260413_202503_727.webp" alt="My Photo 2">
+                </div>
+
+                <p>I am <strong>Arpon Barman Ram</strong>. I am currently studying in the science stream. Alongside my academic studies, exploring new technologies and building websites are my passions.</p>
+                <p><strong>Date of Birth:</strong> November 13, 2008</p>
             </div>
 
-            <p>I am <strong>Arpon Barman Ram</strong>. I am currently studying in the science stream. Alongside my academic studies, exploring new technologies and building websites are my passions.</p>
-            <p><strong>Date of Birth:</strong> November 13, 2008</p>
-        </div>
+            <!-- Academic Background -->
+            <div class="panel">
+                <h2>Education</h2>
+                <p><strong>Group:</strong> Science</p>
+                <p><strong>Favorite Subjects:</strong> Mathematics, Physics, and Computer Science.</p>
+                <p><strong>SSC-25 Result:</strong> GPA 5.00</p>
+                <p><strong>PEC-19 Result:</strong> GPA 5.00</p>
+            </div>
 
-        <!-- Academic Background -->
-        <div class="card">
-            <h2>Education</h2>
-            <p><strong>Group:</strong> Science</p>
-            <p><strong>Favorite Subjects:</strong> Mathematics, Physics, and Computer Science.</p>
-            <p><strong>SSC-25 Result:</strong> GPA 5.00</p>
-            <p><strong>PEC-19 Result:</strong> GPA 5.00</p>
-        </div>
-        
-        <!-- Certificates -->
-        <div class="card">
-            <h2>Certificates</h2>
-            <p>Certificate details or images will be updated here soon.</p>
-        </div>
+            <!-- Certificates -->
+            <div class="panel">
+                <h2>Certificates</h2>
+                <p>Certificate details or images will be updated here soon.</p>
+            </div>
 
-        <!-- Interests & Hobbies -->
-        <div class="card">
-            <h2>Interests & Hobbies</h2>
-            <ul>
-                <li>Web Development & Programming</li>
-                <li>Gardening & Caring for Plants</li>
-            </ul>
-        </div>
+            <!-- Interests & Hobbies -->
+            <div class="panel">
+                <h2>Interests &amp; Hobbies</h2>
+                <ul>
+                    <li>Web Development &amp; Programming</li>
+                    <li>Gardening &amp; Caring for Plants</li>
+                </ul>
+            </div>
 
-        <div style="text-align: center;">
-            <a href="index.html" class="back-btn">← Back to Home</a>
-        </div>
-    </section>
+            <div style="text-align: center;">
+                <a href="index.html" class="back-btn">← Back to Home</a>
+            </div>
+        </section>
 
-    <footer>
-        <p>© Arpon Barman Ram | All Rights Reserved</p>
-    </footer>
+        <footer>
+            <p>© Arpon Barman Ram | All Rights Reserved</p>
+        </footer>
 
-    <!-- Sidebar Open and Close Script -->
+    </div>
+
+    <script src="session-tracker.js"></script>
     <script>
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "270px";
+            document.body.classList.add("nav-open");
         }
-
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
+            document.body.classList.remove("nav-open");
         }
     </script>
 
