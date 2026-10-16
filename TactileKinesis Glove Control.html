@@ -5,123 +5,248 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TactileKinesis Glove Control for Deaf-mute people</title>
     <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Three.js & OrbitControls CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://unpkg.com/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
     <style>
+        :root {
+            --leather: #6b4a34;
+            --leather-dark: #4a3221;
+            --leather-light: #8a6448;
+            --panel: #e9e2d4;
+            --panel-dark: #cfc5ae;
+            --panel-light: #f7f2e7;
+            --ink: #3a2f22;
+            --ink-dim: #6e6150;
+            --brass: #c9a24b;
+            --brass-dark: #9c7a30;
+            --brass-light: #f0d78a;
+            --red: #a3372c;
+            --red-dark: #7c261d;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Hind Siliguri', 'Poppins', 'Segoe UI', sans-serif;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(255,255,255,0.08), transparent 45%),
+                linear-gradient(160deg, var(--leather-light), var(--leather) 45%, var(--leather-dark));
+            color: var(--ink);
+            min-height: 100vh;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--brass-dark); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brass); }
+
+        /* ---------- Carved leather panel ---------- */
+        .leather-panel {
+            background: linear-gradient(170deg, var(--panel-light), var(--panel) 55%, var(--panel-dark));
+            border: 1px solid #b8ac90 !important;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.6) inset,
+                0 -2px 0 rgba(0,0,0,0.12) inset,
+                0 10px 0 rgba(0,0,0,0.18),
+                0 16px 28px rgba(0,0,0,0.45);
+        }
+
+        .brass-chip {
+            background: linear-gradient(165deg, var(--brass-light), var(--brass) 60%, var(--brass-dark)) !important;
+            border: 1px solid #7c5f22 !important;
+            color: #4a3611 !important;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* ---------- Header: brass bar ---------- */
+        header.leather-header {
+            background: linear-gradient(170deg, var(--brass-light), var(--brass) 55%, var(--brass-dark)) !important;
+            border-bottom: 1px solid #7c5f22 !important;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 6px 16px rgba(0,0,0,0.3);
+        }
+        header.leather-header h1, header.leather-header p { color: var(--leather-dark) !important; }
+
+        /* ---------- Menu icon + sidebar ---------- */
+        .menu-icon {
+            width: 46px; height: 46px;
+            border-radius: 12px;
+            display: grid; place-content: center;
+            background: linear-gradient(160deg, var(--leather-light), var(--leather-dark));
+            border: 1px solid rgba(0,0,0,0.4);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.25) inset,
+                0 -3px 6px rgba(0,0,0,0.3) inset,
+                0 4px 0 rgba(0,0,0,0.35),
+                0 8px 14px rgba(0,0,0,0.5);
+            color: var(--brass-light);
+            transition: transform 0.12s ease;
+        }
+        .menu-icon:active { transform: translateY(2px); }
+
         .sidenav {
             height: 100%;
             width: 0;
+            max-width: 86vw;
             position: fixed;
             z-index: 100;
-            top: 0;
-            left: 0;
-            background-color: #ffffff;
-            border-right: 1px solid #e2e8f0;
+            top: 0; left: 0;
             overflow-x: hidden;
-            transition: 0.3s ease-in-out;
-            padding-top: 60px;
-            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.05);
+            overflow-y: auto;
+            transition: width 0.3s ease-in-out;
+            padding-top: 90px;
+            background: linear-gradient(160deg, var(--leather), var(--leather-dark));
+            box-shadow: 10px 0 30px rgba(0,0,0,0.5), inset -4px 0 10px rgba(0,0,0,0.3);
+            border-right: 1px solid rgba(0,0,0,0.4);
         }
-
         .sidenav a {
-            padding: 12px 24px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #475569;
             display: block;
-            transition: 0.2s;
+            margin: 8px 14px;
+            padding: 13px 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--panel-light);
+            background: rgba(0,0,0,0.15);
+            border: 1px solid rgba(0,0,0,0.3);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.08) inset, 0 3px 6px rgba(0,0,0,0.3);
+            white-space: normal;
+            line-height: 1.3;
+            transition: transform 0.12s ease;
         }
-
-        .sidenav a:hover {
-            color: #059669;
-            background-color: #f1f5f9;
-        }
-
+        .sidenav a:hover { background: rgba(0,0,0,0.05); color: var(--brass-light); }
+        .sidenav a:active { transform: translateY(2px); }
         .sidenav .closebtn {
             position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 30px;
-            color: #64748b;
+            top: 14px; right: 14px;
+            font-size: 22px;
+            width: 40px; height: 40px;
+            display: grid; place-content: center;
+            border-radius: 50%;
+            color: var(--panel-light);
+            background: rgba(0,0,0,0.25);
+            border: 1px solid rgba(0,0,0,0.3);
+            cursor: pointer;
+        }
+        body.nav-open .menu-icon { opacity: 0; pointer-events: none; }
+
+        /* ---------- Buttons ---------- */
+        .btn-brass {
+            background: linear-gradient(170deg, var(--brass-light), var(--brass) 55%, var(--brass-dark)) !important;
+            color: #4a3611 !important;
+            border: 1px solid #7c5f22 !important;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.6) inset,
+                0 -2px 4px rgba(0,0,0,0.2) inset,
+                0 5px 0 rgba(0,0,0,0.25),
+                0 8px 14px rgba(0,0,0,0.35);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+        .btn-brass:active {
+            transform: translateY(4px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.4) inset,
+                0 -1px 2px rgba(0,0,0,0.2) inset,
+                0 1px 0 rgba(0,0,0,0.25),
+                0 3px 6px rgba(0,0,0,0.4);
+        }
+        .btn-red {
+            background: linear-gradient(170deg, #c75246, var(--red) 55%, var(--red-dark)) !important;
+            color: #fff5e6 !important;
+            border: 1px solid #5e1a12 !important;
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.35) inset,
+                0 -3px 6px rgba(0,0,0,0.3) inset,
+                0 5px 0 #5e1a12,
+                0 8px 14px rgba(0,0,0,0.5);
+            transition: transform 0.12s ease, box-shadow 0.12s ease;
+        }
+        .btn-red:active {
+            transform: translateY(4px);
+            box-shadow:
+                0 1px 0 rgba(255,255,255,0.3) inset,
+                0 -2px 4px rgba(0,0,0,0.3) inset,
+                0 1px 0 #5e1a12,
+                0 3px 8px rgba(0,0,0,0.5);
         }
 
-        body {
-            font-family: 'Hind Siliguri', 'Inter', sans-serif;
-            background-color: #f8fafc;
-            color: #1e293b;
+        /* ---------- Status badge ---------- */
+        .status-badge {
+            border: 1px solid #7c5f22;
+        }
+        .status-disconnected { background: #e9d6d2 !important; color: var(--red-dark) !important; border-color: #b9897e !important; }
+        .status-connected { background: #d9e9d2 !important; color: #2f5a1f !important; border-color: #8fae7a !important; }
+
+        /* ---------- Sliders ---------- */
+        input[type="range"] { accent-color: var(--leather-dark); }
+
+        /* ---------- 3D canvas frame ---------- */
+        .canvas-frame {
+            background: #2a2014;
+            border: 1px solid #b8ac90;
+            box-shadow:
+                0 4px 10px rgba(0,0,0,0.5) inset,
+                0 16px 28px rgba(0,0,0,0.45);
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        .overlay-chip {
+            background: rgba(247, 242, 231, 0.92) !important;
+            border: 1px solid #b8ac90 !important;
+            color: var(--ink) !important;
+            backdrop-filter: blur(8px);
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
+
+        .gesture-card {
+            background: linear-gradient(170deg, var(--brass-light), var(--brass) 60%, var(--brass-dark)) !important;
+            border: 1px solid #7c5f22 !important;
+            color: var(--leather-dark) !important;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            border: 1px solid #e2e8f0;
-        }
-        .glow-green {
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-        }
-        .glow-red {
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+
+        footer.leather-footer {
+            background: linear-gradient(170deg, var(--leather-light), var(--leather-dark));
+            border-top: 1px solid rgba(0,0,0,0.4);
+            color: var(--panel-light);
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col overflow-x-hidden selection:bg-emerald-500 selection:text-white">
+<body class="min-h-screen flex flex-col overflow-x-hidden">
 
     <!-- Navigation Drawer -->
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html"><i class="fa-solid fa-house mr-2"></i>Home</a>
-        <a href="about.html"><i class="fa-solid fa-user mr-2"></i>About Me</a>
-        <a href="projects.html"><i class="fa-solid fa-code mr-2"></i>Projects</a>
-        <a href="TactileKinesis Glove Control.html"><i class="fa-solid fa-hand mr-2"></i>TactileKinesis Glove Control</a>
+        <a href="index.html">🏠 Home</a>
+        <a href="about.html">👤 About Me</a>
+        <a href="projects.html">💻 Projects</a>
+        <a href="TactileKinesis Glove Control.html">🧤 TactileKinesis Glove Control</a>
     </div>
 
     <!-- Header Section -->
-    <header class="w-full bg-white/90 border-b border-slate-200 px-4 py-3 sticky top-0 z-50 backdrop-blur-md shadow-sm">
+    <header class="leather-header w-full px-4 py-3 sticky top-0 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
-                <button onclick="openNav()" class="p-2 text-slate-700 hover:text-emerald-600 hover:bg-slate-100 rounded-lg transition text-2xl focus:outline-none">
-                    &#9776;
-                </button>
+                <button onclick="openNav()" class="menu-icon text-xl">&#9776;</button>
 
-                <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-600">
-                    <i class="fa-solid fa-hand-sparkles text-2xl"></i>
-                </div>
+                <div class="p-2.5 rounded-xl text-2xl brass-chip" style="line-height:1;">🧤</div>
                 <div>
-                    <h1 class="text-xl font-bold text-slate-800">
-                        TactileKinesis Glove (3D Visualizer)
-                    </h1>
-                    <p class="text-xs text-slate-500">TactileKinesis Glove Sign Language Interpreter</p>
+                    <h1 class="text-xl font-bold">TactileKinesis Glove (3D Visualizer)</h1>
+                    <p class="text-xs opacity-80">TactileKinesis Glove Sign Language Interpreter</p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-3">
-                <div id="serialStatusBadge" class="flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-200">
-                    <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                <div id="serialStatusBadge" class="status-badge status-disconnected flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-current animate-pulse"></span>
                     <span id="statusText">Disconnected</span>
                 </div>
 
-                <button id="connectBtn" class="flex items-center space-x-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-sm font-medium rounded-xl transition duration-200 shadow-md shadow-emerald-600/10">
-                    <i class="fa-solid fa-plug"></i>
+                <button id="connectBtn" class="btn-brass flex items-center space-x-2 px-4 py-2 text-sm font-semibold rounded-xl">
+                    <span>🔌</span>
                     <span>Connect ESP32</span>
                 </button>
             </div>
@@ -133,81 +258,369 @@
 
         <!-- 3D Canvas Area -->
         <section class="lg:col-span-8 flex flex-col space-y-4">
-            <div class="relative w-full h-[450px] md:h-[550px] bg-slate-900 rounded-2xl border border-slate-200 overflow-hidden shadow-sm glass-panel group">
-                
+            <div class="canvas-frame relative w-full h-[450px] md:h-[550px] rounded-2xl overflow-hidden group">
+
                 <div id="canvasContainer" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
 
-                <div class="absolute top-4 left-4 bg-white/90 border border-slate-200 backdrop-blur-md px-3 py-2 rounded-lg text-xs text-slate-700 flex items-center space-x-2 shadow-sm z-10">
-                    <i class="fa-solid fa-arrows-spin text-emerald-600"></i>
-                    <span>Mouse diye Rotate & Zoom kora jabe</span>
+                <div class="overlay-chip absolute top-4 left-4 px-3 py-2 rounded-lg text-xs flex items-center space-x-2 shadow-sm z-10">
+                    <span>🖱️</span>
+                    <span>Mouse diye Rotate &amp; Zoom kora jabe</span>
                 </div>
 
-                <div class="absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md bg-white/90 border border-emerald-500/30 backdrop-blur-md p-4 rounded-xl shadow-lg flex items-center space-x-4 z-10">
-                    <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-600">
-                        <i class="fa-solid fa-comment-dots text-2xl"></i>
-                    </div>
+                <div class="gesture-card absolute bottom-4 left-4 right-4 md:right-auto md:max-w-md p-4 rounded-xl shadow-lg flex items-center space-x-4 z-10">
+                    <div class="p-3 rounded-xl text-2xl brass-chip" style="line-height:1;">💬</div>
                     <div>
-                        <span class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">DETECTED GESTURE</span>
-                        <h2 id="detectedGestureText" class="text-xl md:text-2xl font-bold text-slate-800 tracking-wide">
-                            Hand Open
-                        </h2>
+                        <span class="text-xs font-semibold uppercase tracking-wider">Detected Gesture</span>
+                        <h2 id="detectedGestureText" class="text-xl md:text-2xl font-bold tracking-wide">Hand Open</h2>
                     </div>
                 </div>
 
-                <button id="resetCamBtn" title="Reset Camera View" class="absolute top-4 right-4 p-2.5 bg-white/90 hover:bg-slate-100 text-slate-700 rounded-lg border border-slate-200 shadow-sm transition z-10">
-                    <i class="fa-solid fa-camera-rotate"></i>
+                <button id="resetCamBtn" title="Reset Camera View" class="overlay-chip absolute top-4 right-4 p-2.5 rounded-lg shadow-sm transition z-10">
+                    📷
                 </button>
             </div>
 
-            <div id="emergencyAlertBox" class="hidden p-4 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 flex items-center justify-between shadow-sm glow-red animate-bounce">
+            <div id="emergencyAlertBox" class="hidden p-4 rounded-xl flex items-center justify-between shadow-sm" style="background:#f3dad6;border:1px solid #c98f82;color:#6b1f14;">
                 <div class="flex items-center space-x-3">
-                    <i class="fa-solid fa-triangle-exclamation text-2xl text-rose-600"></i>
+                    <span class="text-2xl">⚠️</span>
                     <div>
-                        <h4 class="font-bold text-sm text-rose-900">EMERGENCY SOS ACTIVE</h4>
-                        <p class="text-xs text-rose-700">Emergency signal has been triggered.</p>
+                        <h4 class="font-bold text-sm">EMERGENCY SOS ACTIVE</h4>
+                        <p class="text-xs">Emergency signal has been triggered.</p>
                     </div>
                 </div>
-                <button onclick="dismissEmergency()" class="px-3 py-1 bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold rounded-lg shadow-sm">
-                    Close
-                </button>
+                <button onclick="dismissEmergency()" class="btn-red px-3 py-1.5 text-xs font-semibold rounded-lg">Close</button>
             </div>
         </section>
 
         <!-- Control Panel Section -->
         <section class="lg:col-span-4 flex flex-col space-y-6">
 
-            <div class="glass-panel p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                    <h3 class="font-bold text-slate-800 flex items-center gap-2 text-base">
-                        <i class="fa-solid fa-microchip text-emerald-600"></i>
-                        Sensor Data (GPIO 34 ADC)
+            <div class="leather-panel p-5 rounded-2xl space-y-4">
+                <div class="flex items-center justify-between border-b pb-3" style="border-color:#c9bda0;">
+                    <h3 class="font-bold flex items-center gap-2 text-base">
+                        <span>🔧</span> Sensor Data (GPIO 34 ADC)
                     </h3>
-                    <span class="text-xs bg-slate-100 px-2.5 py-1 rounded-full text-slate-600 border border-slate-200">12-Bit ADC</span>
+                    <span class="brass-chip text-xs px-2.5 py-1 rounded-full">12-Bit ADC</span>
                 </div>
 
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center space-y-1">
-                    <span class="text-xs text-slate-500 font-medium uppercase tracking-wider">Raw Value</span>
-                    <div class="text-4xl font-extrabold text-emerald-600 font-mono tracking-tight" id="adcDisplayValue">
-                        0
+                <div class="p-4 rounded-xl text-center space-y-1" style="background:rgba(0,0,0,0.04); border:1px solid #c9bda0;">
+                    <span class="text-xs font-medium uppercase tracking-wider opacity-70">Raw Value</span>
+                    <div class="text-4xl font-extrabold font-mono tracking-tight" id="adcDisplayValue" style="color:var(--leather-dark);">0</div>
+                    <div class="w-full h-2 rounded-full overflow-hidden mt-2" style="background:#cfc5ae;">
+                        <div id="adcProgressBar" class="h-full w-0 transition-all duration-100" style="background:linear-gradient(90deg,var(--brass),var(--leather));"></div>
                     </div>
-                    <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden mt-2">
-                        <div id="adcProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-500 h-full w-0 transition-all duration-100"></div>
-                    </div>
-                    <div class="flex justify-between text-[10px] text-slate-500 font-mono pt-1">
+                    <div class="flex justify-between text-[10px] font-mono pt-1 opacity-70">
                         <span>0 (Straight)</span>
                         <span>4095 (Bent)</span>
                     </div>
                 </div>
 
                 <div class="space-y-4 pt-2">
-                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700">
-                        <label for="indexSlider" class="flex items-center gap-1.5">
-                            <i class="fa-solid fa-hand-pointer text-emerald-600"></i>
-                            Index Finger (GPIO 34 Flex)
-                        </label>
-                        <span id="sliderValText" class="font-mono text-emerald-600">0</span>
+                    <div class="flex justify-between items-center text-xs font-semibold">
+                        <label for="indexSlider" class="flex items-center gap-1.5">👆 Index Finger (GPIO 34 Flex)</label>
+                        <span id="sliderValText" class="font-mono" style="color:var(--leather-dark);">0</span>
                     </div>
-                    <input type="range" id="indexSlider" min="0" max="4095" value="0" class="w-full accent-emerald-600 bg-slate-200 h-2 rounded-lg cursor-pointer">
+                    <input type="range" id="indexSlider" min="0" max="4095" value="0" class="w-full h-2 rounded-lg cursor-pointer">
 
-                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 pt-2">
-                        <label for="otherFingersSlider" class="flex items-
+                    <div class="flex justify-between items-center text-xs font-semibold pt-2">
+                        <label for="otherFingersSlider" class="flex items-center gap-1.5">✋ Other Fingers (Combined)</label>
+                        <span id="otherSliderValText" class="font-mono" style="color:var(--leather-dark);">0</span>
+                    </div>
+                    <input type="range" id="otherFingersSlider" min="0" max="4095" value="0" class="w-full h-2 rounded-lg cursor-pointer">
+                </div>
+            </div>
+
+            <div class="leather-panel p-5 rounded-2xl space-y-3">
+                <h3 class="font-bold flex items-center gap-2 text-base border-b pb-3" style="border-color:#c9bda0;">
+                    <span>📜</span> Connection Log
+                </h3>
+                <div id="logBox" class="text-xs font-mono space-y-1 h-40 overflow-y-auto pr-1 opacity-80">
+                    <p>Waiting for ESP32 connection…</p>
+                </div>
+            </div>
+
+            <button id="testEmergencyBtn" class="btn-red py-3 rounded-xl font-semibold text-sm">🚨 Test Emergency Alert</button>
+        </section>
+    </main>
+
+    <footer class="leather-footer text-center py-6 text-sm">
+        <p>© Arpon Barman Ram | TactileKinesis Glove Project</p>
+    </footer>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "270px";
+            document.body.classList.add("nav-open");
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.body.classList.remove("nav-open");
+        }
+        function dismissEmergency() {
+            document.getElementById("emergencyAlertBox").classList.add("hidden");
+        }
+
+        /* ---------------------------------------------------------
+           NOTE: This script is a rebuilt reconstruction, not your
+           original code — part of the uploaded file was cut off
+           and the original JS could not be recovered. It gives you
+           a working 3D hand, sliders, a log, and a Web Serial
+           connection, but you may need to adjust parseSerialLine()
+           below to match exactly what your ESP32 firmware sends.
+        ----------------------------------------------------------*/
+
+        // ---------- Three.js hand model ----------
+        let scene, camera, renderer, controls;
+        let indexFingerGroup, otherFingersGroup = [];
+
+        function initScene() {
+            const container = document.getElementById('canvasContainer');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x2a2014);
+
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 1.2, 4.5);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            const ambient = new THREE.AmbientLight(0xf0d78a, 0.7);
+            scene.add(ambient);
+            const dir = new THREE.DirectionalLight(0xffffff, 0.9);
+            dir.position.set(3, 5, 4);
+            scene.add(dir);
+
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.08;
+            controls.minDistance = 2;
+            controls.maxDistance = 9;
+
+            buildHand();
+
+            document.getElementById('resetCamBtn').addEventListener('click', () => {
+                camera.position.set(0, 1.2, 4.5);
+                controls.target.set(0, 0, 0);
+            });
+
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+
+            animate();
+        }
+
+        function makeFinger(length, colorHex) {
+            const group = new THREE.Group();
+            const geo = new THREE.CylinderGeometry(0.11, 0.13, length, 10);
+            const mat = new THREE.MeshStandardMaterial({ color: colorHex, roughness: 0.55, metalness: 0.1 });
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.position.y = length / 2;
+            group.add(mesh);
+            return group;
+        }
+
+        function buildHand() {
+            const handGroup = new THREE.Group();
+
+            // Palm
+            const palmGeo = new THREE.BoxGeometry(1.4, 0.3, 1.0);
+            const palmMat = new THREE.MeshStandardMaterial({ color: 0xc9a24b, roughness: 0.5, metalness: 0.15 });
+            const palm = new THREE.Mesh(palmGeo, palmMat);
+            handGroup.add(palm);
+
+            // Index finger (driven by indexSlider)
+            indexFingerGroup = makeFinger(0.9, 0xe9d28a);
+            indexFingerGroup.position.set(-0.5, 0.15, -0.35);
+            handGroup.add(indexFingerGroup);
+// Other four fingers (driven by otherFingersSlider), spread across the palm
+            const positions = [-0.15, 0.15, 0.42, 0.68];
+            otherFingersGroup = positions.map((x) => {
+                const f = makeFinger(0.8, 0xf0d78a);
+                f.position.set(x, 0.15, -0.35);
+                handGroup.add(f);
+                return f;
+            });
+
+            // Thumb, fixed
+            const thumb = makeFinger(0.55, 0xd8b96a);
+            thumb.rotation.z = Math.PI / 3.2;
+            thumb.position.set(-0.75, 0.1, 0.2);
+            handGroup.add(thumb);
+
+            scene.add(handGroup);
+        }
+
+        function setFingerBend(group, adcValue) {
+            // 0 = straight, 4095 = fully bent
+            const t = Math.min(Math.max(adcValue / 4095, 0), 1);
+            group.rotation.x = t * (Math.PI * 0.55);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // ---------- UI: sliders drive the hand + ADC readout ----------
+        const indexSlider = document.getElementById('indexSlider');
+        const otherSlider = document.getElementById('otherFingersSlider');
+        const sliderValText = document.getElementById('sliderValText');
+        const otherSliderValText = document.getElementById('otherSliderValText');
+        const adcDisplayValue = document.getElementById('adcDisplayValue');
+        const adcProgressBar = document.getElementById('adcProgressBar');
+        const detectedGestureText = document.getElementById('detectedGestureText');
+
+        function updateFromValues(indexVal, otherVal) {
+            sliderValText.textContent = indexVal;
+            otherSliderValText.textContent = otherVal;
+            adcDisplayValue.textContent = indexVal;
+            adcProgressBar.style.width = (indexVal / 4095 * 100).toFixed(1) + '%';
+
+            if (indexFingerGroup) setFingerBend(indexFingerGroup, indexVal);
+            otherFingersGroup.forEach(f => setFingerBend(f, otherVal));
+
+            const avg = (indexVal + otherVal) / 2;
+            if (avg < 800) detectedGestureText.textContent = 'Hand Open';
+            else if (avg < 2800) detectedGestureText.textContent = 'Partial Bend';
+            else detectedGestureText.textContent = 'Fist / Closed';
+        }
+
+        indexSlider.addEventListener('input', () => {
+            updateFromValues(parseInt(indexSlider.value, 10), parseInt(otherSlider.value, 10));
+        });
+        otherSlider.addEventListener('input', () => {
+            updateFromValues(parseInt(indexSlider.value, 10), parseInt(otherSlider.value, 10));
+        });
+
+        // ---------- Web Serial: connect to the ESP32 ----------
+        let serialPort, serialReader, keepReading = false;
+
+        function logLine(text) {
+            const box = document.getElementById('logBox');
+            const p = document.createElement('p');
+            p.textContent = text;
+            box.appendChild(p);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function setConnectedUI(connected) {
+            const badge = document.getElementById('serialStatusBadge');
+            const text = document.getElementById('statusText');
+            const btn = document.getElementById('connectBtn');
+            if (connected) {
+                badge.classList.remove('status-disconnected');
+                badge.classList.add('status-connected');
+                text.textContent = 'Connected';
+                btn.querySelector('span:last-child').textContent = 'Disconnect';
+            } else {
+                badge.classList.remove('status-connected');
+                badge.classList.add('status-disconnected');
+                text.textContent = 'Disconnected';
+                btn.querySelector('span:last-child').textContent = 'Connect ESP32';
+            }
+        }
+
+        // Expected line format from the ESP32: "indexADC,otherADC"
+        // e.g. "2150,1800"  — change this parser if your firmware sends something else.
+        function parseSerialLine(line) {
+            line = line.trim();
+            if (!line) return;
+            if (line.toUpperCase() === 'SOS') {
+                document.getElementById('emergencyAlertBox').classList.remove('hidden');
+                return;
+            }
+            const parts = line.split(',');
+            if (parts.length >= 2) {
+                const indexVal = parseInt(parts[0], 10);
+                const otherVal = parseInt(parts[1], 10);
+                if (!isNaN(indexVal) && !isNaN(otherVal)) {
+                    indexSlider.value = indexVal;
+                    otherSlider.value = otherVal;
+                    updateFromValues(indexVal, otherVal);
+                }
+            }
+        }
+
+        async function connectSerial() {
+            if (!('serial' in navigator)) {
+                logLine('This browser does not support Web Serial. Use desktop Chrome or Edge.');
+                alert('Web Serial is not supported in this browser. Please use desktop Chrome or Edge.');
+                return;
+            }
+            try {
+                serialPort = await navigator.serial.requestPort();
+                await serialPort.open({ baudRate: 115200 });
+                setConnectedUI(true);
+                logLine('Connected to ESP32.');
+                keepReading = true;
+                readSerialLoop();
+            } catch (err) {
+                logLine('Connection failed: ' + err.message);
+            }
+        }
+
+        async function disconnectSerial() {
+            keepReading = false;
+            try {
+                if (serialReader) {
+                    await serialReader.cancel();
+                }
+                if (serialPort) {
+                    await serialPort.close();
+                }
+            } catch (err) {
+                logLine('Disconnect error: ' + err.message);
+            }
+            setConnectedUI(false);
+            logLine('Disconnected.');
+        }
+
+        async function readSerialLoop() {
+            const textDecoder = new TextDecoderStream();
+            const readableStreamClosed = serialPort.readable.pipeTo(textDecoder.writable);
+            serialReader = textDecoder.readable.getReader();
+            let buffer = '';
+
+            try {
+                while (keepReading) {
+                    const { value, done } = await serialReader.read();
+                    if (done) break;
+                    buffer += value;
+                    let lines = buffer.split('\n');
+                    buffer = lines.pop();
+                    lines.forEach(parseSerialLine);
+                }
+            } catch (err) {
+                logLine('Read error: ' + err.message);
+            } finally {
+                serialReader.releaseLock();
+            }
+        }
+
+        document.getElementById('connectBtn').addEventListener('click', () => {
+            if (serialPort) {
+                disconnectSerial();
+                serialPort = null;
+            } else {
+                connectSerial();
+            }
+        });
+
+        document.getElementById('testEmergencyBtn').addEventListener('click', () => {
+            document.getElementById('emergencyAlertBox').classList.remove('hidden');
+        });
+
+        // ---------- Start ----------
+        initScene();
+    </script>
+
+</body>
+</html>
+
+           
