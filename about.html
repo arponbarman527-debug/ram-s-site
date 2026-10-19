@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Me | Arpon Barman Ram</title>
+    <title>Projects | Arpon Barman Ram</title>
     <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,7 +36,7 @@
         a { color: inherit; }
         a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-        .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 50px; }
+        .wrap { max-width: 900px; margin: 0 auto; padding: 0 20px 50px; }
 
         .neo {
             background: var(--bg);
@@ -119,45 +119,90 @@
         .plate {
             display: inline-block;
             max-width: 100%;
-            padding: 30px 44px;
+            padding: 28px 40px;
             border-radius: 28px;
         }
         header h1 { font-size: clamp(1.9rem, 5.5vw, 2.6rem); color: var(--text); }
+        header p { margin: 10px 0 0; color: var(--text-dim); font-weight: 500; }
 
-        /* ---------- Cards ---------- */
-        .panel { margin: 26px 0; padding: 32px 30px; text-align: left; }
-        .panel h2 { font-size: 1.3rem; color: var(--text); margin-bottom: 16px; }
-        .panel p, .panel li { margin: 0 0 10px; color: var(--text-dim); line-height: 1.75; }
-        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
-        .panel ul { padding-left: 22px; margin-top: 0; }
-        .panel strong { color: var(--text); }
+        section { padding: 40px 0; }
 
-        .image-container { display: flex; flex-direction: row; gap: 10px; margin-bottom: 20px; }
-        .image-container .frame { padding: 10px; border-radius: 20px; width: 50%; }
-        .image-container img { display: block; width: 100%; height: 220px; object-fit: cover; border-radius: 12px; }
+        /* ---------- Project grid ---------- */
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+
+        .project-card {
+            padding: 26px 24px;
+            border-radius: var(--radius);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        .card-icon {
+            font-size: 1.4rem;
+            width: 48px; height: 48px;
+            display: grid; place-content: center;
+            border-radius: 16px;
+            flex: none;
+        }
+
+        .project-card h2 { color: var(--text); margin: 0; font-size: 1.25rem; }
+        .project-card p { color: var(--text-dim); line-height: 1.65; font-size: 0.96rem; margin: 0 0 18px; }
+
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tech-badge {
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 999px;
+            font-size: 0.74rem;
+            font-weight: 700;
+        }
+
+        .btn-container { margin-top: auto; }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 13px 0;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.96rem;
+            color: var(--accent);
+            border-radius: 999px;
+            box-sizing: border-box;
+            background: var(--bg);
+            box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+            transition: box-shadow 0.15s ease;
+        }
+        .btn:active { box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); }
 
         .back-btn {
             display: inline-block;
+            margin-top: 30px;
+            padding: 14px 32px;
+            text-decoration: none;
             font-weight: 700;
             font-size: 0.98rem;
-            padding: 14px 32px;
-            border-radius: 999px;
-            cursor: pointer;
             color: var(--accent);
-            text-decoration: none;
+            border-radius: 999px;
             background: var(--bg);
             box-shadow: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light);
             transition: box-shadow 0.15s ease;
         }
         .back-btn:active { box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light); }
 
-        footer { margin: 30px 0 10px; padding: 26px 28px; text-align: center; color: var(--text-dim); }
+        footer { margin: 10px 0 10px; padding: 26px 28px; text-align: center; color: var(--text-dim); }
         footer p { margin: 0; }
 
         @media (max-width: 560px) {
-            .plate { padding: 24px 24px; }
-            .panel { padding: 26px 22px; }
-            .image-container img { height: 150px; }
+            .plate { padding: 22px 22px; }
+            .project-card { padding: 22px 20px; }
         }
     </style>
 </head>
@@ -179,46 +224,53 @@
 
         <header>
             <div class="plate neo">
-                <h1>About Me</h1>
+                <h1>My Projects</h1>
+                <p>A showcase of my robotics, hardware, and web development projects.</p>
             </div>
         </header>
 
         <section>
-            <!-- Personal Biography -->
-            <div class="panel neo">
-                <h2>Biography</h2>
+            <div class="projects-grid">
 
-                <div class="image-container">
-                    <div class="frame neo-in"><img src="IMG_20260520_135639.jpg" alt="My Photo 1"></div>
-                    <div class="frame neo-in"><img src="IMG_20260413_202503_727.webp" alt="My Photo 2"></div>
+                <!-- Project 1: TactileKinesis Glove -->
+                <div class="project-card neo">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-icon neo-in" aria-hidden="true">🧤</span>
+                            <h2>TactileKinesis Glove</h2>
+                        </div>
+                        <p>An interactive 3D visualizer &amp; sign language interpretation project utilizing ESP32, Flex Sensors, and Web Serial API with Three.js graphics.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge neo-in">ESP32</span>
+                            <span class="tech-badge neo-in">Three.js</span>
+                            <span class="tech-badge neo-in">Web Serial API</span>
+                            <span class="tech-badge neo-in">Tailwind CSS</span>
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <a href="TactileKinesis Glove Control.html" class="btn"><span aria-hidden="true">👁️</span> Launch Visualizer</a>
+                    </div>
                 </div>
 
-                <p>I am <strong>Arpon Barman Ram</strong>. I am currently studying in the science stream. Alongside my academic studies, exploring new technologies and building websites are my passions.</p>
-                <p><strong>Date of Birth:</strong> November 13, 2008</p>
-            </div>
+                <!-- Project 2: Magic of Plasminogen -->
+                <div class="project-card neo">
+                    <div>
+                        <div class="card-header">
+                            <span class="card-icon neo-in" aria-hidden="true">💊</span>
+                            <h2>Magic of Plasminogen</h2>
+                        </div>
+                        <p>A specialized medical presentation project highlighting the therapeutic applications and mechanisms of Plasminogen.</p>
+                        <div class="tech-stack">
+                            <span class="tech-badge neo-in">Medical Research</span>
+                            <span class="tech-badge neo-in">Presentation</span>
+                            <span class="tech-badge neo-in">Plasmin</span>
+                        </div>
+                    </div>
+                    <div class="btn-container">
+                        <a href="https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true" target="_blank" class="btn"><span aria-hidden="true">📊</span> View Presentation</a>
+                    </div>
+                </div>
 
-            <!-- Academic Background -->
-            <div class="panel neo">
-                <h2>Education</h2>
-                <p><strong>Group:</strong> Science</p>
-                <p><strong>Favorite Subjects:</strong> Mathematics, Physics, and Computer Science.</p>
-                <p><strong>SSC-25 Result:</strong> GPA 5.00</p>
-                <p><strong>PEC-19 Result:</strong> GPA 5.00</p>
-            </div>
-
-            <!-- Certificates -->
-            <div class="panel neo">
-                <h2>Certificates</h2>
-                <p>Certificate details or images will be updated here soon.</p>
-            </div>
-
-            <!-- Interests & Hobbies -->
-            <div class="panel neo">
-                <h2>Interests &amp; Hobbies</h2>
-                <ul>
-                    <li>Web Development &amp; Programming</li>
-                    <li>Gardening &amp; Caring for Plants</li>
-                </ul>
             </div>
 
             <div style="text-align: center;">
@@ -245,4 +297,5 @@
     </script>
 
 </body>
-</html>
+                            </html>
+        
