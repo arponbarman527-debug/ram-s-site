@@ -1,308 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Arpon Barman's personal portfolio website.">
-    <meta name="keywords" content="Arpon Barman, Arpon Barman Ram, Arpon, Ram, Ram's site, Web Developer Bangladesh">
-    <meta name="google-site-verification" content="b2b4gw2tKCJuuOiaYR6PSyXOWs3xlKbRfCGWvH6fEUM" />
-
-    <!-- Google & Social Media Site Name -->
-    <meta property="og:site_name" content="Arpon Barman Ram's Website">
-    <meta property="og:title" content="ॐ नमः शिवायः Arpon Barman Ram's Website">
-    <meta property="og:description" content="Welcome, I'm Arpon Barman Ram. It's My Personal Portfolio Website">
-    <title>ॐ नमः शिवायः Arpon Barman Ram's Website</title>
-    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
-    <link rel="icon" type="image/png" sizes="48x48" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
-    <link rel="shortcut icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
-
-    <!-- Google Search Engine Schema for Favicon/Logo & Site Name -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Arpon Barman Ram's Website",
-      "url": "https://arponbarman527-debug.github.io/ram-s-site/",
-      "image": "https://arponbarman527-debug.github.io/ram-s-site/favicon.png"
-    }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --bg: #e6e8ec;
-            --text: #3a3d46;
-            --text-dim: #6e7280;
-            --accent: #5b6ee8;
-            --shadow-dark: #c2c5cc;
-            --shadow-light: #ffffff;
-            --radius: 24px;
-        }
-
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            font-family: 'Poppins', 'Segoe UI', Tahoma, sans-serif;
-            color: var(--text);
-            background: var(--bg);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3 { margin: 0; font-weight: 700; }
-        a { color: inherit; }
-        a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-        .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px 50px; }
-
-        /* ---------- Core neomorphic surface: raised ---------- */
-        .neo {
-            background: var(--bg);
-            border-radius: var(--radius);
-            box-shadow:
-                9px 9px 18px var(--shadow-dark),
-                -9px -9px 18px var(--shadow-light);
-        }
-
-        /* Pressed / inset surface */
-        .neo-in {
-            background: var(--bg);
-            border-radius: var(--radius);
-            box-shadow:
-                inset 6px 6px 12px var(--shadow-dark),
-                inset -6px -6px 12px var(--shadow-light);
-        }
-
-        /* ---------- Menu ---------- */
-        .menu-icon {
-            position: fixed;
-            top: 18px; left: 18px;
-            z-index: 20;
-            width: 52px; height: 52px;
-            border-radius: 16px;
-            display: grid;
-            place-content: center;
-            cursor: pointer;
-            font-size: 22px;
-            color: var(--text);
-            background: var(--bg);
-            box-shadow: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light);
-            transition: box-shadow 0.15s ease;
-            user-select: none;
-        }
-        .menu-icon:active {
-            box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
-        }
-
-        .sidenav {
-            height: 100%;
-            width: 0;
-            max-width: 86vw;
-            position: fixed;
-            z-index: 25;
-            top: 0; left: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            transition: width 0.35s ease;
-            padding-top: 90px;
-            text-align: left;
-            background: var(--bg);
-            box-shadow: 10px 0 24px rgba(0,0,0,0.12);
-        }
-        .sidenav a {
-            display: block;
-            margin: 10px 16px;
-            padding: 14px 20px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            color: var(--text);
-            background: var(--bg);
-            box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
-            white-space: normal;
-            line-height: 1.3;
-            transition: box-shadow 0.15s ease;
-        }
-        .sidenav a:hover { color: var(--accent); }
-        .sidenav a:active {
-            box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
-        }
-        .sidenav .closebtn {
-            position: absolute;
-            top: 16px; right: 16px;
-            font-size: 20px;
-            width: 42px; height: 42px;
-            display: grid; place-content: center;
-            border-radius: 50%;
-            color: var(--text);
-            background: var(--bg);
-            box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
-            cursor: pointer;
-        }
-        body.nav-open .menu-icon { opacity: 0; pointer-events: none; }
-
-        /* ---------- Header ---------- */
-        header { padding: 100px 18px 30px; text-align: center; }
-        .plate {
-            display: inline-block;
-            max-width: 100%;
-            padding: 42px 44px;
-            border-radius: 30px;
-        }
-        header h1 { font-size: clamp(1.9rem, 5.5vw, 2.8rem); color: var(--text); }
-        header p { margin: 14px 0 0; color: var(--text-dim); font-weight: 500; }
-
-        /* ---------- Sections ---------- */
-        section { margin: 26px 0; padding: 34px 32px; text-align: left; }
-        section h2 {
-            font-size: 1.35rem;
-            color: var(--text);
-            margin-bottom: 16px;
-        }
-        section p { margin: 0; color: var(--text-dim); line-height: 1.75; }
-
-        /* Photo: sits in an inset frame */
-        #gallery .photo-frame {
-            padding: 14px;
-            border-radius: 22px;
-            margin-bottom: 16px;
-        }
-        #gallery img {
-            display: block;
-            width: 100%;
-            border-radius: 14px;
-        }
-        #gallery p { font-style: italic; }
-
-        /* Skills: soft raised pills */
-        .skills { display: flex; flex-wrap: wrap; gap: 14px; }
-        .skills span {
-            padding: 11px 24px;
-            border-radius: 999px;
-            font-weight: 600;
-            color: var(--accent);
-            box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
-        }
-
-        /* Project card: inset pocket */
-        .project-card { padding: 26px 28px; border-radius: 20px; }
-        .project-card h3 { font-size: 1.25rem; color: var(--text); margin-bottom: 8px; }
-        .project-card p { margin-bottom: 22px; }
-
-        /* Button: raised, presses to inset */
-        button {
-            font: inherit;
-            font-weight: 700;
-            font-size: 0.98rem;
-            padding: 14px 32px;
-            border: none;
-            border-radius: 999px;
-            cursor: pointer;
-            color: var(--accent);
-            background: var(--bg);
-            box-shadow: 7px 7px 14px var(--shadow-dark), -7px -7px 14px var(--shadow-light);
-            transition: box-shadow 0.15s ease, transform 0.1s ease;
-        }
-        button:active {
-            box-shadow: inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light);
-        }
-
-        /* ---------- Footer ---------- */
-        footer {
-            margin: 30px 0 10px;
-            padding: 26px 28px;
-            text-align: center;
-            color: var(--text-dim);
-        }
-        footer a { color: var(--accent); font-weight: 600; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
-        footer p { margin: 0; line-height: 1.9; }
-
-        @media (max-width: 560px) {
-            .plate { padding: 30px 24px; }
-            section { padding: 26px 22px; }
-        }
-    </style>
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
+<title>Home | Arpon Barman Ram</title><link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png"><link rel="stylesheet" href="style.css"></head>
 <body>
-
-    <!-- Menu Icon -->
-    <div class="menu-icon neo" onclick="openNav()" aria-label="Open menu">&#9776;</div>
-
-    <!-- Sidebar Panel -->
-    <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="index.html">Home</a>
-        <a href="about.html">About Me</a>
-        <a href="projects.html">Projects</a>
-        <a href="TactileKinesis Glove Control.html">TactileKinesis Glove Control</a>
-    </div>
-
-    <div class="wrap">
-
-        <header>
-            <div class="plate neo">
-                <h1>Welcome, I'm Arpon Barman Ram</h1>
-                <p>I am studying in the science department and I love coding.</p>
-            </div>
-        </header>
-
-        <section id="about" class="neo">
-            <h2>About Me</h2>
-            <p>I am currently studying in college. Along with my studies, I like building websites, drawing, playing games, and gardening.</p>
-        </section>
-
-        <section id="gallery" class="neo">
-            <h2>My Gallery</h2>
-            <div class="photo-frame neo-in">
-                <img src="atar%20color%20thik%20kora.png" alt="My Photo">
-            </div>
-            <p>This is a picture of one of our beautiful moments.</p>
-        </section>
-
-        <section id="skills" class="neo">
-            <h2>My Skills</h2>
-            <div class="skills">
-                <span class="neo">HTML</span>
-                <span class="neo">Mathematics</span>
-                <span class="neo">Physics</span>
-                <span class="neo">Drawing</span>
-                <span class="neo">Basic Cooking</span>
-            </div>
-        </section>
-
-        <section id="projects" class="neo">
-            <h2>My Projects</h2>
-            <div class="project-card neo-in">
-                <h3>Magic of Plasminogen</h3>
-                <p>A small medical project created using Plasmin.</p>
-                <button class="neo" onclick="window.open('https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true', '_blank')">View Project</button>
-            </div>
-        </section>
-
-        <footer class="neo">
-            <p>Contact:<p><a href="mailto:arponbarman527@gmail.com"><p>📧arponbarman527@gmail.com</p></a></p><br>📞WhatsApp:<a href="https://wa.me/8801798021050">+8801798021050</a></p>
-        </footer>
-
-    </div>
-
-    <script src="session-tracker.js"></script>
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "270px";
-            document.body.classList.add("nav-open");
-        }
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-            document.body.classList.remove("nav-open");
-        }
-    </script>
-
-</body>
-    </html>
-                
+<header class="topbar">
+  <a class="brand" href="index.html"><span class="brand-mark">AB</span><span>Arpon Barman Ram</span></a>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  <nav class="nav ">
+    <a class="active" href="index.html">Home</a>
+    <a class="" href="about.html">About Me</a>
+    <a class="" href="projects.html">Projects</a>
+    <a class="" href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+  </nav>
+</header>
+<main class="shell">
+<section class="hero">
+ <div>
+  <span class="eyebrow">✦ Welcome to my portfolio</span>
+  <h1>Hello, I'm<br><span class="gradient-text">Arpon Barman Ram</span></h1>
+  <p>Science student, web developer, and technology enthusiast. I love coding, exploring new ideas, building websites, and creating projects that bring technology to life.</p>
+  <div class="hero-actions"><a class="btn btn-primary" href="projects.html">Explore My Projects →</a><a class="btn btn-secondary" href="about.html">About Me</a></div>
+  <div class="socials"><a href="mailto:arponbarman527@gmail.com" aria-label="Email">✉</a><a href="https://wa.me/8801798021050" aria-label="WhatsApp">☎</a><a href="projects.html" aria-label="Projects">⌘</a></div>
+ </div>
+ <div class="hero-image-wrap glass">
+  <img class="hero-image" src="atar%20color%20thik%20kora.png" alt="Arpon Barman Ram" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+  <div class="hero-image image-placeholder" style="display:none">👨🏻‍💻</div>
+  <div class="float-tag">✦ Build. Learn. Repeat.</div>
+ </div>
+</section>
+<section class="section">
+ <div class="section-heading"><h2>What I’m into</h2><p>A few things that keep me curious.</p></div>
+ <div class="grid">
+  <article class="feature glass"><div class="icon-box">⌨️</div><h3>Coding & Web</h3><p>Building websites and learning how software works, one project at a time.</p></article>
+  <article class="feature glass"><div class="icon-box">🤖</div><h3>Robotics</h3><p>Exploring sensors, microcontrollers, and useful technology ideas.</p></article>
+  <article class="feature glass"><div class="icon-box">📐</div><h3>Science & Design</h3><p>Enjoying mathematics, physics, creative design, and problem-solving.</p></article>
+ </div>
+</section>
+<section class="section">
+ <div class="section-heading"><h2>Featured project</h2><p>Technology with a purpose.</p></div>
+ <article class="info-card glass glove-hero">
+  <div><span class="eyebrow">Robotics · Accessibility</span><h2 style="font-size:1.8rem;margin:14px 0 8px">TactileKinesis Glove</h2><p class="lead">An ESP32-based glove concept that uses flex sensors and a 3D visualizer to explore hand-gesture interpretation and more accessible communication.</p><a class="btn btn-primary" href="TactileKinesis Glove Control.html">View Project →</a></div>
+  <div class="glove-art" aria-label="Glove illustration">🦾</div>
+ </article>
+</section>
+</main>
+<footer><div class="shell">© <span data-year></span> Arpon Barman Ram · Built with curiosity and code</div></footer>
+<script src="script.js"></script></body></html>
