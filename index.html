@@ -1,49 +1,194 @@
-<!doctype html>
-<html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
-<title>Home | Arpon Barman Ram</title><link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png"><link rel="stylesheet" href="style.css"></head>
-<body>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="description" content="Arpon Barman's personal portfolio website.">  
+    <meta name="keywords" content="Arpon Barman, Arpon Barman Ram, Arpon, Ram, Ram's site, Web Developer Bangladesh">  
+    <meta name="google-site-verification" content="b2b4gw2tKCJuuOiaYR6PSyXOWs3xlKbRfCGWvH6fEUM" />  
+    
+    <!-- Google & Social Media Site Name -->  
+    <meta property="og:site_name" content="Arpon Barman Ram's Website">  
+    <meta property="og:title" content="ॐ नमः शिवायः Arpon Barman Ram's Website">  
+    <meta property="og:description" content="Welcome, I'm Arpon Barman Ram. It's My Personal Portfolio Website">  
+    
+    <title>ॐ नमः शिवायः Arpon Barman Ram's Website</title>  
+    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">  
+    <link rel="icon" type="image/png" sizes="48x48" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">  
+    <link rel="shortcut icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">  
+
+    <!-- Google Search Engine Schema for Favicon/Logo & Site Name -->  
+    <script type="application/ld+json">  
+    {  
+      "@context": "https://schema.org",  
+      "@type": "WebSite",  
+      "name": "Arpon Barman Ram's Website",  
+      "url": "https://arponbarman527-debug.github.io/ram-s-site/",  
+      "image": "https://arponbarman527-debug.github.io/ram-s-site/favicon.png"  
+    }  
+    </script>  
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">  
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">  
+    <link rel="stylesheet" href="style.css">
+</head>  
+<body>  
+
+<!-- Menu Icon for Mobile -->  
+<div class="menu-icon neo" onclick="openNav()" aria-label="Open menu">&#9776;</div>  
+
+<!-- Sidebar Panel -->  
+<div id="mySidenav" class="sidenav">  
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>  
+    <a href="index.html" class="active">Home</a>  
+    <a href="about.html">About Me</a>  
+    <a href="projects.html">Projects</a>  
+    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>  
+</div>  
+
+<!-- Top Navigation Bar -->
 <header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-mark">ABR</span><span>Arpon Barman Ram</span></a>
-  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-  <nav class="nav ">
+  <a class="brand" href="index.html"><span class="brand-mark">AB</span><span>Arpon Barman Ram</span></a>
+  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="openNav()">☰</button>
+  <nav class="nav">
     <a class="active" href="index.html">Home</a>
-    <a class="" href="about.html">About Me</a>
-    <a class="" href="projects.html">Projects</a>
-    <a class="" href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
   </nav>
 </header>
+
 <main class="shell">
-<section class="hero">
- <div>
-  <span class="eyebrow">✦ Welcome to my portfolio</span>
-  <h1>Hello, I'm<br><span class="gradient-text">Arpon Barman Ram</span></h1>
-  <p>Science student, web developer, and technology enthusiast. I love coding, exploring new ideas, building websites, and creating projects that bring technology to life.</p>
-  <div class="hero-actions"><a class="btn btn-primary" href="projects.html">Explore My Projects →</a><a class="btn btn-secondary" href="about.html">About Me</a></div>
-  <div class="socials"><a href="mailto:arponbarman527@gmail.com" aria-label="Email">✉</a><a href="https://wa.me/8801798021050" aria-label="WhatsApp">☎</a><a href="projects.html" aria-label="Projects">⌘</a></div>
- </div>
- <div class="hero-image-wrap glass">
-  <img class="hero-image" src="atar%20color%20thik%20kora.png" alt="Arpon Barman Ram" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
-  <div class="hero-image image-placeholder" style="display:none">👨🏻‍💻</div>
-  <div class="float-tag">✦ Build. Learn. Repeat.</div>
- </div>
-</section>
-<section class="section">
- <div class="section-heading"><h2>What I’m into</h2><p>A few things that keep me curious.</p></div>
- <div class="grid">
-  <article class="feature glass"><div class="icon-box">⌨️</div><h3>Coding & Web</h3><p>Building websites and learning how software works, one project at a time.</p></article>
-  <article class="feature glass"><div class="icon-box">🤖</div><h3>Robotics</h3><p>Exploring sensors, microcontrollers, and useful technology ideas.</p></article>
-  <article class="feature glass"><div class="icon-box">📐</div><h3>Science & Design</h3><p>Enjoying mathematics, physics, creative design, and problem-solving.</p></article>
- </div>
-</section>
-<section class="section">
- <div class="section-heading"><h2>Featured project</h2><p>Technology with a purpose.</p></div>
- <article class="info-card glass glove-hero">
-  <div><span class="eyebrow">Robotics · Accessibility</span><h2 style="font-size:1.8rem;margin:14px 0 8px">TactileKinesis Glove</h2><p class="lead">An ESP32-based glove concept that uses flex sensors and a 3D visualizer to explore hand-gesture interpretation and more accessible communication.</p><a class="btn btn-primary" href="TactileKinesis Glove Control.html">View Project →</a></div>
-  <div class="glove-art" aria-label="Glove illustration">🦾</div>
- </article>
-</section>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div>
+            <span class="eyebrow">👋 Welcome to my portfolio</span>
+            <h1>Hi, I'm <br><span class="gradient-text">Arpon Barman Ram</span></h1>
+            <p>A Science Student &nbsp;|&nbsp; Web Developer &nbsp;|&nbsp; Creator</p>
+            <p class="lead" style="margin-top:14px">I'm passionate about technology, coding, and building innovative projects. Welcome to my personal portfolio website!</p>
+            <div class="hero-actions">
+                <a href="projects.html" class="btn btn-primary">View My Projects →</a>
+                <a href="about.html" class="btn btn-secondary">About Me</a>
+            </div>
+            <div class="socials">
+                <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+                <a href="https://youtube.com" target="_blank" rel="noopener">▶️</a>
+                <a href="mailto:arponbarman527@gmail.com">✉️</a>
+            </div>
+        </div>
+        <div class="hero-image-wrap glass">
+            <img src="atar%20color%20thik%20kora.png" alt="Arpon Barman Ram" class="hero-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+            <div class="image-placeholder" style="display:none">👨‍💻</div>
+            <div class="float-tag">👑 Creator & Developer</div>
+        </div>
+    </section>
+
+    <!-- Quick Info Cards Bar -->
+    <section class="section" style="padding: 10px 0 30px;">
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
+            <div class="feature glass" style="text-align: center; padding: 18px;">
+                <div class="icon-box" style="margin: 0 auto 10px;">🎓</div>
+                <h3 style="font-size:0.95rem">Science Student</h3>
+                <p style="font-size:0.78rem">Learning & Growing</p>
+            </div>
+            <div class="feature glass" style="text-align: center; padding: 18px;">
+                <div class="icon-box" style="margin: 0 auto 10px;">💻</div>
+                <h3 style="font-size:0.95rem">Web Developer</h3>
+                <p style="font-size:0.78rem">HTML · CSS · JS</p>
+            </div>
+            <div class="feature glass" style="text-align: center; padding: 18px;">
+                <div class="icon-box" style="margin: 0 auto 10px;">🧠</div>
+                <h3 style="font-size:0.95rem">Problem Solver</h3>
+                <p style="font-size:0.78rem">Think · Build · Improve</p>
+            </div>
+            <div class="feature glass" style="text-align: center; padding: 18px;">
+                <div class="icon-box" style="margin: 0 auto 10px;">🌱</div>
+                <h3 style="font-size:0.95rem">Nature Lover</h3>
+                <p style="font-size:0.78rem">Gardening & Peace</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="section">
+        <div class="section-heading" style="text-align: left; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px;">
+            <div>
+                <span class="eyebrow" style="margin-bottom: 8px;">My Work</span>
+                <h2>Featured Projects</h2>
+                <p>Some of the key projects I've worked on. Each project represents my learning and passion for technology.</p>
+            </div>
+            <a href="projects.html" class="btn btn-secondary" style="font-size: 0.8rem;">View All Projects →</a>
+        </div>
+
+        <div class="grid" style="margin-top: 25px;">
+            <!-- Project 1 -->
+            <article class="project-card glass">
+                <div class="project-image project-icon-image">🦾</div>
+                <h3>TactileKinesis Glove Control</h3>
+                <p>An interactive 3D visualizer & sign language interpreter using ESP32, Flex Sensors and Web Serial API.</p>
+                <div class="chips">
+                    <span class="chip">ESP32</span>
+                    <span class="chip">Three.js</span>
+                    <span class="chip">Web Serial</span>
+                </div>
+                <a class="btn btn-primary" href="TactileKinesis Glove Control.html">Open Project →</a>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card glass">
+                <div class="project-image project-icon-image">🧬</div>
+                <h3>Magic of Plasminogen</h3>
+                <p>A specialized medical presentation project highlighting the therapeutic applications and mechanisms.</p>
+                <div class="chips">
+                    <span class="chip">Medical Research</span>
+                    <span class="chip">Presentation</span>
+                </div>
+                <a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true">View Presentation ↗</a>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card glass">
+                <div class="project-image project-icon-image">📈</div>
+                <h3>Mathematical Modeling of Epidemic Spread</h3>
+                <p>An analytical project applying mathematical models to simulate epidemic curves and forecast transmission trends.</p>
+                <div class="chips">
+                    <span class="chip">Mathematical Modeling</span>
+                    <span class="chip">Epidemiology</span>
+                </div>
+                <a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/126YoHC2vyQuRYYaF3kqBihZD0PdqlN7ceXKFG0ygB7U/edit?usp=sharing">View Presentation ↗</a>
+            </article>
+        </div>
+    </section>
+
 </main>
-<footer><div class="shell">© <span data-year></span> Arpon Barman Ram · Built with curiosity and code</div></footer>
-<script src="script.js"></script> <script src="session-tracker.js"></script></body></html>
+
+<footer>
+    <div class="shell">
+        <p>© <span data-year>2025</span> Arpon Barman Ram &nbsp;|&nbsp; Built with ❤️ and curiosity</p>
+        <div class="socials" style="justify-content: center; margin-top: 15px;">
+            <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+            <a href="https://youtube.com" target="_blank" rel="noopener">▶️</a>
+            <a href="mailto:arponbarman527@gmail.com">✉️</a>
+        </div>
+    </div>
+</footer>
+
+<script src="session-tracker.js"></script>  
+<script>  
+    function openNav() {  
+        document.getElementById("mySidenav").style.width = "270px";  
+        document.body.classList.add("nav-open");  
+    }  
+    function closeNav() {  
+        document.getElementById("mySidenav").style.width = "0";  
+        document.body.classList.remove("nav-open");  
+    }  
+</script>
+
+</body>  
+  </html>
+      
