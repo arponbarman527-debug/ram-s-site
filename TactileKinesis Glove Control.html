@@ -1,42 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
-<title>TactileKinesis Glove | Arpon Barman Ram</title><link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png"><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TactileKinesis Glove Control - ESP32 and Flex Sensor 3D Visualizer Project by Arpon Barman Ram.">
+    <title>TactileKinesis Glove | Arpon Barman Ram</title>
+    <link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
+
+<!-- Mobile Dropdown Menu (Positioned Below Topbar) -->
+<div id="mySidenav" class="sidenav">
+    <div class="sidenav-content">
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="TactileKinesis Glove Control.html" class="active">TactileKinesis Glove</a>
+    </div>
+</div>
+
+<!-- Header Topbar Navigation -->
 <header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-mark">ABR</span><span>Arpon Barman Ram</span></a>
-  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-  <nav class="nav ">
-    <a class="" href="index.html">Home</a>
-    <a class="" href="about.html">About Me</a>
-    <a class="" href="projects.html">Projects</a>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">ABR</span>
+    <div>
+        <div style="font-weight: 800; line-height: 1.1;">Arpon Barman Ram</div>
+        <div style="font-size: 0.68rem; color: var(--muted); font-weight: 500;">Dream · Code · Create</div>
+    </div>
+  </a>
+
+  <!-- PC Menu Options -->
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
     <a class="active" href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
   </nav>
+
+  <!-- Mobile Toggle Button -->
+  <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
 </header>
+
 <main class="shell">
-<section class="page-heading"><div class="glass"><span class="eyebrow"><h1><align="center">It's just a prototype. Project is processing.</align></h1></span></div></section>
-  <section class="page-heading"><div class="glass"><span class="eyebrow">Robotics & Web Development</span><h1>TactileKinesis Glove</h1><p class="lead">3D Visualizer · Hand gesture interpretation concept</p></div></section>
-<section class="glass info-card glove-hero">
- <div><h2 style="font-size:1.65rem;margin-bottom:12px">Technology for more accessible communication</h2><p class="lead">This project explores a smart glove concept using an ESP32 and flex sensors to detect finger bending, with a browser-based visualizer showing sensor values and a 3D hand model.</p><div class="hero-actions"><a class="btn btn-primary" href="#visualizer">Try Demo</a><a class="btn btn-secondary" href="projects.html">Back to Projects</a></div></div>
- <div class="glove-art">🦾</div>
-</section>
-<section class="section"><div class="section-heading"><h2>Core technologies</h2><p>Tools planned or used in this project.</p></div>
- <div class="tech-grid"><div class="tech-item"><span>🔌</span>ESP32</div><div class="tech-item"><span>🖐️</span>Flex Sensors</div><div class="tech-item"><span>🧊</span>Three.js</div><div class="tech-item"><span>📡</span>Web Serial API</div></div>
-</section>
-<section id="visualizer" class="glass info-card"><h2>Sensor Demo</h2><p class="lead">Use the sliders to preview finger-bend values. This demo works without an ESP32 connected.</p>
- <div class="two-col" style="margin-top:20px">
-  <div class="info-card" style="background:rgba(232,241,255,.72);box-shadow:none"><label for="indexRange"><strong>Index finger</strong> <span id="indexValue">0</span></label><input id="indexRange" type="range" min="0" max="4095" value="0" style="width:100%;accent-color:#3478f6;margin:20px 0"><label for="otherRange"><strong>Other fingers</strong> <span id="otherValue">0</span></label><input id="otherRange" type="range" min="0" max="4095" value="0" style="width:100%;accent-color:#3478f6;margin:20px 0"><p>Gesture: <strong id="gesture">Hand Open</strong></p></div>
-  <div class="glove-art" id="handPreview" style="font-size:6rem;transition:transform .2s">🖐️</div>
- </div>
- <p class="small-muted">Note: this is a visual demo, not a validated sign-language translator. ESP32 serial integration can be added after matching the firmware data format.</p>
-</section>
-<div class="back-row"><a class="btn btn-secondary" href="projects.html">← Back to Projects</a></div>
-<script>
-const ir=document.getElementById('indexRange'),or=document.getElementById('otherRange');
-function refresh(){const a=+ir.value,b=+or.value,avg=(a+b)/2;document.getElementById('indexValue').textContent=a;document.getElementById('otherValue').textContent=b;document.getElementById('gesture').textContent=avg<800?'Hand Open':avg<2800?'Partial Bend':'Fist / Closed';document.getElementById('handPreview').style.transform='rotate('+(avg/4095*18-9)+'deg)';}
-ir.addEventListener('input',refresh);or.addEventListener('input',refresh);
-</script>
+
+    <!-- Notice Banner -->
+    <div style="margin: 25px 0 15px; text-align: center;">
+        <span class="eyebrow" style="background: rgba(255, 230, 200, 0.7); border-color: #ffd8a8; color: #d97706; padding: 8px 18px; font-size: 0.85rem;">
+            ⚠️ It's just a prototype. Project is processing.
+        </span>
+    </div>
+
+    <!-- Hero Section Grid -->
+    <section class="hero-grid" style="padding-top: 10px;">
+        <div class="hero-left">
+            <span class="eyebrow">🤖 Robotics & Web Development</span>
+            <h1>TactileKinesis <br><span class="gradient-text">Glove Control</span></h1>
+            <p class="subtitle"><strong>Feel</strong> &nbsp;·&nbsp; <strong>Interact</strong> &nbsp;·&nbsp; <strong>Control</strong></p>
+            <p class="lead">An interactive 3D visualizer & sign language interpreter project concept using ESP32, Flex Sensors, and Web Serial API for accessible communication.</p>
+            
+            <div class="hero-actions">
+                <a href="#visualizer" class="btn btn-primary">⚡ Try Demo</a>
+                <a href="projects.html" class="btn btn-secondary">← Back to Projects</a>
+            </div>
+        </div>
+
+        <div class="hero-center">
+            <div class="hero-image-frame" style="max-width: 360px;">
+                <img src="glove.jpg" alt="TactileKinesis Glove" class="hero-img" onerror="this.src='glove.jpg'">
+                <div class="hero-signature">TactileKinesis 🖐️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Technologies Section -->
+    <section class="status-bar glass">
+        <div class="status-item">
+            <div class="icon-box">🔌</div>
+            <div>
+                <strong>ESP32</strong>
+                <span>Microcontroller</span>
+            </div>
+        </div>
+        <div class="status-item">
+            <div class="icon-box">🖐️</div>
+            <div>
+                <strong>Flex Sensors</strong>
+                <span>Bend Detection</span>
+            </div>
+        </div>
+        <div class="status-item">
+            <div class="icon-box">🧊</div>
+            <div>
+                <strong>Three.js</strong>
+                <span>3D Visualizer</span>
+            </div>
+        </div>
+        <div class="status-item">
+            <div class="icon-box">📡</div>
+            <div>
+                <strong>Web Serial API</strong>
+                <span>Real-time Link</span>
+            </div>
+        </div>
+        <div class="status-item">
+            <div class="icon-box">🗣️</div>
+            <div>
+                <strong>Sign Language</strong>
+                <span>Interpreter Concept</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Visualizer Demo Section -->
+    <section id="visualizer" class="glass info-card" style="padding: 30px; margin-bottom: 30px;">
+        <div class="card-header-flex" style="margin-bottom: 8px;">
+            <div class="icon-box">🎛️</div>
+            <h2 style="font-size: 1.6rem; margin: 0;">Interactive Sensor Demo</h2>
+        </div>
+        <p class="lead" style="margin-bottom: 25px;">Use the sliders to preview finger-bend values in real time. This interactive demo works directly in your browser without an ESP32 connected.</p>
+
+        <div class="glove-demo-grid">
+            <!-- Sliders Control Card -->
+            <div class="demo-controls-card">
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600;">
+                        <label for="indexRange"><strong>Index Finger Bend</strong></label>
+                        <span id="indexValue" style="color: var(--blue);">0</span>
+                    </div>
+                    <input id="indexRange" type="range" min="0" max="4095" value="0" class="custom-range">
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600;">
+                        <label for="otherRange"><strong>Other Fingers Bend</strong></label>
+                        <span id="otherValue" style="color: var(--blue);">0</span>
+                    </div>
+                    <input id="otherRange" type="range" min="0" max="4095" value="0" class="custom-range">
+                </div>
+
+                <div class="gesture-status-box">
+                    <span>Detected Gesture:</span>
+                    <strong id="gesture" style="color: var(--blue); font-size: 1.05rem;">Hand Open</strong>
+                </div>
+            </div>
+
+            <!-- Visual Hand Preview Box -->
+            <div class="demo-preview-card">
+                <div id="handPreview" class="hand-emoji-preview">🖐️</div>
+                <div style="margin-top: 10px; font-size: 0.8rem; color: var(--muted); font-weight: 600;">3D Hand Pose Preview</div>
+            </div>
+        </div>
+
+        <div class="cert-notice" style="margin-top: 25px;">
+            <p class="small-muted">📌 <strong>Note:</strong> This is a visual UI demo. ESP32 hardware integration via Web Serial API can be directly connected after flashing the matching firmware data format.</p>
+        </div>
+    </section>
+
+    <!-- Back Row Link -->
+    <div style="margin: 30px 0 50px; text-align: left;">
+        <a class="btn btn-secondary" href="projects.html">← Back to Projects</a>
+    </div>
+
 </main>
-<footer><div class="shell">© <span data-year></span> Arpon Barman Ram · Built with curiosity and code</div></footer>
-<script src="script.js"></script> <script src="session-tracker.js"></script></body></html>
+
+<footer>
+    <div class="shell" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>© <span data-year>2025</span> Arpon Barman Ram &nbsp;|&nbsp; Built with ❤️ and curiosity</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 0.8rem;">Follow me:</span>
+            <div class="socials" style="margin:0;">
+                <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+                <a href="https://www.youtube.com/@arpon_braman_ram" target="_blank" rel="noopener">▶️</a>
+                <a href="mailto:arponbarman527@gmail.com">✉️</a>
+                <a href="https://wa.me/8801798021050" target="_blank" rel="noopener">💬</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="session-tracker.js"></script>
+<script>
+    function toggleNav() {
+        const sidenav = document.getElementById("mySidenav");
+        const menuBtn = document.getElementById("menuBtn");
+        if (sidenav.classList.contains("open")) {
+            sidenav.classList.remove("open");
+            menuBtn.innerHTML = "☰";
+        } else {
+            sidenav.classList.add("open");
+            menuBtn.innerHTML = "✕";
+        }
+    }
+
+    /* Interactive Demo Slider Logic */
+    const ir = document.getElementById('indexRange');
+    const or = document.getElementById('otherRange');
+
+    function refresh() {
+        const a = +ir.value;
+        const b = +or.value;
+        const avg = (a + b) / 2;
+        
+        document.getElementById('indexValue').textContent = a;
+        document.getElementById('otherValue').textContent = b;
+        document.getElementById('gesture').textContent = avg < 800 ? 'Hand Open 🖐️' : avg < 2800 ? 'Partial Bend 🤏' : 'Fist / Closed ✊';
+        document.getElementById('handPreview').style.transform = 'rotate(' + (avg / 4095 * 24 - 12) + 'deg) scale(' + (1 - avg / 4095 * 0.15) + ')';
+    }
+
+    ir.addEventListener('input', refresh);
+    or.addEventListener('input', refresh);
+</script>
+
+</body>
+</html>
