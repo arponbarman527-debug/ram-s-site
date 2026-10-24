@@ -1,194 +1,422 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <meta name="description" content="Arpon Barman's personal portfolio website.">  
-    <meta name="keywords" content="Arpon Barman, Arpon Barman Ram, Arpon, Ram, Ram's site, Web Developer Bangladesh">  
-    <meta name="google-site-verification" content="b2b4gw2tKCJuuOiaYR6PSyXOWs3xlKbRfCGWvH6fEUM" />  
-    
-    <!-- Google & Social Media Site Name -->  
-    <meta property="og:site_name" content="Arpon Barman Ram's Website">  
-    <meta property="og:title" content="ॐ नमः शिवायः Arpon Barman Ram's Website">  
-    <meta property="og:description" content="Welcome, I'm Arpon Barman Ram. It's My Personal Portfolio Website">  
-    
-    <title>ॐ नमः शिवायः Arpon Barman Ram's Website</title>  
-    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">  
-    <link rel="icon" type="image/png" sizes="48x48" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">  
-    <link rel="shortcut icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Arpon Barman's personal portfolio website.">
+    <meta name="keywords" content="Arpon Barman, Arpon Barman Ram, Arpon, Ram, Ram's site, Web Developer Bangladesh">
+    <meta name="google-site-verification" content="b2b4gw2tKCJuuOiaYR6PSyXOWs3xlKbRfCGWvH6fEUM" />
 
-    <!-- Google Search Engine Schema for Favicon/Logo & Site Name -->  
-    <script type="application/ld+json">  
-    {  
-      "@context": "https://schema.org",  
-      "@type": "WebSite",  
-      "name": "Arpon Barman Ram's Website",  
-      "url": "https://arponbarman527-debug.github.io/ram-s-site/",  
-      "image": "https://arponbarman527-debug.github.io/ram-s-site/favicon.png"  
-    }  
-    </script>  
+    <!-- Google & Social Media Site Name -->
+    <meta property="og:site_name" content="Arpon Barman Ram's Website">
+    <meta property="og:title" content="ॐ नमः शिवायः Arpon Barman Ram's Website">
+    <meta property="og:description" content="Welcome, I'm Arpon Barman Ram. It's My Personal Portfolio Website">
+    <title>ॐ नमः शिवायः Arpon Barman Ram's Website</title>
+    <link rel="icon" type="image/png" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="shortcut icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">  
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">  
+    <!-- Google Search Engine Schema for Favicon/Logo & Site Name -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Arpon Barman Ram's Website",
+      "url": "https://arponbarman527-debug.github.io/ram-s-site/",
+      "image": "https://arponbarman527-debug.github.io/ram-s-site/favicon.png"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-</head>  
-<body>  
 
-<!-- Menu Icon for Mobile -->  
-<div class="menu-icon neo" onclick="openNav()" aria-label="Open menu">&#9776;</div>  
+    <style>
+        .home-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 24px;
+            align-items: start;
+            margin-top: 25px;
+        }
 
-<!-- Sidebar Panel -->  
-<div id="mySidenav" class="sidenav">  
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>  
-    <a href="index.html" class="active">Home</a>  
-    <a href="about.html">About Me</a>  
-    <a href="projects.html">Projects</a>  
-    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>  
-</div>  
+        .hero-card {
+            padding: 40px;
+            position: relative;
+        }
 
-<!-- Top Navigation Bar -->
-<header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-mark">AB</span><span>Arpon Barman Ram</span></a>
-  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false" onclick="openNav()">☰</button>
-  <nav class="nav">
-    <a class="active" href="index.html">Home</a>
-    <a href="about.html">About Me</a>
-    <a href="projects.html">Projects</a>
-    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
-  </nav>
-</header>
+        .hero-main {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 20px;
+            align-items: center;
+        }
 
-<main class="shell">
+        .hero-img-box {
+            position: relative;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 30px;
+            padding: 10px;
+            box-shadow: 0 15px 35px rgba(66,111,180,0.15);
+            border: 2px solid #ffffff;
+        }
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div>
-            <span class="eyebrow">👋 Welcome to my portfolio</span>
-            <h1>Hi, I'm <br><span class="gradient-text">Arpon Barman Ram</span></h1>
-            <p>A Science Student &nbsp;|&nbsp; Web Developer &nbsp;|&nbsp; Creator</p>
-            <p class="lead" style="margin-top:14px">I'm passionate about technology, coding, and building innovative projects. Welcome to my personal portfolio website!</p>
-            <div class="hero-actions">
-                <a href="projects.html" class="btn btn-primary">View My Projects →</a>
-                <a href="about.html" class="btn btn-secondary">About Me</a>
+        .hero-img-box img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 22px;
+            display: block;
+        }
+
+        .quick-link-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 18px;
+            margin-bottom: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .quick-link-item:hover {
+            background: #ffffff;
+            transform: translateX(4px);
+            box-shadow: 0 8px 20px rgba(52, 120, 246, 0.12);
+        }
+
+        .quick-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 14px;
+            background: #eaf2ff;
+            display: grid;
+            place-items: center;
+            color: var(--blue);
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .features-bar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 14px;
+            margin: 25px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+        }
+
+        .projects-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .quote-card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.7) 0%, rgba(215,231,255,0.8) 100%), url('mountain.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            min-height: 380px;
+        }
+
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(13, 29, 64, 0.75), transparent);
+        }
+
+        .quote-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+        }
+
+        .footer-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        @media (max-width: 1024px) {
+            .home-layout { grid-template-columns: 1fr; }
+            .hero-main { grid-template-columns: 1fr; }
+            .features-bar { grid-template-columns: repeat(2, 1fr); }
+            .projects-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .features-bar { grid-template-columns: 1fr; }
+            .projects-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Mobile Menu Icon -->
+    <div class="menu-icon neo" onclick="openNav()" aria-label="Open menu">&#9776;</div>
+
+    <!-- Sidebar Navigation -->
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="TactileKinesis Glove Control.html">TactileKinesis Glove Control</a>
+    </div>
+
+    <!-- Top Navigation Header -->
+    <header class="topbar">
+        <a class="brand" href="index.html">
+            <span class="brand-mark">AB</span>
+            <div>
+                <div>Arpon Barman Ram</div>
+                <div style="font-size:0.65rem; color:var(--muted); font-weight:500;">Dream · Code · Create</div>
             </div>
-            <div class="socials">
+        </a>
+        <button class="menu-toggle" aria-label="Toggle navigation" onclick="openNav()">☰</button>
+        <nav class="nav">
+            <a class="active" href="index.html">Home</a>
+            <a href="about.html">About Me</a>
+            <a href="projects.html">Projects</a>
+            <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+        </nav>
+    </header>
+
+    <main class="shell">
+
+        <!-- Hero Section -->
+        <div class="home-layout">
+            <section class="glass hero-card">
+                <div class="hero-main">
+                    <div>
+                        <span class="eyebrow">👋 Welcome to my portfolio</span>
+                        <h1 style="font-size:clamp(2rem, 3.5vw, 3rem); margin: 15px 0 10px;">
+                            Hi, I'm <br><span class="gradient-text">Arpon Barman Ram</span>
+                        </h1>
+                        <p style="font-weight:700; color:var(--ink); margin-bottom:12px;">
+                            A Science Student &nbsp;|&nbsp; Web Developer &nbsp;|&nbsp; Creator
+                        </p>
+                        <p class="lead" style="font-size:0.9rem; margin-bottom: 24px;">
+                            I'm passionate about technology, coding, and building innovative projects. Welcome to my personal portfolio website!
+                        </p>
+                        <div class="hero-actions">
+                            <a href="projects.html" class="btn btn-primary">View My Projects →</a>
+                            <a href="about.html" class="btn btn-secondary">👤 About Me</a>
+                        </div>
+                        <div class="socials">
+                            <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
+                            <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+                            <a href="https://youtube.com" target="_blank" rel="noopener">▶️</a>
+                            <a href="mailto:arponbarman527@gmail.com">✉️</a>
+                        </div>
+                    </div>
+
+                    <div class="hero-img-box">
+                        <img src="atar%20color%20thik%20kora.png" alt="Arpon Barman Ram" onerror="this.src='https://arponbarman527-debug.github.io/ram-s-site/favicon.png'">
+                        <div style="position:absolute; bottom:-12px; right:10px; font-family:cursive; font-size:1.2rem; color:var(--blue); font-weight:bold; background:white; padding:2px 12px; border-radius:12px; box-shadow:var(--soft);">
+                            Arpon 👑
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Links Panel -->
+            <aside class="glass info-card">
+                <h3 style="margin-bottom:18px;">Quick Links</h3>
+                
+                <a href="index.html" class="quick-link-item">
+                    <div class="quick-icon">🏠</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; font-size:0.88rem;">Home</div>
+                        <div style="font-size:0.75rem; color:var(--muted);">Back to homepage</div>
+                    </div>
+                    <span>›</span>
+                </a>
+
+                <a href="about.html" class="quick-link-item">
+                    <div class="quick-icon">👤</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; font-size:0.88rem;">About Me</div>
+                        <div style="font-size:0.75rem; color:var(--muted);">Know more about me</div>
+                    </div>
+                    <span>›</span>
+                </a>
+
+                <a href="projects.html" class="quick-link-item">
+                    <div class="quick-icon">📁</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; font-size:0.88rem;">Projects</div>
+                        <div style="font-size:0.75rem; color:var(--muted);">My works & achievements</div>
+                    </div>
+                    <span>›</span>
+                </a>
+
+                <a href="TactileKinesis Glove Control.html" class="quick-link-item">
+                    <div class="quick-icon">🖐️</div>
+                    <div style="flex:1;">
+                        <div style="font-weight:700; font-size:0.88rem;">TactileKinesis Glove</div>
+                        <div style="font-size:0.75rem; color:var(--muted);">3D Visualizer & Interpreter</div>
+                    </div>
+                    <span>›</span>
+                </a>
+            </aside>
+        </div>
+
+        <!-- Horizontal Features Bar -->
+        <section class="features-bar">
+            <div class="glass feature-item">
+                <div class="icon-box" style="margin-bottom:0; flex-shrink:0;">🎓</div>
+                <div>
+                    <h4 style="margin:0; font-size:0.85rem;">Science Student</h4>
+                    <span style="font-size:0.72rem; color:var(--muted);">Learning · Growing</span>
+                </div>
+            </div>
+
+            <div class="glass feature-item">
+                <div class="icon-box" style="margin-bottom:0; flex-shrink:0;">💻</div>
+                <div>
+                    <h4 style="margin:0; font-size:0.85rem;">Web Developer</h4>
+                    <span style="font-size:0.72rem; color:var(--muted);">HTML · CSS · JS</span>
+                </div>
+            </div>
+
+            <div class="glass feature-item">
+                <div class="icon-box" style="margin-bottom:0; flex-shrink:0;">🧠</div>
+                <div>
+                    <h4 style="margin:0; font-size:0.85rem;">Problem Solver</h4>
+                    <span style="font-size:0.72rem; color:var(--muted);">Think · Build · Improve</span>
+                </div>
+            </div>
+
+            <div class="glass feature-item">
+                <div class="icon-box" style="margin-bottom:0; flex-shrink:0;">🌱</div>
+                <div>
+                    <h4 style="margin:0; font-size:0.85rem;">Nature Lover</h4>
+                    <span style="font-size:0.72rem; color:var(--muted);">Gardening · Peace</span>
+                </div>
+            </div>
+
+            <div class="glass feature-item">
+                <div class="icon-box" style="margin-bottom:0; flex-shrink:0;">🎮</div>
+                <div>
+                    <h4 style="margin:0; font-size:0.85rem;">Game Enthusiast</h4>
+                    <span style="font-size:0.72rem; color:var(--muted);">Play · Relax · Recharge</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Projects Grid Section -->
+        <section class="section">
+            <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+                <div>
+                    <span class="eyebrow" style="margin-bottom:6px;">My Work</span>
+                    <h2 style="font-size:1.8rem; margin:0;">Featured <span style="color:var(--blue)">Projects</span></h2>
+                    <p style="color:var(--muted); font-size:0.85rem; margin-top:4px;">
+                        Some of the key projects I've worked on. Each project represents my learning, creativity, and passion for technology.
+                    </p>
+                </div>
+                <a href="projects.html" class="btn btn-secondary" style="font-size:0.8rem;">View All Projects →</a>
+            </div>
+
+            <div class="projects-row">
+                <!-- Project 1 -->
+                <article class="project-card glass">
+                    <img src="glove.jpg" alt="TactileKinesis Glove" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                    <div class="project-image project-icon-image" style="display:none">🦾</div>
+                    <h3>TactileKinesis Glove Control</h3>
+                    <p>An interactive 3D visualizer & sign language interpreter using ESP32, Flex Sensors and Web Serial API.</p>
+                    <div class="chips">
+                        <span class="chip">ESP32</span>
+                        <span class="chip">Three.js</span>
+                        <span class="chip">Web Serial API</span>
+                    </div>
+                    <a class="btn btn-primary" href="TactileKinesis Glove Control.html" style="font-size:0.8rem;">Open Project →</a>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card glass">
+                    <img src="plasminogen.jpg" alt="Magic of Plasminogen" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                    <div class="project-image project-icon-image" style="display:none">🧬</div>
+                    <h3>Magic of Plasminogen</h3>
+                    <p>A specialized medical presentation project highlighting the therapeutic applications and mechanisms.</p>
+                    <div class="chips">
+                        <span class="chip">Medical Research</span>
+                        <span class="chip">Presentation</span>
+                    </div>
+                    <a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true" style="font-size:0.8rem;">View Presentation →</a>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card glass">
+                    <img src="episim.jpg" alt="Mathematical Modeling" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid'">
+                    <div class="project-image project-icon-image" style="display:none">📈</div>
+                    <h3>Mathematical Modeling of Epidemic Spread</h3>
+                    <p>Applying mathematical models (SIR/SEIR) to simulate epidemic propagation curves and predict disease trends.</p>
+                    <div class="chips">
+                        <span class="chip">Mathematical Modeling</span>
+                        <span class="chip">Epidemiology</span>
+                    </div>
+                    <a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/126YoHC2vyQuRYYaF3kqBihZD0PdqlN7ceXKFG0ygB7U/edit?usp=sharing" style="font-size:0.8rem;">View Presentation →</a>
+                </article>
+
+                <!-- Quote Card -->
+                <article class="glass quote-card">
+                    <div class="quote-content">
+                        <span style="font-size:2.5rem; color:#76a7ff; line-height:1;">“</span>
+                        <h3 style="font-size:1.3rem; margin:10px 0; color:white; font-weight:600;">
+                            Small steps every day lead to big dreams.
+                        </h3>
+                        <p style="color:#d0e2ff; font-style:italic; font-size:0.85rem; margin:0;">— Arpon Barman Ram</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="shell footer-flex">
+            <p style="margin:0;">© 2025 Arpon Barman Ram &nbsp;|&nbsp; Built with ❤️ and curiosity</p>
+            <div class="socials" style="margin-top:0;">
+                <span style="font-size:0.8rem; margin-right:6px;">Follow me:</span>
                 <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
                 <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
                 <a href="https://youtube.com" target="_blank" rel="noopener">▶️</a>
                 <a href="mailto:arponbarman527@gmail.com">✉️</a>
+                <a href="https://wa.me/8801798021050" target="_blank" rel="noopener">💬</a>
             </div>
         </div>
-        <div class="hero-image-wrap glass">
-            <img src="atar%20color%20thik%20kora.png" alt="Arpon Barman Ram" class="hero-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
-            <div class="image-placeholder" style="display:none">👨‍💻</div>
-            <div class="float-tag">👑 Creator & Developer</div>
-        </div>
-    </section>
+    </footer>
 
-    <!-- Quick Info Cards Bar -->
-    <section class="section" style="padding: 10px 0 30px;">
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));">
-            <div class="feature glass" style="text-align: center; padding: 18px;">
-                <div class="icon-box" style="margin: 0 auto 10px;">🎓</div>
-                <h3 style="font-size:0.95rem">Science Student</h3>
-                <p style="font-size:0.78rem">Learning & Growing</p>
-            </div>
-            <div class="feature glass" style="text-align: center; padding: 18px;">
-                <div class="icon-box" style="margin: 0 auto 10px;">💻</div>
-                <h3 style="font-size:0.95rem">Web Developer</h3>
-                <p style="font-size:0.78rem">HTML · CSS · JS</p>
-            </div>
-            <div class="feature glass" style="text-align: center; padding: 18px;">
-                <div class="icon-box" style="margin: 0 auto 10px;">🧠</div>
-                <h3 style="font-size:0.95rem">Problem Solver</h3>
-                <p style="font-size:0.78rem">Think · Build · Improve</p>
-            </div>
-            <div class="feature glass" style="text-align: center; padding: 18px;">
-                <div class="icon-box" style="margin: 0 auto 10px;">🌱</div>
-                <h3 style="font-size:0.95rem">Nature Lover</h3>
-                <p style="font-size:0.78rem">Gardening & Peace</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Featured Projects Section -->
-    <section class="section">
-        <div class="section-heading" style="text-align: left; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px;">
-            <div>
-                <span class="eyebrow" style="margin-bottom: 8px;">My Work</span>
-                <h2>Featured Projects</h2>
-                <p>Some of the key projects I've worked on. Each project represents my learning and passion for technology.</p>
-            </div>
-            <a href="projects.html" class="btn btn-secondary" style="font-size: 0.8rem;">View All Projects →</a>
-        </div>
-
-        <div class="grid" style="margin-top: 25px;">
-            <!-- Project 1 -->
-            <article class="project-card glass">
-                <div class="project-image project-icon-image">🦾</div>
-                <h3>TactileKinesis Glove Control</h3>
-                <p>An interactive 3D visualizer & sign language interpreter using ESP32, Flex Sensors and Web Serial API.</p>
-                <div class="chips">
-                    <span class="chip">ESP32</span>
-                    <span class="chip">Three.js</span>
-                    <span class="chip">Web Serial</span>
-                </div>
-                <a class="btn btn-primary" href="TactileKinesis Glove Control.html">Open Project →</a>
-            </article>
-
-            <!-- Project 2 -->
-            <article class="project-card glass">
-                <div class="project-image project-icon-image">🧬</div>
-                <h3>Magic of Plasminogen</h3>
-                <p>A specialized medical presentation project highlighting the therapeutic applications and mechanisms.</p>
-                <div class="chips">
-                    <span class="chip">Medical Research</span>
-                    <span class="chip">Presentation</span>
-                </div>
-                <a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true">View Presentation ↗</a>
-            </article>
-
-            <!-- Project 3 -->
-            <article class="project-card glass">
-                <div class="project-image project-icon-image">📈</div>
-                <h3>Mathematical Modeling of Epidemic Spread</h3>
-                <p>An analytical project applying mathematical models to simulate epidemic curves and forecast transmission trends.</p>
-                <div class="chips">
-                    <span class="chip">Mathematical Modeling</span>
-                    <span class="chip">Epidemiology</span>
-                </div>
-                <a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/126YoHC2vyQuRYYaF3kqBihZD0PdqlN7ceXKFG0ygB7U/edit?usp=sharing">View Presentation ↗</a>
-            </article>
-        </div>
-    </section>
-
-</main>
-
-<footer>
-    <div class="shell">
-        <p>© <span data-year>2025</span> Arpon Barman Ram &nbsp;|&nbsp; Built with ❤️ and curiosity</p>
-        <div class="socials" style="justify-content: center; margin-top: 15px;">
-            <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
-            <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
-            <a href="https://youtube.com" target="_blank" rel="noopener">▶️</a>
-            <a href="mailto:arponbarman527@gmail.com">✉️</a>
-        </div>
-    </div>
-</footer>
-<script src="script.js">
-<script src="session-tracker.js"></script>  
-<script>  
-    function openNav() {  
-        document.getElementById("mySidenav").style.width = "270px";  
-        document.body.classList.add("nav-open");  
-    }  
-    function closeNav() {  
-        document.getElementById("mySidenav").style.width = "0";  
-        document.body.classList.remove("nav-open");  
-    }  
-</script>
-
-</body>  
-  </html>
-      
+    <script src="session-tracker.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "270px";
+            document.body.classList.add("nav-open");
+        }
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.body.classList.remove("nav-open");
+        }
+    </script>
+</body>
+</html>
