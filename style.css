@@ -28,7 +28,6 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font: inherit; }
 
-/* সাধারণ টেক্সট ও প্যারাগ্রাফের ভেতরের লিঙ্কগুলোর স্টাইল */
 p a, .info-card a, section a:not(.btn):not(.card-link-btn) {
     color: var(--blue);
     font-weight: 600;
@@ -54,10 +53,10 @@ p a:hover, .info-card a:hover, section a:not(.btn):not(.card-link-btn):hover {
 
 /* Header & Topbar */
 .topbar {
-    position: sticky; top: 12px; z-index: 20;
+    position: sticky; top: 12px; z-index: 30;
     margin: 12px auto 0; width: min(1200px, calc(100% - 24px));
     padding: 12px 22px; display: flex; align-items: center; justify-content: space-between; gap: 18px;
-    background: rgba(255, 255, 255, 0.82); border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.88); border: 1px solid var(--line);
     border-radius: 999px; box-shadow: var(--soft); backdrop-filter: blur(18px);
 }
 
@@ -68,7 +67,7 @@ p a:hover, .info-card a:hover, section a:not(.btn):not(.card-link-btn):hover {
     border-radius: 50%; box-shadow: 0 7px 18px rgba(52, 120, 246, 0.35);
 }
 
-/* PC Navigation (ডানে সরানো হয়েছে) */
+/* PC Navigation */
 .nav { 
     display: flex; 
     align-items: center; 
@@ -85,44 +84,57 @@ p a:hover, .info-card a:hover, section a:not(.btn):not(.card-link-btn):hover {
     background: #3478f6; color: white; box-shadow: 0 6px 16px rgba(52, 120, 246, 0.3);
 }
 
-/* Mobile Toggle Button (ডিফল্টভাবে পিসিতে লুকানো থাকবে) */
 .menu-toggle { display: none; }
 
-/* Top-to-Bottom Dropdown Sidenav (মোবাইলের জন্য ওপর থেকে নিচে নামবে) */
+/* Mobile Dropdown Menu - Styled with Theme & Below Topbar */
 .sidenav {
-    height: 0;
-    width: 100%;
     position: fixed;
-    z-index: 100;
-    top: 0; left: 0;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(1200px, calc(100% - 32px));
+    max-height: 0;
+    opacity: 0;
     overflow: hidden;
-    transition: height 0.35s ease;
-    background: rgba(245, 249, 255, 0.98);
+    z-index: 25;
+    transition: max-height 0.35s ease, opacity 0.25s ease, padding 0.35s ease;
+    background: rgba(235, 243, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(52, 120, 246, 0.15);
     backdrop-filter: blur(20px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    padding: 0 12px;
 }
-.sidenav a { 
-    padding: 14px 24px; 
-    display: block; 
-    font-weight: 600; 
-    color: var(--ink); 
-    border-bottom: 1px solid #eef4ff; 
-    font-size: 1.05rem;
+
+.sidenav.open {
+    max-height: 280px;
+    opacity: 1;
+    padding: 12px;
+}
+
+.sidenav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidenav a {
+    padding: 12px 20px;
+    border-radius: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95rem;
     text-decoration: none;
     text-align: center;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    transition: 0.2s;
 }
-.sidenav a:hover {
-    background: #e3eeff;
-    color: var(--blue);
-}
-.sidenav .closebtn { 
-    position: absolute; 
-    top: 15px; right: 22px; 
-    font-size: 30px; 
-    border: none; 
-    background: none; 
-    cursor: pointer; 
-    color: var(--ink);
+
+.sidenav a:hover, .sidenav a.active {
+    background: #3478f6;
+    color: white;
+    box-shadow: 0 6px 16px rgba(52, 120, 246, 0.25);
 }
 
 /* Hero Section Grid */
@@ -226,7 +238,7 @@ footer { padding: 30px 0; color: var(--muted); font-size: 0.82rem; border-top: 1
 }
 
 @media (max-width: 768px) {
-    .nav { display: none; } /* মোবাইলে ডেস্কটপ মেনু হাইড থাকবে */
+    .nav { display: none; }
     .menu-toggle { 
         display: block !important; 
         border: 0; background: #edf4ff; border-radius: 50%; 
@@ -242,7 +254,6 @@ footer { padding: 30px 0; color: var(--muted); font-size: 0.82rem; border-top: 1
     .home-projects-grid { grid-template-columns: 1fr; }
 }
 
-/* পিসিতে হ্যামবার্গার ও সাইডবার পুরোপুরি বন্ধ থাকবে */
 @media (min-width: 769px) {
     .menu-toggle { display: none !important; }
     #mySidenav { display: none !important; }
