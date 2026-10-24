@@ -85,7 +85,7 @@ p a:hover, .info-card a:hover, section a:not(.btn):not(.card-link-btn):hover {
     background: #3478f6; color: white; box-shadow: 0 6px 16px rgba(52, 120, 246, 0.3);
 }
 
-/* Mobile Toggle Button (পিসিতে লুকানো থাকবে) */
+/* Mobile Toggle Button (ডিফল্টভাবে পিসিতে লুকানো থাকবে) */
 .menu-toggle { display: none; }
 
 /* Top-to-Bottom Dropdown Sidenav (মোবাইলের জন্য ওপর থেকে নিচে নামবে) */
@@ -228,7 +228,7 @@ footer { padding: 30px 0; color: var(--muted); font-size: 0.82rem; border-top: 1
 @media (max-width: 768px) {
     .nav { display: none; } /* মোবাইলে ডেস্কটপ মেনু হাইড থাকবে */
     .menu-toggle { 
-        display: block; 
+        display: block !important; 
         border: 0; background: #edf4ff; border-radius: 50%; 
         width: 42px; height: 42px; display: grid; place-items: center; 
         color: var(--blue); cursor: pointer; font-size: 1.2rem;
@@ -240,4 +240,10 @@ footer { padding: 30px 0; color: var(--muted); font-size: 0.82rem; border-top: 1
     .hero-actions, .socials { justify-content: center; }
     .status-bar { grid-template-columns: repeat(2, 1fr); }
     .home-projects-grid { grid-template-columns: 1fr; }
+}
+
+/* পিসিতে হ্যামবার্গার ও সাইডবার পুরোপুরি বন্ধ থাকবে */
+@media (min-width: 769px) {
+    .menu-toggle { display: none !important; }
+    #mySidenav { display: none !important; }
 }
