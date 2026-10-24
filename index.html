@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<!-- Mobile Sidebar Panel (Right Slide-in) -->
+<!-- Mobile Sidebar Panel (Top-to-Bottom Dropdown) -->
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="index.html" class="active">Home</a>
@@ -52,13 +52,17 @@
         <div style="font-size: 0.68rem; color: var(--muted); font-weight: 500;">Dream · Code · Create</div>
     </div>
   </a>
-    <nav class="nav ">
+
+  <!-- PC Menu Options (ডানে সরানো হয়েছে) -->
+  <nav class="nav">
     <a class="active" href="index.html">Home</a>
-    <a class="" href="about.html">About Me</a>
-    <a class="" href="projects.html">Projects</a>
-    <a class="" href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+    <a href="about.html">About Me</a>
+    <a href="projects.html">Projects</a>
+    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
   </nav>
- <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+  <!-- Mobile Toggle Button -->
+  <button class="menu-toggle" aria-label="Toggle navigation" onclick="openNav()">☰</button>
 </header>
 
 <main class="shell">
@@ -222,11 +226,11 @@
 <script src="session-tracker.js"></script>
 <script>
     function openNav() {
-        document.getElementById("mySidenav").style.width = "270px";
+        document.getElementById("mySidenav").style.height = "280px"; // ওপর থেকে নিচে নামবে
         document.body.classList.add("nav-open");
     }
     function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("mySidenav").style.height = "0";
         document.body.classList.remove("nav-open");
     }
 </script>
