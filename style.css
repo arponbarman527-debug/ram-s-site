@@ -28,6 +28,19 @@ body {
 a { color: inherit; text-decoration: none; }
 button { font: inherit; }
 
+/* সাধারণ টেক্সট ও প্যারাগ্রাফের ভেতরের লিঙ্কগুলোর স্টাইল */
+p a, .info-card a, section a:not(.btn):not(.card-link-btn) {
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s;
+}
+
+p a:hover, .info-card a:hover, section a:not(.btn):not(.card-link-btn):hover {
+    color: #1d4ed8;
+}
+
 .shell { width: min(1200px, calc(100% - 36px)); margin: auto; }
 
 /* Glass Card */
@@ -55,47 +68,42 @@ button { font: inherit; }
     border-radius: 50%; box-shadow: 0 7px 18px rgba(52, 120, 246, 0.35);
 }
 
-.nav { display: flex; align-items: center; gap: 6px; }
+/* PC Navigation (ডানে সরানো হয়েছে) */
+.nav { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin-left: auto; 
+    margin-right: 15px; 
+}
 .nav a {
     padding: 9px 16px; border-radius: 999px; color: var(--muted);
     font-size: 0.85rem; font-weight: 600; transition: 0.2s;
+    text-decoration: none;
 }
 .nav a:hover, .nav a.active {
     background: #3478f6; color: white; box-shadow: 0 6px 16px rgba(52, 120, 246, 0.3);
 }
 
-.menu-toggle { 
-    display: block; 
-    border: 0; 
-    background: #edf4ff; 
-    border-radius: 50%; 
-    width: 42px; 
-    height: 42px; 
-    display: grid; 
-    place-items: center; 
-    color: var(--blue); 
-    cursor: pointer; 
-    font-size: 1.2rem;
-    box-shadow: var(--soft);
-}
+/* Mobile Toggle Button (পিসিতে লুকানো থাকবে) */
+.menu-toggle { display: none; }
 
-/* Right Side Navigation Panel */
+/* Mobile Top-to-Bottom Dropdown Sidenav */
 .sidenav {
-    height: 100%;
-    width: 0;
-    max-width: 280px;
+    height: 0;
+    width: 100%;
+    max-width: 100vw;
     position: fixed;
     z-index: 100;
-    top: 0; right: 0;
-    left: auto;
+    top: 0; left: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: width 0.35s ease;
-    padding-top: 80px;
-    text-align: left;
+    transition: height 0.35s ease;
+    padding-top: 70px;
+    text-align: center;
     background: rgba(245, 249, 255, 0.98);
     backdrop-filter: blur(20px);
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 .sidenav a { 
     padding: 14px 24px; 
@@ -103,7 +111,8 @@ button { font: inherit; }
     font-weight: 600; 
     color: var(--ink); 
     border-bottom: 1px solid #eef4ff; 
-    font-size: 1rem;
+    font-size: 1.05rem;
+    text-decoration: none;
 }
 .sidenav a:hover {
     background: #e3eeff;
@@ -111,8 +120,8 @@ button { font: inherit; }
 }
 .sidenav .closebtn { 
     position: absolute; 
-    top: 18px; right: 20px; 
-    font-size: 28px; 
+    top: 15px; right: 22px; 
+    font-size: 30px; 
     border: none; 
     background: none; 
     cursor: pointer; 
@@ -141,6 +150,7 @@ button { font: inherit; }
 .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     padding: 12px 22px; border-radius: 999px; font-weight: 700; font-size: 0.88rem; transition: 0.2s;
+    text-decoration: none;
 }
 .btn-primary { color: white; background: linear-gradient(135deg, #2868f5, #5c94ff); box-shadow: 0 8px 20px rgba(52, 120, 246, 0.3); }
 .btn-secondary { color: #2458b9; background: rgba(255, 255, 255, 0.8); border: 1px solid #c9dcff; box-shadow: var(--soft); }
@@ -150,6 +160,7 @@ button { font: inherit; }
 .socials a {
     width: 38px; height: 38px; display: grid; place-items: center;
     border-radius: 50%; background: #fff; border: 1px solid #e0eaff; box-shadow: var(--soft); font-size: 0.95rem;
+    text-decoration: none;
 }
 
 /* Center Image Container */
@@ -194,7 +205,7 @@ button { font: inherit; }
 .project-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
 .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
 .chip { font-size: 0.68rem; font-weight: 600; color: #2563eb; background: #e0edff; padding: 4px 8px; border-radius: 999px; }
-.card-link-btn { margin-top: auto; font-size: 0.8rem; font-weight: 700; color: var(--blue); }
+.card-link-btn { margin-top: auto; font-size: 0.8rem; font-weight: 700; color: var(--blue); text-decoration: none; }
 
 /* Quote Card Mountain */
 .quote-card-wrap {
@@ -218,6 +229,15 @@ footer { padding: 30px 0; color: var(--muted); font-size: 0.82rem; border-top: 1
 }
 
 @media (max-width: 768px) {
+    .nav { display: none; } /* মোবাইলে সাধারণ মেনু হাইড থাকবে */
+    .menu-toggle { 
+        display: block; 
+        border: 0; background: #edf4ff; border-radius: 50%; 
+        width: 42px; height: 42px; display: grid; place-items: center; 
+        color: var(--blue); cursor: pointer; font-size: 1.2rem;
+        box-shadow: var(--soft);
+        margin-left: auto;
+    }
     .hero-grid { grid-template-columns: 1fr; text-align: center; }
     .hero-center { justify-content: center; margin-top: 20px; }
     .hero-actions, .socials { justify-content: center; }
