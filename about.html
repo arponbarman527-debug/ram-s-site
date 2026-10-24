@@ -1,40 +1,188 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
-<title>About Me | Arpon Barman Ram</title><link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png"><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
+    <title>About Me | Arpon Barman Ram</title>
+    <link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
+
+<!-- Mobile Dropdown Menu (Positioned Below Topbar) -->
+<div id="mySidenav" class="sidenav">
+    <div class="sidenav-content">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About Me</a>
+        <a href="projects.html">Projects</a>
+        <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+    </div>
+</div>
+
+<!-- Header Topbar Navigation -->
 <header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-mark">ABR</span><span>Arpon Barman Ram</span></a>
-  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-  <nav class="nav ">
-    <a class="" href="index.html">Home</a>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">ABR</span>
+    <div>
+        <div style="font-weight: 800; line-height: 1.1;">Arpon Barman Ram</div>
+        <div style="font-size: 0.68rem; color: var(--muted); font-weight: 500;">Dream · Code · Create</div>
+    </div>
+  </a>
+
+  <!-- PC Menu Options -->
+  <nav class="nav">
+    <a href="index.html">Home</a>
     <a class="active" href="about.html">About Me</a>
-    <a class="" href="projects.html">Projects</a>
-    <a class="" href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+    <a href="projects.html">Projects</a>
+    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
   </nav>
+
+  <!-- Mobile Toggle Button -->
+  <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
 </header>
+
 <main class="shell">
-<section class="page-heading"><div class="glass"><span class="eyebrow">A little introduction</span><h1>About Me</h1><p class="lead">My journey, education, interests, and the things I enjoy learning.</p></div></section>
-<section class="two-col">
- <article class="info-card glass">
-  <div class="bio-photos">
-   <img src="IMG_20260520_135639.jpg" alt="Arpon photo one" onerror="this.style.display='none'">
-   <img src="IMG_20260413_202503_727.webp" alt="Arpon photo two" onerror="this.style.display='none'">
-  </div>
-  <h2 style="margin:20px 0 10px">Biography</h2>
-  <p>I am <strong>Arpon Barman Ram</strong>. I am studying in the science stream. Alongside my academic studies, exploring new technologies and building websites are my passions.</p>
-  <p><strong>Date of Birth:</strong> November 13, 2008</p>
- </article>
- <article class="info-card glass"><div class="icon-box">🎓</div><h2>Education</h2>
-  <p><strong>Group:</strong> Science</p><p><strong>Favorite subjects:</strong> Mathematics, Physics, and Computer Science.</p>
-  <ul class="list"><li>SSC-25 Result: GPA 5.00</li><li>PEC-19 Result: GPA 5.00</li></ul>
-  <p>Attended <a href="https://www.facebook.com/greenheavenkinder/">Green Haven Kindergarten</a> from Playgroup to Class 2, then <a href="https://www.facebook.com/zpmcollege/">Zinzira Pir Mohammad High School and College</a> for Classes 3–10. Currently pursuing higher secondary education at <a href="https://sghscdhaka.edu.bd/">St. Gregory's High School and College.</a></p>
- </article>
- <article class="info-card glass"><div class="icon-box">🧩</div><h2>Skills & Interests</h2><p>Things I enjoy and keep developing:</p><div class="chips"><span class="chip">HTML</span><span class="chip">Mathematics</span><span class="chip">Physics</span><span class="chip">Drawing</span><span class="chip">Basic Cooking</span><span class="chip">Web Development</span><span class="chip">Programming</span></div></article>
- <article class="info-card glass"><div class="icon-box">🌱</div><h2>Outside the screen</h2><p>I also enjoy gardening and caring for plants, drawing, playing games, and learning practical things.</p><p class="small-muted">Certificates will be added here when available.</p></article>
-</section>
-<div class="back-row"><a class="btn btn-secondary" href="index.html">← Back to Home</a></div>
+
+    <!-- Page Heading -->
+    <section class="page-heading" style="padding: 40px 0 20px;">
+        <div class="glass" style="padding: 35px; text-align: left;">
+            <span class="eyebrow" style="margin-bottom: 10px;">👤 A little introduction</span>
+            <h1 style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin: 10px 0; color: var(--ink);">
+                About <span class="gradient-text">Me</span>
+            </h1>
+            <p class="lead" style="max-width: 700px;">My journey, education, interests, and the things I enjoy learning.</p>
+        </div>
+    </section>
+
+    <!-- About Grid Section -->
+    <section class="about-grid">
+        
+        <!-- Biography Card -->
+        <article class="info-card glass bio-card">
+            <div class="bio-photos">
+                <div class="photo-frame">
+                    <img src="IMG_20260520_135639.jpg" alt="Arpon photo one" onerror="this.src='atar color thik kora.png'">
+                </div>
+                <div class="photo-frame">
+                    <img src="IMG_20260413_202503_727.webp" alt="Arpon photo two" onerror="this.src='atar color thik kora.png'">
+                </div>
+            </div>
+            <div class="bio-details">
+                <div class="card-header-flex">
+                    <div class="icon-box">👤</div>
+                    <h2>Biography</h2>
+                </div>
+                <p>I am <strong>Arpon Barman Ram</strong>. I am studying in the science stream. Alongside my academic studies, exploring new technologies and building websites are my passions.</p>
+                <div class="dob-box">
+                    <span>📅 <strong>Date of Birth:</strong> November 13, 2008</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Education Card -->
+        <article class="info-card glass">
+            <div class="card-header-flex">
+                <div class="icon-box">🎓</div>
+                <h2>Education</h2>
+            </div>
+            <p><strong>Group:</strong> Science</p>
+            <p><strong>Favorite subjects:</strong> Mathematics, Physics, and Computer Science.</p>
+            
+            <div class="result-box">
+                <ul class="list" style="margin: 0; padding-left: 20px;">
+                    <li><strong>SSC-25 Result:</strong> GPA 5.00</li>
+                    <li><strong>PEC-19 Result:</strong> GPA 5.00</li>
+                </ul>
+            </div>
+            
+            <p class="school-links">Attended <a href="https://www.facebook.com/greenheavenkinder/" target="_blank" rel="noopener">Green Haven Kindergarten</a> from Playgroup to Class 2, then <a href="https://www.facebook.com/zpmcollege/" target="_blank" rel="noopener">Zinzira Pir Mohammad High School and College</a> for Classes 3–10. Currently pursuing higher secondary education at <a href="https://sghscdhaka.edu.bd/" target="_blank" rel="noopener">St. Gregory's High School and College</a>.</p>
+        </article>
+
+        <!-- Skills & Interests Card -->
+        <article class="info-card glass skill-card">
+            <div class="card-side-image">
+                <img src="skill.jpg" alt="Skills and Coding" onerror="this.src='glove.jpg'">
+            </div>
+            <div class="card-side-content">
+                <div class="card-header-flex">
+                    <div class="icon-box">🧩</div>
+                    <h2>Skills & Interests</h2>
+                </div>
+                <p>Things I enjoy and keep developing:</p>
+                <div class="chips">
+                    <span class="chip">HTML</span>
+                    <span class="chip">Mathematics</span>
+                    <span class="chip">Physics</span>
+                    <span class="chip">Drawing</span>
+                    <span class="chip">Basic Cooking</span>
+                    <span class="chip">Web Development</span>
+                    <span class="chip">Programming</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Outside the screen Card -->
+        <article class="info-card glass env-card">
+            <div class="card-side-content">
+                <div class="card-header-flex">
+                    <div class="icon-box">🌱</div>
+                    <h2>Outside the screen</h2>
+                </div>
+                <p>I also enjoy gardening and caring for plants, drawing, playing games, and learning practical things.</p>
+                
+                <div class="cert-notice">
+                    <p class="small-muted">📜 Certificates will be added here when available.</p>
+                </div>
+            </div>
+            <div class="card-side-image">
+                <img src="env.jpg" alt="Gardening and Nature" onerror="this.src='mountain.jpg'">
+            </div>
+        </article>
+
+    </section>
+
+    <!-- Back to Home Button -->
+    <div style="margin: 30px 0 50px; text-align: left;">
+        <a class="btn btn-secondary" href="index.html">← Back to Home</a>
+    </div>
+
 </main>
-<footer><div class="shell">© <span data-year></span> Arpon Barman Ram · Built with curiosity and code</div></footer>
-<script src="script.js"></script> <script src="session-tracker.js"></script></body></html>
+
+<footer>
+    <div class="shell" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>© <span data-year>2025</span> Arpon Barman Ram &nbsp;|&nbsp; Built with ❤️ and curiosity</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 0.8rem;">Follow me:</span>
+            <div class="socials" style="margin:0;">
+                <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+                <a href="https://www.youtube.com/@arpon_braman_ram" target="_blank" rel="noopener">▶️</a>
+                <a href="mailto:arponbarman527@gmail.com">✉️</a>
+                <a href="https://wa.me/8801798021050" target="_blank" rel="noopener">💬</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="session-tracker.js"></script>
+<script>
+    function toggleNav() {
+        const sidenav = document.getElementById("mySidenav");
+        const menuBtn = document.getElementById("menuBtn");
+        if (sidenav.classList.contains("open")) {
+            sidenav.classList.remove("open");
+            menuBtn.innerHTML = "☰";
+        } else {
+            sidenav.classList.add("open");
+            menuBtn.innerHTML = "✕";
+        }
+    }
+</script>
+
+</body>
+</html>
