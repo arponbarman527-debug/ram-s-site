@@ -1,27 +1,152 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
-<title>Projects | Arpon Barman Ram</title><link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png"><link rel="stylesheet" href="style.css"></head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Arpon Barman Ram's personal portfolio, coding, robotics and projects.">
+    <title>Projects | Arpon Barman Ram</title>
+    <link rel="icon" href="https://arponbarman527-debug.github.io/ram-s-site/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
+
+<!-- Mobile Sidebar Panel (Top-to-Bottom Dropdown) -->
+<div id="mySidenav" class="sidenav">
+    <div style="padding-top: 65px; position: relative;">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Me</a>
+        <a href="projects.html" class="active">Projects</a>
+        <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+    </div>
+</div>
+
+<!-- Header Topbar Navigation -->
 <header class="topbar">
-  <a class="brand" href="index.html"><span class="brand-mark">ABR</span><span>Arpon Barman Ram</span></a>
-  <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-  <nav class="nav ">
-    <a class="" href="index.html">Home</a>
-    <a class="" href="about.html">About Me</a>
+  <a class="brand" href="index.html">
+    <span class="brand-mark">ABR</span>
+    <div>
+        <div style="font-weight: 800; line-height: 1.1;">Arpon Barman Ram</div>
+        <div style="font-size: 0.68rem; color: var(--muted); font-weight: 500;">Dream · Code · Create</div>
+    </div>
+  </a>
+
+  <!-- PC Menu Options -->
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Me</a>
     <a class="active" href="projects.html">Projects</a>
-    <a class="" href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
+    <a href="TactileKinesis Glove Control.html">TactileKinesis Glove</a>
   </nav>
+
+  <!-- Mobile Toggle Button -->
+  <button class="menu-toggle" aria-label="Toggle navigation" onclick="openNav()">☰</button>
 </header>
+
 <main class="shell">
-<section class="page-heading"><div class="glass"><span class="eyebrow">Things I've been working on</span><h1>My Projects</h1><p class="lead">A showcase of my robotics, hardware, web development, and science projects.</p></div></section>
-<section class="grid">
- <article class="project-card glass"><div class="project-image project-icon-image">🦾</div><h3>TactileKinesis Glove</h3><p>An interactive 3D visualizer and sign-language interpretation project concept using ESP32, flex sensors, Web Serial API, and Three.js.</p><div class="chips"><span class="chip">ESP32</span><span class="chip">Three.js</span><span class="chip">Web Serial</span></div><a class="btn btn-primary" href="TactileKinesis Glove Control.html">Launch Visualizer →</a></article>
- <article class="project-card glass"><div class="project-image project-icon-image">🧬</div><h3>Magic of Plasminogen</h3><p>A medical presentation project highlighting the therapeutic applications and mechanisms of plasminogen.</p><div class="chips"><span class="chip">Medical Research</span><span class="chip">Presentation</span></div><a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true">View Presentation ↗</a></article>
- <article class="project-card glass"><div class="project-image project-icon-image">📈</div><h3>Mathematical Modeling of Epidemic Spread</h3><p>An analytical project using SIR/SEIR-style frameworks to simulate epidemic curves and explore disease transmission trends.</p><div class="chips"><span class="chip">Mathematics</span><span class="chip">Epidemiology</span></div><a class="btn btn-primary" target="_blank" rel="noopener" href="https://docs.google.com/presentation/d/126YoHC2vyQuRYYaF3kqBihZD0PdqlN7ceXKFG0ygB7U/edit?usp=sharing">View Presentation ↗</a></article>
-</section>
-<div class="back-row"><a class="btn btn-secondary" href="index.html">← Back to Home</a></div>
+
+    <!-- Page Header Section -->
+    <section style="padding: 40px 0 20px;">
+        <div class="glass" style="padding: 35px; text-align: left;">
+            <span class="eyebrow" style="margin-bottom: 10px;">Things I've been working on</span>
+            <h1 style="font-size: clamp(2.2rem, 4vw, 3.2rem); margin: 10px 0; color: var(--ink);">
+                My <span class="gradient-text">Projects</span>
+            </h1>
+            <p class="lead" style="max-width: 700px;">A showcase of my robotics, hardware, web development, and science projects. Each project represents my learning, creativity and passion for technology.</p>
+        </div>
+    </section>
+
+    <!-- Projects Grid Section -->
+    <section class="section" style="padding-top: 10px;">
+        <div class="home-projects-grid" style="grid-template-columns: repeat(3, 1fr);">
+            
+            <!-- Project 1 -->
+            <article class="project-card glass">
+                <div class="project-img-wrap">
+                    <img src="glove.jpg" alt="TactileKinesis Glove Control" class="project-card-img" onerror="this.src='glove.jpg'">
+                    <div class="card-badge-icon">🖐️</div>
+                </div>
+                <h3>TactileKinesis Glove</h3>
+                <p>An interactive 3D visualizer and sign-language interpretation project concept using ESP32, flex sensors, Web Serial API, and Three.js.</p>
+                <div class="chips">
+                    <span class="chip">ESP32</span>
+                    <span class="chip">Three.js</span>
+                    <span class="chip">Web Serial</span>
+                </div>
+                <a href="TactileKinesis Glove Control.html" class="card-link-btn">Launch Visualizer →</a>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-card glass">
+                <div class="project-img-wrap">
+                    <img src="plasminogen.jpg" alt="Magic of Plasminogen" class="project-card-img" onerror="this.src='plasminogen.jpg'">
+                    <div class="card-badge-icon">⚙️</div>
+                </div>
+                <h3>Magic of Plasminogen</h3>
+                <p>A medical presentation project highlighting the therapeutic applications and mechanisms of plasminogen.</p>
+                <div class="chips">
+                    <span class="chip">Medical Research</span>
+                    <span class="chip">Presentation</span>
+                </div>
+                <a href="https://docs.google.com/presentation/d/1rUAm4VxRjeih5W6fN1Zy48l2aLQIKqpShd_dsmbXuk8/edit?usp=sharing&ouid=117319185970063445002&rtpof=true&sd=true" target="_blank" rel="noopener" class="card-link-btn">View Presentation ↗</a>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-card glass">
+                <div class="project-img-wrap">
+                    <img src="episim.jpg" alt="Mathematical Modeling of Epidemic Spread" class="project-card-img" onerror="this.src='episim.jpg'">
+                    <div class="card-badge-icon">📈</div>
+                </div>
+                <h3>Mathematical Modeling of Epidemic Spread</h3>
+                <p>An analytical project using SIR/SEIR-style frameworks to simulate epidemic curves and explore disease transmission trends.</p>
+                <div class="chips">
+                    <span class="chip">Mathematics</span>
+                    <span class="chip">Epidemiology</span>
+                </div>
+                <a href="https://docs.google.com/presentation/d/126YoHC2vyQuRYYaF3kqBihZD0PdqlN7ceXKFG0ygB7U/edit?usp=sharing" target="_blank" rel="noopener" class="card-link-btn">View Presentation ↗</a>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Back to Home Button -->
+    <div style="margin: 30px 0 50px; text-align: left;">
+        <a class="btn btn-secondary" href="index.html">← Back to Home</a>
+    </div>
+
 </main>
-<footer><div class="shell">© <span data-year></span> Arpon Barman Ram · Built with curiosity and code</div></footer>
-<script src="script.js"></script> <script src="session-tracker.js"></script></body></html>
+
+<footer>
+    <div class="shell" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+        <div>© <span data-year>2025</span> Arpon Barman Ram &nbsp;|&nbsp; Built with ❤️ and curiosity</div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-size: 0.8rem;">Follow me:</span>
+            <div class="socials" style="margin:0;">
+                <a href="https://github.com/arponbarman527-debug" target="_blank" rel="noopener">🐙</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener">💼</a>
+                <a href="https://youtube.com" target="_blank" rel="noopener">▶️</a>
+                <a href="mailto:arponbarman527@gmail.com">✉️</a>
+                <a href="https://wa.me/8801798021050" target="_blank" rel="noopener">💬</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script src="session-tracker.js"></script>
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.height = "280px";
+        document.body.classList.add("nav-open");
+    }
+    function closeNav() {
+        document.getElementById("mySidenav").style.height = "0";
+        document.body.classList.remove("nav-open");
+    }
+</script>
+
+</body>
+</html>
