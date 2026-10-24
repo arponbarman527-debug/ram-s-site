@@ -34,7 +34,7 @@
 </head>
 <body>
 
-<!-- Mobile Sidebar Panel (Top-to-Bottom Dropdown) -->
+<!-- Mobile Sidebar Panel (Right Slide-in) -->
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="index.html" class="active">Home</a>
@@ -46,7 +46,7 @@
 <!-- Header Topbar Navigation -->
 <header class="topbar">
   <a class="brand" href="index.html">
-    <span class="brand-mark">AB</span>
+    <span class="brand-mark">ABR</span>
     <div>
         <div style="font-weight: 800; line-height: 1.1;">Arpon Barman Ram</div>
         <div style="font-size: 0.68rem; color: var(--muted); font-weight: 500;">Dream · Code · Create</div>
@@ -216,11 +216,11 @@
 <script src="session-tracker.js"></script>
 <script>
     function openNav() {
-        document.getElementById("mySidenav").style.height = "290px";
+        document.getElementById("mySidenav").style.width = "270px";
         document.body.classList.add("nav-open");
     }
     function closeNav() {
-        document.getElementById("mySidenav").style.height = "0";
+        document.getElementById("mySidenav").style.width = "0";
         document.body.classList.remove("nav-open");
     }
 </script>
