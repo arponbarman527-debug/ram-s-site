@@ -64,32 +64,67 @@ button { font: inherit; }
     background: #3478f6; color: white; box-shadow: 0 6px 16px rgba(52, 120, 246, 0.3);
 }
 
-.menu-toggle { display: none; border: 0; background: #edf4ff; border-radius: 12px; padding: 9px 12px; color: var(--blue); cursor: pointer; }
+.menu-toggle { 
+    display: block; 
+    border: 0; 
+    background: #edf4ff; 
+    border-radius: 50%; 
+    width: 42px; 
+    height: 42px; 
+    display: grid; 
+    place-items: center; 
+    color: var(--blue); 
+    cursor: pointer; 
+    font-size: 1.2rem;
+    box-shadow: var(--soft);
+}
 
+/* Right Side Navigation Panel */
 .sidenav {
-    height: 0;                /* শুরুতে উচ্চতা শূন্য থাকবে */
-    width: 100%;              /* পুরো স্ক্রিন জুড়ে চওড়া হবে */
-    max-width: 100vw;
+    height: 100%;
+    width: 0;
+    max-width: 280px;
     position: fixed;
-    z-index: 25;
-    top: 0; left: 0;
+    z-index: 100;
+    top: 0; right: 0;
+    left: auto;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: height 0.35s ease; /* width-এর বদলে height অ্যানিমেশন হবে */
-    padding-top: 60px;
-    text-align: center;       /* লেখাগুলো মাঝখানে সুন্দর দেখাবে */
-    background: rgba(238, 245, 255, 0.95); /* গ্লাস ইফেক্ট */
-    backdrop-filter: blur(15px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+    transition: width 0.35s ease;
+    padding-top: 80px;
+    text-align: left;
+    background: rgba(245, 249, 255, 0.98);
+    backdrop-filter: blur(20px);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.12);
 }
-.sidenav a { padding: 14px 24px; display: block; font-weight: 600; color: var(--ink); border-bottom: 1px solid #eef4ff; }
-.sidenav .closebtn { position: absolute; top: 18px; right: 22px; font-size: 28px; border: none; }
+.sidenav a { 
+    padding: 14px 24px; 
+    display: block; 
+    font-weight: 600; 
+    color: var(--ink); 
+    border-bottom: 1px solid #eef4ff; 
+    font-size: 1rem;
+}
+.sidenav a:hover {
+    background: #e3eeff;
+    color: var(--blue);
+}
+.sidenav .closebtn { 
+    position: absolute; 
+    top: 18px; right: 20px; 
+    font-size: 28px; 
+    border: none; 
+    background: none; 
+    cursor: pointer; 
+    color: var(--ink);
+}
 
 /* Hero Section Grid */
 .hero-grid {
-    display: grid; grid-template-columns: 1.1fr 0.9fr 0.8fr;
-    gap: 25px; align-items: center; padding: 50px 0 30px;
+    display: grid; grid-template-columns: 1.2fr 1fr;
+    gap: 40px; align-items: center; padding: 50px 0 30px;
 }
+.hero-center { display: flex; justify-content: flex-end; position: relative; }
 
 .eyebrow {
     display: inline-flex; align-items: center; gap: 8px;
@@ -118,7 +153,6 @@ button { font: inherit; }
 }
 
 /* Center Image Container */
-.hero-center { display: flex; justify-content: center; position: relative; }
 .hero-image-frame {
     position: relative; width: 100%; max-width: 320px; aspect-ratio: 4/4.8;
     background: #dff0ff; border-radius: 38px 12px 38px 38px;
@@ -130,19 +164,6 @@ button { font: inherit; }
     font-family: 'Poppins', cursive; font-weight: 700; color: #1e40af; font-size: 1.1rem;
     background: rgba(255, 255, 255, 0.85); padding: 4px 12px; border-radius: 12px; backdrop-filter: blur(6px);
 }
-
-/* Quick Links Card */
-.quick-links-card { padding: 22px; }
-.quick-links-list { display: flex; flex-direction: column; gap: 10px; }
-.quick-link-item {
-    display: flex; align-items: center; gap: 12px; padding: 10px 14px;
-    background: rgba(255, 255, 255, 0.7); border-radius: 16px; border: 1px solid #eef4ff; transition: 0.2s;
-}
-.quick-link-item:hover { background: #fff; transform: translateX(3px); box-shadow: var(--soft); }
-.ql-icon { width: 34px; height: 34px; display: grid; place-items: center; background: #e8f1ff; border-radius: 10px; font-size: 1rem; }
-.quick-link-item strong { display: block; font-size: 0.85rem; color: var(--ink); }
-.quick-link-item span { font-size: 0.72rem; color: var(--muted); }
-.ql-arrow { margin-left: auto; color: var(--muted); font-size: 1.2rem; }
 
 /* Status Bar */
 .status-bar {
@@ -192,15 +213,13 @@ footer { padding: 30px 0; color: var(--muted); font-size: 0.82rem; border-top: 1
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
     .hero-grid { grid-template-columns: 1fr 1fr; }
-    .hero-right { grid-column: span 2; }
     .status-bar { grid-template-columns: repeat(3, 1fr); }
     .home-projects-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .nav { display: none; }
-    .menu-toggle { display: block; }
     .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero-center { justify-content: center; margin-top: 20px; }
     .hero-actions, .socials { justify-content: center; }
     .status-bar { grid-template-columns: repeat(2, 1fr); }
     .home-projects-grid { grid-template-columns: 1fr; }
