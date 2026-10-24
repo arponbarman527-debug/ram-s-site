@@ -34,10 +34,9 @@
 </head>
 <body>
 
-<!-- Mobile Sidebar Panel (Top-to-Bottom Dropdown) -->
+<!-- Mobile Dropdown Menu (Positioned Below Topbar) -->
 <div id="mySidenav" class="sidenav">
-    <div style="padding-top: 65px; position: relative;">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="sidenav-content">
         <a href="index.html" class="active">Home</a>
         <a href="about.html">About Me</a>
         <a href="projects.html">Projects</a>
@@ -64,7 +63,7 @@
   </nav>
 
   <!-- Mobile Toggle Button -->
-  <button class="menu-toggle" aria-label="Toggle navigation" onclick="openNav()">☰</button>
+  <button class="menu-toggle" id="menuBtn" aria-label="Toggle navigation" onclick="toggleNav()">☰</button>
 </header>
 
 <main class="shell">
@@ -227,13 +226,16 @@
 
 <script src="session-tracker.js"></script>
 <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.height = "280px";
-        document.body.classList.add("nav-open");
-    }
-    function closeNav() {
-        document.getElementById("mySidenav").style.height = "0";
-        document.body.classList.remove("nav-open");
+    function toggleNav() {
+        const sidenav = document.getElementById("mySidenav");
+        const menuBtn = document.getElementById("menuBtn");
+        if (sidenav.classList.contains("open")) {
+            sidenav.classList.remove("open");
+            menuBtn.innerHTML = "☰";
+        } else {
+            sidenav.classList.add("open");
+            menuBtn.innerHTML = "✕";
+        }
     }
 </script>
 
